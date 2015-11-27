@@ -1,0 +1,152 @@
+@media (max-width: 1023px) {
+	body {
+		padding: 0px !important;
+		overflow-x: hidden;
+		font-size: 200%;
+	}
+	
+	a {
+		text-decoration: none !important;
+	}
+
+	div.container {
+		height: auto !important;
+		padding:top: 0 !important;
+		
+	.dashboard {
+  		height: auto !important;
+  		margin-left: 60px !important;
+  	}
+  	
+  	.sidebar {
+  		padding-top: 64px !important;
+  		position: fixed;
+  		z-index: 10;
+  		width: 60px;
+  		
+  		& > .cs-menu {
+  			width: 60px;
+  		& > li > div {
+  			line-height: 64px;
+  			height: 64px;
+  		}
+  		}
+  	}
+	}
+	
+	i.fa {
+  	font-size: 32px;
+	}
+	
+	.multimenu {
+		position: fixed;
+		right: 75px;
+	}	
+	
+	.cs-table {
+		.thumbnail {
+			max-width: inherit !important;
+		}
+		
+		.cs-table-detail {
+			padding-left: 30px;
+		}
+		
+	.clickable:hover {
+		td {
+			background-color: @light-blue !important;	
+		}
+		cursor: pointer;
+		
+		.operations a {
+			display: none;
+		}
+		
+		.operationsText {
+			display: inline-block;
+		}
+	}
+	
+	.clickable {
+		td {
+			line-height: 32px;
+			height:60px;		
+		}
+	}
+			
+	}
+	
+	.detail-actions ul li {
+			margin-top: 10px;
+			display: inline-block;
+			padding: 15px;
+		}
+  	
+  	.cs-hide-small {
+  		display: none;
+  	}
+  
+  	.dropdown-menu > li > a {
+  		font-size: 200% !important;
+    	color: @dark-blue !important;
+    }
+    
+    .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
+    	line-height:40px;
+    }
+    
+    .navbar-inverse .navbar-nav > li > a {
+    	line-height:40px;
+    	font-size: 140%;
+    }
+    
+    .dropdown-menu .divider {
+    	display: none !important;
+    }
+    
+    .navbar-fixed-top .navbar-collapse {
+    	max-height: 80vh;
+    }
+    
+    .cs-preview {
+    	padding-bottom: 20px;
+    }
+    
+    .cs-hide-medium {
+  		display: none;
+  	}
+  	
+  	.search-input {
+  		font-size: 140% !important;
+  		height: 68px !important;
+  	}
+  	
+  	.container input[type="button"], .modal-content input[type="button"], input[type="button"] {
+  		padding: 15px !important;
+  		float: inherit;
+  	}
+  	
+  	
+  	.login-form {
+  		height: 255px;
+  		button[type="submit"] {
+  			padding: 12px 0 !important;
+  			width: 100%;
+  		}
+ 	 	
+  	}
+}
+  
+@media (min-width: 1024px) {
+ 	.navbar-brand {
+    	margin-left: 0px !important;
+  	}
+  	
+  	.cs-show-medium {
+  		display: none;
+  	}
+  	
+  	.cs-show-small {
+  		display: none;
+  	}
+}

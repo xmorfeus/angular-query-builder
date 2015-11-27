@@ -1,0 +1,692 @@
+{	
+	"root" : {
+		"codetables" : "Číselníky",
+		"loc" : "Sazebníky"
+	},
+	"system" : {
+		"accessdenied" : {
+			"title" : "Přistup odepřen",
+			"message" : "Nemáte oprávnění pro zobrazení sekce "
+		}
+	},
+	"title": {
+		"dashboard" : {
+			"inbox" : "Inbox",
+			"documents" : {
+				"my" : "Moje dokumenty",
+				"fav" : "Oblíbené dokumenty"
+			},
+			"webcabinets" : "Webové kabinety",
+			"codebooks" : "Číselníky",
+			"tarifs" : "Sazebníky",
+			"dictionary" : "Terminologický slovník",
+			"reports" : "Sestavy",
+			"email" : "Skupinový email",
+			"search" : "Výsledky vyhledávání",
+			"advancedsearch" : "Pokročilé vyhledávání"
+		},
+		"imageSelect" : "Výběr obrázku",
+		"templateselect" : "Výběr šablony",
+		"login" : "Přihlášení",
+		"document" : "Dokument",
+		"import" : "Import",
+		"tarifimport" : "Import sazebníku",
+		"audit" : "Auditní log",
+		"history" : "Historie dokumentu",
+		"ruleattachments" : "Vázané přílohy",
+		"contains" : "Obsahuje dokumenty",
+		"contained" : "Obsažen v dokumentech",
+		"versions" : "Verze dokumentu",
+		"reports" : "Sestavy"
+	},
+	"placeholder" : {
+	  "search" : "Hledat"
+	},
+	"loader" : {
+		"default" : "Pracuji...",
+		"dashboard" : {
+			"inbox" : "Načítám inbox...",
+			"my" : "Načítám moje dokumenty...",
+			"fav" : "Načítám oblíbené dokumenty...",
+			"search" : "Vyhledávám dokumenty...",
+			"advancedsearch" : "Načítám pokročilé vyhledávání...",
+			"webcabinets" : "Načítám webové kabinety...",
+			"codebooks" : "Načítám číselníky...",
+			"reports" : "Načítám sestavy...",
+			"tarifs" : "Načítám sazebníky...",
+			"email" : "Načítám skupinový email...",
+			"template-select" : "Načítám šablony..."
+		},
+		"document" : "Načítám detail dokumentu...",
+		"tarif" : {
+			"save" : "Ukládám položku sazebník...",
+			"delete" : "Mažu položku sazebník...",
+			"load" : "Načítám sazebníky..."
+		},
+		"codetable" : {
+			"save" : "Ukládám položku číselníku...",
+			"delete" : "Mažu položku číselníku...",
+			"load" : "Načítám číselníky..."
+		},
+		"importfile" : {
+			"validate" : "Validuji importovaný soubor...",
+			"post" : "Ukládám importované soubory..."
+		},
+		"import" : "Načítám import...",
+		"tarifimport" : "Načítám import sazebníků...",
+		"operation" : {
+			"addlang" : "Vytvářím jazykovou verzi...",
+			"duplicate" : "Duplikuji dokument...",
+			"delete" : "Mažu dokument...",
+			"powerpromote" : "Publikuji dokument...",
+			"unlock" : "Odemykám dokument...",
+			"protocol" : "Vytvářím publikační protokol...",
+			"major" : "Vytvářím major verzi předpisu...",
+			"minor" : "Vytvářím rušící verzi předpisu...",
+			"expire" : "Expiruji dokument..."
+		}
+	},
+	"menu": {
+		"header" : {
+			"new.document" : "Nový dokument",
+			"import" : "Import",
+			"tarifimport" : "Import sazebníku",
+			"search" : "Vyhledávání",
+			"audit" : "Auditní log",
+			"logout" : "Odhlásit se",
+			"settings" : "Nastavení",
+			"help" : "Nápověda"
+		},
+		
+		"dashboard" : {
+			"inbox" : "Inbox",
+			"documents" : {
+				"my" : "Moje dokumenty",
+				"fav" : "Oblíbené"
+			},
+			"webcabinets" : "Webové kabinety",
+			"codebooks" : "Číselníky",
+			"tarifs" : "Sazebníky",
+			"dictionary" : "Slovník",
+			"reports" : "Sestavy",
+			"email" : "Skupinový email",
+			"advancedsearch" : "Pokročilé vyhledávání"
+		}
+	},
+	"table" : {
+		"subject" : "Předmět",
+		"from" : "Od",
+		"state" : "Stav",
+		"rule_version" : "Číslo předpisu",
+		"name" : "Název",
+		"received" : "Doručeno",
+		"title" : "Nadpis",
+		"modified" : "Upraveno",
+		"version" : "Verze",
+		"effective_date" : "Publikace od",
+		"actual_issue_date" : "Datum publikace",
+		"author" : "Autor",
+		"effective_date_teaser" : "Publikace aktuality od",
+		"effective_rule_date" : "Účinnost od",
+		"portal_access" : "Přístup na portále",
+		"upload_version" : "Nahrát verzi",
+		"publish" : "Publikovat",
+		"edit" : "Upravit",
+		"mtd" : "Metadata",
+		"delete" : "Smazat",
+		"other" : "Další",
+		"start_workflow" : "Spustit workflow",
+		"type" : "Typ",
+		"message" : "Zpráva",
+		"timestamp" : "Datum a čas",
+		"folder_path" : "Umístění",
+		"approve" : "Schválit",
+		"sendToRedaction" : "Odeslat do redakce",
+		"decline" : "Zamítnout",
+		"workflow_back" : "Předat zpět",
+		"workflow_next" : "Předat dál",
+		"workflow_accept" : "Přijmout",
+		"workflow_resume" : "Pokračovat",
+		"workflow_delegate" : "Vrátit redakci",
+		"workflow_reset" : "Reset",
+		"workflow_abort" : "Zrušit workflow",
+		"created_by" : "Vytvořil",
+		"created_date" : "Vytvořeno",
+		"language_version" : "Jazyková verze",
+		"add_note" : "Přidat poznámku",
+		"notes" : "Poznámky",
+		"note" : "Poznámka",
+		"expired" : "Staženo",
+		"redaction" : "Redakce",
+		"languages_versions" : "Další jazykové verze",
+		"source" : "Zdroj",
+		"group" : "Skupina",
+		"pagination" : {
+			"first" : "První",
+			"last" : "Poslední"
+		},
+		"fav" : {
+			"add" : "Přidat do oblíbených",
+			"remove" : "Odebrat z oblíbených"
+		},
+		"news" : "Aktualita",
+		"tariff" : "Sazebník",
+		"add_document": "Přidat dokument",
+		"no_result": "Nebyly nalezeny žádné výsledky",
+		"content_size" : "Velikost",
+		"diff": "Rozdíl"
+	},
+	"login" : {
+		"username" : "Přihlašovací jméno",
+		"password" : "Heslo",
+		"lang" : "Jazyk",
+		"button" : "Přihlásit"
+	},
+	"template": {
+		"title" : "Vyberte šablonu pro nový dokument",
+		"areas" : "Oblasti",
+		"templates" : "Šablony"
+	},
+	"button": {
+	  "submit": "Uložit",
+	  "submit_publish": "Publikovat",
+	  "submit_default" : "Potvrdit",
+	  "cancel": "Zrušit",
+	  "back": "Zpět",
+	  "run" : "Spustit",
+	  "delete" : "Smazat",
+	  "add" : "Přidat",
+	  "yes": "Ano",
+	  "no" : "Ne",
+	  "clear" : "Vyčistit",
+	  "filter" : "Filtrovat",
+	  "unselect_all" : "Odznačit vše",
+	  "power_promote" : "Silně postoupit",
+	  "new_version" : "Nová verze",
+	  "close": "Zavřít",
+	  "export": "Exportovat",
+	  "search": "Hledat",
+	  "submit_minor" : "Minoritní",
+	  "submit_major" : "Majoritní",
+	  "plus_section": "Přidat sekci",
+	  "minus_section": "Odebrat sekci",
+	  "up_section": "Posunout nahoru",
+	  "down_section": "Posunout dolů",
+	  "unyellow" : "Odžlutit",
+	  "showdiff" : "Rozdíl",
+	  "linkcheck" : "Odkazy"
+	},
+	"message" : {
+		"workflow" : {
+			"create" : {
+				"title" : "Vytvoření workflow",
+				"success" : "Workflow bylo úspěšně vytvořeno"
+			},
+			"finish" : {
+				"title" : "Schválení workflow",
+				"success" : "Workflow bylo schváleno"
+			},
+			"finish_back" : {
+			  "title" : "Odeslání workflow zpět redakci",
+			  "success" : "Workflow bylo odesláno zpět redakci."
+		  	},
+			"removeattachment" : {
+				"title" : "Odebrání dokumentu z workflow",
+				"success" : "Dokument byl úspěšně odebrán z workflow."
+			},
+			"addattachmentbegin" : {
+			  "title" : "Přidání dokumentu do workflow",
+			  "success" : "Dokument je přidáván do workflow."
+			},
+			"addattachment" : {
+				"title" : "Přidání dokumentu do workflow",
+				"success" : "Dokument byl úspěšně přidán do workflow."
+			},
+			"abort" : {
+				"title" : "Zrušení workflow",
+				"success" : "Workflow bylo úspěšně zrušeno"
+			},
+			"reset" : {
+				"title" : "Reset workflow",
+				"success" : "Workflow bylo úspěšně resetováno",
+				"failed" : "Aktivita selhala"
+			},
+			"reject" : {
+				"title" : "Zamítnutí workflow",
+				"success" : "Workflow bylo úspěšně zamítnuto"
+			}
+		},
+		"document" : {
+			"majorversion" : {
+				"title" : "Nová majoritní verze",
+				"success" : "Nová majoritní verze byla úspěšně vytvořena."
+			},
+			"cancelversion" : {
+				"title" : "Zrušení předpisu",
+				"success" : "NPředpis byl úspěšně zrušen."
+			},
+			"newversion" : {
+				"title" : "Nová verze dokumentu",
+				"success" : "Nová verze byla úspěšně nahrána."
+			},
+			"addlang" : {
+				"title" : "Nová jazyková verze dokumentu",
+				"success" : "Nová jazyková verze byla úspěšně vytvořena.",
+				"empty" : "Nebyla zvolena jazyková verze."
+			},
+			"import" : {
+				"nonunique" : "Jméno souboru není unikátní. Nelze ho importovat.",
+				"alreadyimported" : "Soubor je již importován, nejdříve musíte smazat importovaný soubor.",
+				"notpdf" : "Soubor není ve formátu PDF, nelze jej importovat.",
+				"notimage" : "Soubor není obrázek, nelze jej importovat.",
+				"area-drop" : "Sem přetáhněte soubory nebo je ",
+				"area-select" : "vyberte z disku",
+				"notsametype" : "Soubor není ve stejném formátu.",
+				"nofiles" : "Nemáte importovaný žádný soubor"
+			},
+			"delete" : {
+				"title" : "Smazání dokumentu",
+				"success" : "Dokument byl úspěšně smazán."
+			},
+			"save" : {
+			  "title" : "Uložení dokumentu",
+			  "success" : "Dokument byl úspěšně uložen."
+			},
+			"create" : {
+			  "title" : "Vytvoření dokumentu",
+			  "success" : "Dokument byl úspěšně vytvořen."
+			},
+			"save_content" : {
+			  "title" : "Uložení obsahu",
+			  "success" : "Obsah byl úspěšně uložen."
+			},
+			"create_content" : {
+			  "title" : "Vytvoření obsahu",
+			  "success" : "Obsah byl úspěšně vytvořen."
+			},
+			"fav" : {
+				"unsubscribe" : "Dokument byl odebrán z oblíbených",
+				"subscribe" : "Dokument byl přidán do oblíbených."
+			},
+			"powerpromote": {
+			  "title" : "Silně postoupeno",
+			  "success" : "Dokument byl silně postoupen."
+			},
+			"expire": {
+			  "title" : "Expirováno",
+			  "success" : "Dokument(y) jsou expirovány. Operace běží na pozadí."
+			},
+			"duplicate" : {
+				"title" : "Duplikování dokumentu",
+				"success" : "Dokument byl zduplikován."
+			},
+			"rule" : {
+				"protocol" : {
+					"title" : "Protokol k předpisu",
+					"create" : {
+						"success" : "Protokol k předpisu byl úspěšně vytvořen"
+					},
+					"delete" : {
+						"success" : "Protokol k předpisu byl úspěšně smazán"
+					},
+					"noprotocol" : "Předpis nemá vytvořený publikační protokol, nelze jej přidat do workflow."
+				}
+			},
+			"addattachmentbegin" : {
+			  "title" : "Přidání přílohy",
+			  "success" : "Příloha je přidávána k dokumentu."
+			},
+			"addattachment" : {
+			  "title" : "Přidání přílohy",
+			  "success" : "Příloha byla přidána k dokumentu."
+			},
+			"checklink" : {
+			  "title" : "Kontrola odkazů",
+			  "success" : "Všechny odkazy jsou v pořádku."
+			}
+		},
+		"loc" : {
+			"checkin" : {
+				"title" : "Potvrzení změn v sazebníku",
+				"success" : "Změny byly uloženy."
+			},
+			"locked" : {
+				"title" : "Sazebník je uzamčen",
+				"msg" : "Nelze otevřít sazebník (je uzamčen jiným uživatelem)"
+			},
+			"cancelcheckout" : {
+				"title" : "Zrušení změn v sazebníku",
+				"success" : "Změny byly zrušeny."
+			},
+			"create" : {
+				"title" : "Vytvoření sazebníku",
+				"success" : "Sazebník byl úspěšně vytvořen. Změny můžete potvrdit v seznamu sazebníků."
+			},
+			"edit" : {
+				"title" : "Editace sazebníku",
+				"success" : "Sazebník byl úspěšně upraven. Změny můžete potvrdit v seznamu sazebníků."
+			},
+			"delete" : {
+				"title" : "Smazání sazebníku",
+				"success" : "Sazebník byl smazán. Změny můžete potvrdit v seznamu sazebníků."
+			},
+			"unyellow" : {
+			  "title" : "Odžlucení sazebníku",
+			  "success" : "Sazebník byl úspěšně odžlucen."
+			}
+		},
+		"codetables" : {
+			"tooltip" : {
+				"delete" : "Odstranit položku",
+				"deleted" : "Smazáno",
+				"new" : "Nový",
+				"edited" : "Upraveno",
+				"commit" : "Potvrdit změny",
+				"rollback" : "Zrušit změny",
+				"edit" : "Upravit položku",
+				"tree" : "Zobrazit/skrýt strom",
+				"reload" : "Obnovit",
+				"add" : "Nová položka",
+				"reupload" : "Znovu uploadovat",
+				"remove" : "Odebrat",
+				"filter" : "Filtr"
+			},
+			"checkin" : {
+				"title" : "Potvrzení změn v číselníku",
+				"success" : "Změny byly uloženy."
+			},
+			"locked" : {
+				"title" : "Číselník je uzamčen",
+				"msg" : "Nelze otevřít číselník (je uzamčen jiným uživatelem)"
+			},
+			"cancelcheckout" : {
+				"title" : "Zrušení změn v číselníku",
+				"success" : "Změny byly zrušeny."
+			},
+			"create" : {
+				"title" : "Vytvoření číselníku",
+				"success" : "Číselník byl úspěšně vytvořen. Změny můžete potvrdit v seznamu číselníků."
+			},
+			"edit" : {
+				"title" : "Editace číselníku",
+				"success" : "Číselník byl úspěšně upraven. Změny můžete potvrdit v seznamu číselníků."
+			},
+			"delete" : {
+				"title" : "Smazání číselníku",
+				"success" : "Číselník byl smazán. Změny můžete potvrdit v seznamu číselníků."
+			},
+			"unyellow" : {
+			  "title" : "Odžlucení číselníku",
+			  "success" : "Číselník byl úspěšně odžlucen."
+			}
+		},
+		"validation": {
+		  "title" : "Pozor",
+		  "text" : "Jejda, něco se porouchalo :-)"
+		},
+		"changeAfterRefresh": {
+		  "title" : "Pozor",
+		  "text" : "Změny se projeví se zpožděním."
+		}
+	},
+	"modal" : {
+		"inbox" : {
+			"title" : {
+				"acquire" : "Přijmout dokument",
+				"finish" : "Schválit dokument",
+				"finish_back" : "Odeslat do redakce",
+				"reject" : "Zamítnout dokument",
+				"addNote" : "Přidat poznámku",
+				"delegate" : "Předat zpracování dokumentu",
+				"back" : "Vrátit dokument redakci",
+				"reset" : "Reset workflow",
+				"abort" : "Zrušení workflow"
+			},
+			"message" : {
+				"acquire" : "Přejete si převzít zpracování workflow",
+				"finish" : "Přejete si schválit workflow",
+				"finish_back" : "Přejete si odeslat zpět do redakce workflow",
+				"reject" : "Přejete si zamítnout zpracování workflow",
+				"addNote" : "",
+				"delegate" : "Přejete si předat zpět redakci workflow ",
+				"back" : "",
+				"reset" : "Přejete si resetovat workflow",
+				"abort" : "Přejete si zrušit workflow"
+			}
+		},
+		"codetables" : {
+			"commit" : {
+				"title" : "Potvrzení změn v číselníku",
+				"message" : "Opravdu chcete uložit změny v číselníku"
+			},
+			"rollback" : {
+				"title" : "Zrušení změn v číselníku",
+				"message" : "Opravdu chcete zrušit změny v číselníku"
+			},
+			"delete" : {
+				"title" : "Smazání číselníku",
+				"message" : "Opravdu chcete smazat číselník"
+			},
+			"unyellow" : {
+			  "title" : "Odžlucení číselníku",
+			  "message" : "Opravdu chcete odžlutit číselník"
+			}
+		},
+		"loc" : {
+			"commit" : {
+				"title" : "Potvrzení změn v sazebníku",
+				"message" : "Opravdu chcete uložit změny v sazebníku"
+			},
+			"rollback" : {
+				"title" : "Zrušení změn v sazebníku",
+				"message" : "Opravdu chcete zrušit změny v sazebníku"
+			},
+			"delete" : {
+				"title" : "Smazání sazebníku",
+				"message" : "Opravdu chcete smazat sazebník"
+			},
+			"unyellow" : {
+			  "title" : "Odžlucení sazebníku",
+			  "message" : "Opravdu chcete odžlutit sazebník"
+			}
+		},
+		"document" : {
+			"title" : {
+				"delete" : {
+					"single" : "Smazání dokumentu",
+					"group" : "Hromadné mazání dokumentů"
+				},
+				"addlang" : {
+					"single" : "Přidání jazykové verze dokumentu",
+					"group" : "Přidání jazykové verze dokumentu"
+				},
+				"workflow" : {
+					"single" : "Rychlé spuštění workflow",
+					"group" : "Hromadné spuštění workflow"
+				},
+				"remove_from_workflow" : {
+					"single" : "Odebrání dokumentu z workflow",
+					"group" : "Odebrání dokumentů z workflow"
+				},
+				"add_to_workflow" : {
+					"single" : "Přidání dokumentu z workflow",
+					"group" : "Přidání dokumentů z workflow"
+				},
+				"new_version" : {
+					"single" : "Nahrání nové verze",
+					"group" : "Hromadné nahrání nové verze"
+				},
+				"powerpromote" : {
+					"single" : "Silně postoupit",
+					"group" : "Silně postoupit"
+				},
+				"expire" : {
+					"single" : "Expirace dokumentu",
+					"group" : "Expirace dokumentů"
+				},
+				"export" : {
+					"single" : "Export dokumentu",
+					"group" : "Export dokumentů"
+				},
+				"rtf" : {
+					"single" : "RTF Export dokumentu",
+					"group" : "RTF Export dokumentů"
+				},
+				"duplicate" : {
+					"single" : "Duplikování dokumentu"
+				},
+				"unlock" : {
+					"single" : "Odemknutí dokumentu",
+					"group" : "Odemknutí dokumentů"
+				},
+				"rule" : {
+					"attachment" : "Nahrání vázané přílohy",
+					"majorversion" : "Nová majoritní verze",
+					"cancelversion" : "Zrušit předpis"
+				},
+				"nofiles" : {
+				  "single" : "Pozor",
+				  "group" : "Pozor"
+				}
+			},
+			"message" : {
+				"delete" : {
+					"single" : "Opravdu chcete smazat dokument",
+					"protocol" : "Opravdu chcete smazat protokol k předpisu",
+					"allow" : "Dokumenty ke smazání",
+					"disallow" : "Nelze smazat"
+				},
+				"powerpromote" : {
+					"single" : "Opravdu chcete silně postoupit dokument",
+					"allow" : "Lze silně postoupit",
+					"disallow" : "Nelze silně postoupit"
+				},
+				"workflow" : {
+					"allow" : "Dokumenty přidané do workflow",
+					"disallow" : "Nelze přidat do workflow",
+					"remove_from_workflow": "Přejete si odebrat dokument "
+				},
+				"expire" : {
+					"single" : "Opravdu chcete expirovat dokument",
+					"allow" : "Dokumenty k expiraci",
+					"disallow" : "Nelze expirovat"
+				},
+				"new_version" : {
+					"allow" : "Podporované dokumenty",
+					"disallow" : "Nepodporované dokumenty"
+				},
+				"export" : {
+					"allow" : "Dokumenty, které lze exportovat",
+					"disallow" : "Nepodporované dokumenty"
+				},
+				"rtf" : {
+					"single" : "Chcete exportovat do RTF dokument",
+					"allow" : "Dokumenty, které lze exportovat",
+					"disallow" : "Nepodporované dokumenty"
+				},
+				"duplicate" : {
+					"single" : "Přejete si zduplikovat dokument"
+				},
+				"addlang" : {
+					"single" : "Přejete si přidat jazykovou verzi dokumentu",
+					"allow" : "Podporované dokumenty",
+					"disallow" : "Nepodporované dokumenty"
+				},
+				"unlock" : {
+					"single" : "Přejete si odemknout dokument",
+					"allow" : "Podporované dokumenty",
+					"disallow" : "Nepodporované dokumenty"
+				},
+				"question" : {
+				  "title" : "Pozor",
+				  "text" : "Chcete uložit provedené změny?"
+				},
+				"diff" : {
+				  "title" : "Rozdíl dokumentů",
+				  "text" : ""
+				},
+				"nofiles" : {
+				  "single" : "Operaci u dokumentu nelze provést.",
+				  "group" : "Operaci nelze provést u žádného dokumentu."
+				}
+			}
+		}
+	},
+	"validation" : {
+	  	"notvalid" : " není validní.",
+		"required" : " není validní.",
+		"uiSelectRequired" : " není validní.",
+		"repeaterRequired" : " není validní.",
+		"dateBetween" : "Nesprávná kombinace datumů.",
+		"dateGreaterThan" : " musí být větší.",
+		"dateLowerThan" : " musí být menší.",
+		"ngMinlength" : " je příliž krátký.",
+		"ngMaxlength" : " je příliš dlouhý",
+		"uniqueObjectName" : " musí být unikátní.",
+		"pattern": " neodpovídá vzoru.",
+		"mustBeMore": " musí být vybrána ještě další položka.",
+		"uiMask" : "",
+		"uniqueProduct": " není unikátní produkt."
+	},
+	"loading" : "Načítám data",
+	"loadings" : {
+	  "create_document": "Vytvářím dokument",
+	  "saving_documents": "Ukládám dokument"
+	},
+	"filter" : {
+		"active" : "Filter je aktivní"
+	},
+	"operation" : {
+		"metadata" : "Metadata",
+		"edit" : "Upravit",
+		"delete" : "Smazat",
+		"powerpromote" : "Silně postoupit",
+		"upload_version" : "Nahrát novou verzi",
+		"overview" : "Náhled",
+		"show" : "Zobrazit",
+		"workflow" : "Spustit workflow",
+		"unlock" : "Odemknout",
+		"addlang" : "Přidat jazykovou verzi",
+		"duplicate" : "Duplikovat",
+		"expire" : "Expirovat",
+		"export" : "Exportovat",
+		"export_rtf" : "Exportovat RTF",
+		"unselect" : "Odznačit vše",
+		"close": "Zavřít",
+		"remove_from_workflow": "Odebrat z workflow",
+		"attachattachment" : "Přidat přílohu",
+		"majorversion" : "Nová majoritní verze",
+		"cancelversion" : "Nová rušící verze",
+		"createprotocol" : "Vytvořit protokol"
+	},
+	"tabs" : {
+	  "metadata" : "Metadata",
+	  "editor": "Editor ",
+	  "view": "Náhled",
+	  "version" : "Verze",
+	  "links": "Vazby",
+	  "history": "Historie"
+	},
+	"csv" : {
+	  "name" : "Název",
+	  "title" : "Titulek",
+	  "modify_date" : "Datum změny",
+	  "language" : "Jazyk",
+	  "owner_name" : "Vlastník",
+	  "state" : "Stav",
+	  "version" : "Verze"
+	},
+	"text" : {
+	  	"future": "Budoucí",
+		"actual": "Aktuální",
+		"historical": "Historický",
+		"canceled": "Zrušený",
+		"openinnewwindow": "Otevřít v novém okně",
+		"error": "Chyba"
+	},
+	"advancedSearch": {
+	  "addCondition": "Přidat podmínku",
+	  "addGroup": "Přidat skupinu",
+	  "removeGroup": "Odstranit skupinu"
+	}
+}

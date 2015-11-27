@@ -1,0 +1,72 @@
+<form name="form" novalidate>
+    <div class="modal-header">
+    	<div class="icon img decline" style="right: 10px; top: 10px; cursor: pointer;" ng-click="cancel()"></div>
+        <h3 class="modal-title" ng-if="operation == 'addattachment'">{{'modal.document.title.rule.attachment' | translate}}</h3>
+        <h3 class="modal-title" ng-if="operation == 'majorversion'">{{'modal.document.title.rule.majorversion' | translate}}</h3>
+        <h3 class="modal-title" ng-if="operation == 'cancelversion'">{{'modal.document.title.rule.cancelversion' | translate}}</h3>
+    </div>
+    <div class="modal-body">
+    		<h3>{{doc.title}} ({{doc.name}})</h3>
+    
+            <!-- RULE ATTACHMENT -->
+            <div class="row cs-upload cs-content-box" ng-if="operation == 'addattachment'">
+				<fieldset>
+				<div class="col-xs-18 col-sm-18 col-md-24 cs-upload-result">
+					<div ng-repeat="file in $root.$UploadService.uploadedFiles track by $index" 
+					ng-class="{'selected' : $root.$UploadService.selectedFile == file}" 
+					ng-click="selectFile(file)" class="cs-file-thumbnail" ng-show="$root.files.length > 0">
+					
+		            	<div class="cs-thumbnail-right" ng-click="$root.$UploadService.removeFile(file)"><i class="fa fa-2x fa-trash"></i></div>
+		            	<div class="cs-thumbnail-img">
+		            	<img ngf-src="file" ng-show="file.type.indexOf('image') > -1" ngf-accept="'image/*'">
+		            	<div class="cs-hide-medium" 
+		            	ng-if="file.name.indexOf('.xls') > -1
+		            	|| file.name.indexOf('.ppt') > -1
+		            	|| file.name.indexOf('.doc') > -1
+		            	|| file.name.indexOf('.pdf') > -1
+		            	|| file.name.indexOf('zip') > -1
+		            	|| file.type.indexOf('video') > -1"
+		            	ng-class="{
+						'icon img excel' : file.name.indexOf('.xls') > -1,
+						'icon img powerpoint' : file.name.indexOf('.ppt') > -1,
+						'icon img word' : file.name.indexOf('.doc') > -1,
+						'icon img pdf' : file.name.indexOf('.pdf') > -1,
+						'icon img zip' : file.name.indexOf('zip') > -1,
+						'icon img video' : file.type.indexOf('video') > -1
+						}"></div>
+						<audio controls="" ngf-src="file" ng-show="file.type.indexOf('audio') > -1" ngf-accept="'audio/*'"></audio>
+		            	</div>
+		            	<div class="cs-thumbnail-filename" title="{{file.name}}">{{file.name}}</div>
+		            </div>
+				</div>
+				<div class="col-xs-18 col-sm-18 col-md-12">
+					<progressbar animate="false" value="$root.$UploadService.progress"><b ng-if="$root.$UploadService.progress > 0">{{$root.$UploadService.progress}}%</b></progressbar>
+					<div class="cs-upload-area" ngf-drop="true" ngf-select="true" 
+		          	ng-model="$root.files" ngf-keep="false" ng-model-rejected="$root.$UploadService.rejectedFiles" 
+		          	ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" 
+		          	class="drop-box" ngf-multiple="true" ngf-keep="false"
+		          	ngf-drop-available="true" ngf-allow-dir="false" ngf-keep-distinct="true">
+		          		<div class="cs-upload-area-text">
+						{{'message.document.import.area-drop' | translate}}<a>{{'message.document.import.area-select' | translate}}</a>
+						</div>
+		          	</div>
+				</div>
+				</fieldset>
+			</div>
+			
+			<!-- DYNAMIC FORM (for all operations) -->
+			<div class="row mtd-form-box" ng-show="selected">
+				<dynamic-form id="dynamicFormAttachment" template="selected.template" name="template"
+		        	ng-model="formData['selected']" model-name="selected" ng-init="loadData('Metadata');">
+		        </dynamic-form>
+			</div>
+			
+    <div class="modal-footer">
+        <input ng-if="operation == 'majorversion' && doc.is_rule == 1" type="button" class="btn" ng-click="majorversionOK()" value="{{'button.submit' | translate}}">
+    	<input ng-if="operation == 'addattachment' && doc.is_rule == 1" type="button" class="btn" ng-click="attachattachmentOK()" value="{{'button.submit' | translate}}">
+    	<input ng-if="operation == 'cancelversion' && doc.is_rule == 1" type="button" class="btn" ng-click="cancelversionOK()" value="{{'button.submit' | translate}}">
+        <input type="button" class="btn" ng-click="cancel()" value="{{'button.back' | translate}}">
+    </div>
+    </div>
+
+</form>

@@ -1,0 +1,8 @@
+{
+  "analytics": false,
+  "timeout": 120000,
+  "proxy": "http://127.0.0.1:3128/",
+  "https-proxy" : "http://127.0.0.1:3128/",
+  "strict-ssl": false,
+  "directory" : "vendor"
+}

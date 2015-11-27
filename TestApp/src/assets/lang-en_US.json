@@ -1,0 +1,681 @@
+{
+	"root" : {
+		"codetables" : "Codetables",
+		"loc" : "Tarifs"
+	},
+	"system" : {
+		"accessdenied" : {
+			"title" : "Access denied",
+			"message" : "You have not permission to view section "
+		}
+	},
+	"title": {
+		"dashboard" : {
+			"inbox" : "Inbox",
+			"documents" : {
+				"my" : "My documents",
+				"fav" : "Favorites"
+			},
+			"webcabinets" : "Web cabinets",
+			"codebooks" : "Codebooks",
+			"tarifs" : "Tarifs",
+			"dictionary" : "Dictionary",
+			"reports" : "Reports",
+			"email" : "Group email",
+			"search" : "Search results",
+			"advancedsearch" : "Advanced search"
+		},
+		"imageSelect" : "Image select",
+		"templateselect" : "Template select",
+		"login" : "Login",
+		"document" : "Document",
+		"import" : "Import",
+		"tarifimport" : "Tarif import",
+		"audit" : "Audit Log",
+		"history" : "Document history",
+		"ruleattachments" : "Attachments",
+		"contains" : "Contains document",
+		"contained" : "Contained in documents",
+		"versions" : "Document versions",
+		"reports" : "Reports"
+	},
+	"placeholder" : {
+	  "search" : "Search"
+	},
+	"loader" : {
+		"default" : "Loading...",
+		"dashboard" : {
+			"inbox" : "Loading inbox...",
+			"my" : "Loading my documents...",
+			"fav" : "Loading favorite documents...",
+			"search" : "Searching documents...",
+			"advancedsearch" : "Loading advanced search...",
+			"webcabinets" : "Loading web cabinets...",
+			"codebooks" : "Loading codebooks...",
+			"reports" : "Loading reports...",
+			"tarifs" : "Loading tarifs...",
+			"email" : "Loading group email...",
+			"template-select" : "Loading templates..."
+		},
+		"document" : "Loading document detail...",
+		"tarif" : {
+			"save" : "Saving tarif item...",
+			"delete" : "Deleting tarif item...",
+			"load" : "Loading tarifs..."
+		},
+		"codetable" : {
+			"save" : "Saving codetable item...",
+			"delete" : "Deleting codetable item...",
+			"load" : "Loading  codetables..."
+		},
+		"importfile" : {
+			"validate" : "Validating imported file...",
+			"post" : "Saving imported files..."
+		},
+		"import" : "Loading import...",
+		"tarifimport" : "Loading tarif import...",
+		"operation" : {
+			"addlang" : "Creating language version...",
+			"duplicate" : "Duplicating document...",
+			"delete" : "Deleting document...",
+			"powerpromote" : "Power promoting document...",
+			"unlock" : "Unlocking document...",
+			"protocol" : "Creating protocol...",
+			"major" : "Creating rule major version...",
+			"minor" : "Creating rule minor version...",
+			"expire" : "Expiring document..."
+		}
+	},
+	"menu": {
+		"header" : {
+			"new.document" : "New document",
+			"import" : "Import",
+			"tarifimport" : "Tarif import",
+			"search" : "Search",
+			"logout" : "Log Out",
+			"audit" : "Audit Log",
+			"settings" : "Settings",
+			"help" : "Help"
+		},
+		"dashboard" : {
+			"inbox" : "Inbox",
+			"documents" : {
+				"my" : "My documents",
+				"fav" : "Favorites"
+			},
+			"webcabinets" : "Web cabinets",
+			"codebooks" : "Codebooks",
+			"tarifs" : "Tarifs",
+			"dictionary" : "Term dictionary",
+			"reports" : "Reports",
+			"email" : "Group email",
+			"advancedsearch" : "Advanced search"
+		}
+	},
+	"table" : {
+		"subject" : "Subject",
+		"from" : "From",
+		"state" : "State",
+		"rule_version" : "Rule version",
+		"name" : "Name",
+		"received" : "Received",
+		"title" : "Title",
+		"modified" : "Modified",
+		"version" : "Version",
+		"effective_date" : "Effective date from",
+		"actual_issue_date" : "Publish from",
+		"author" : "Author",
+		"effective_date_teaser" : "Publish teaser from",
+		"effective_rule_date" : "Publish from",
+		"portal_access" : "Access on portal",
+		"upload_version" : "New version",
+		"publish" : "Publish",
+		"edit" : "Edit",
+		"mtd" : "Metadata",
+		"delete" : "Delete",
+		"other" : "Other",
+		"start_workflow" : "Start workflow",
+		"type" : "Type",
+		"message" : "Message",
+		"timestamp" : "Timestamp",
+		"folder_path" : "Folder path",
+		"approve" : "Approve",
+		"sendToRedaction" : "Send to redaction",
+		"decline" : "Decline",
+		"workflow_back" : "Refer back",
+		"workflow_next" : "Refer next",
+		"workflow_accept" : "Accept",
+		"workflow_resume" : "Resume",
+		"workflow_delegate" : "Delegate to redaction",
+		"workflow_reset" : "Reset",
+		"workflow_abort" : "Abort workflow",
+		"created_by" : "Created by",
+		"created_date" : "Created date",
+		"language_version" : "Language version",
+		"add_note" : "Add note",
+		"notes" : "Notes",
+		"note" : "Note",
+		"expired" : "Expired",
+		"redaction" : "Redaction",
+		"languages_versions" : "Other language versions",
+		"source" : "Event source",
+		"group" : "Group",
+		"pagination" : {
+			"first" : "First",
+			"last" : "Last"
+		},
+		"fav" : {
+			"add" : "Subscribe",
+			"remove" : "Unsubscribe"
+		},
+		"news" : "News",
+		"tariff" : "Tariff",
+		"add_document": "Add document",
+		"no_result": "No results found",
+		"content_size" : "Size",
+		"diff": "Diff"
+	},
+	"login" : {
+		"username" : "Username",
+		"password" : "Password",
+		"lang" : "Language",
+		"button" : "Login"
+	},
+	"template": {
+		"title" : "Select new document template",
+		"areas" : "Areas",
+		"templates" : "Templates"
+	},
+	"button": {
+	  "submit": "Save",
+	  "submit_default" : "Submit",
+	  "submit_publish": "Publish",
+	  "cancel": "Cancel",
+	  "back": "Back",
+	  "run" : "Run",
+	  "delete" : "Delete",
+	  "add" : "Add",
+	  "yes": "Yes",
+	  "no" : "No",
+	  "clear" : "Clear",
+	  "filter" : "Filter",
+	  "unselect_all" : "Unselect all",
+	  "power_promote" : "Power promote",
+	  "new_version" : "New version",
+	  "close": "Close",
+	  "export": "Export",
+	  "search": "Search",
+	  "submit_minor" : "Minor",
+	  "submit_major" : "Major",
+	  "plus_section": "Add section",
+	  "minus_section": "Remove section",
+	  "up_section": "Move up",
+	  "down_section": "Move down",
+	  "unyellow" : "Unyellow",
+	  "showdiff" : "Diff",
+	  "linkcheck" : "Links"
+	},
+	"message" : {
+		"workflow" : {
+			"create" : {
+				"title" : "Workflow creation",
+				"success" : "Workflow was created successful"
+			},
+			"finish" : {
+				"title" : "Finish workflow",
+				"success" : "Workflow was finished successfuly"
+			},
+			"finish_back" : {
+			  "title" : "Send workflow back to redaction",
+			  "success" : "Workflow was sent back to redaction"
+			},
+			"removeattachment" : {
+				"title" : "Remove documentu from workflow",
+				"success" : "Document was removed from workflow"
+			},
+			"addattachmentbegin" : {
+			  "title" : "Add documentu into workflow",
+			  "success" : "Document is adding into workflow"
+			},
+			"addattachment" : {
+				"title" : "Add documentu into workflow",
+				"success" : "Document was added into workflow"
+			},
+			"abort" : {
+				"title" : "Abort workflow",
+				"success" : "Workflow was aborted successful"
+			},
+			"reset" : {
+				"title" : "Reset workflow",
+				"success" : "Workflow was reseted successful",
+				"failed" : "Activity failed"
+			},
+			"reject" : {
+				"title" : "Reject workflow",
+				"success" : "Workflow was rejected successful"
+			}
+		},
+		"document" : {
+			"majorversion" : {
+				"title" : "New bound version",
+				"success" : "New bound version was created successful."
+			},
+			"cancelversion" : {
+				"title" : "Cancel rule",
+				"success" : "Rule was cancelled successfuly."
+			},
+			"newversion" : {
+				"title" : "New document version",
+				"success" : "New document version was uploaded successful."
+			},
+			"addlang" : {
+				"title" : "New document language version",
+				"success" : "New document language version was created successful.",
+				"empty" : "Language is not selected."
+			},
+			"import" : {
+				"nonunique" : "File name is not unique. Unable to upload it.",
+				"alreadyimported" : "File is already imported, first you have to remove imported file.",
+				"notpdf" : "File is not in PDF, file was not imported.",
+				"notimage" : "File is not image, file was not imported.",
+				"area-drop" : "Drop files here or ",
+				"area-select" : "select files from hard drive",
+				"notsametype" : "File is not same type.",
+				"nofiles" : "You have not import any file."
+			},
+			"delete" : {
+				"title" : "Delete document",
+				"success" : "Document was deleted successful."
+			},
+			"save" : {
+			  "title" : "Save document",
+			  "success" : "Document was saved successful."
+			},
+			"create" : {
+			  "title" : "Create document",
+			  "success" : "Document was created successful."
+			},
+			"save_content" : {
+			  "title" : "Save content",
+			  "success" : "Content was saved successful."
+			},
+			"create_content" : {
+			  "title" : "Create content",
+			  "success" : "Content was created successful."
+			},
+			"fav" : {
+				"unsubscribe" : "Document was unsubscribed",
+				"subscribe" : "Document was subscribed"
+			},
+			"powerpromote": {
+			  "title" : "Power promote",
+			  "success" : "Document was powered promote."
+			},
+			"expire": {
+			  "title" : "Expired",
+			  "success" : "Document was expired. Proccess is running..."
+			},
+			"duplicate" : {
+				"title" : "Duplicate document",
+				"success" : "Document was duplicated."
+			},
+			"rule" : {
+				"protocol" : {
+					"title" : "Rule protocol",
+					"create" : {
+						"success" : "Rule protocol was created successful"
+					},
+					"delete" : {
+						"success" : "Rule protocol was deleted successful"
+					},
+					"noprotocol" : "Rule has no publication log, unable to attach to workflow task."
+				}
+			},
+			"addattachmentbegin" : {
+			  "title" : "Add attachment",
+			  "success" : "Attachment is adding into document"
+			},
+			"addattachment" : {
+			  "title" : "Add attachment",
+			  "success" : "Attachment was added into document"
+			},
+			"checklink" : {
+			  "title" : "Check links",
+			  "success" : "All links are ok."
+			}
+		},
+		"loc" : {
+			"checkin" : {
+				"title" : "Commit changes in tarif",
+				"success" : "Commit was successful."
+			},
+			"locked" : {
+				"title" : "Tarif is locked",
+				"msg" : "Unable to open codetable (locked by another user)"
+			},
+			"cancelcheckout" : {
+				"title" : "Rollback changes in tarif",
+				"success" : "Rollback was successful."
+			},
+			"create" : {
+				"title" : "New tarif",
+				"success" : "Tarif was created successful. You can commit changes in tarifs list."
+			},
+			"edit" : {
+				"title" : "Edit tarif",
+				"success" : "Tarif was edited successful. You can commit changes in tarifs list."
+			},
+			"delete" : {
+				"title" : "Delete tarif",
+				"success" : "Tarif was deleted. You can commit changes in tarifs list."
+			},
+			"unyellow" : {
+			  "title" : "Unyellow tarif",
+			  "success" : "Tarif was unyellowed succesful."
+			}
+		},
+		"codetables" : {
+			"tooltip" : {
+				"delete" : "Delete item",
+				"deleted" : "Deleted",
+				"new" : "New",
+				"edited" : "Edited",
+				"commit" : "Commit changes",
+				"rollback" : "Rollback changes",
+				"edit" : "Edit item",
+				"tree" : "Show/hide tree",
+				"reload" : "Reload",
+				"add" : "New item",
+				"reupload" : "Reupload",
+				"remove" : "Remove",
+				"filter" : "Filter"
+			},
+			"checkin" : {
+				"title" : "Commit changes in codetable",
+				"success" : "Commit was successful."
+			},
+			"locked" : {
+				"title" : "Codetable is locked",
+				"msg" : "Unable to open codetable (locked by another user)"
+			},
+			"cancelcheckout" : {
+				"title" : "Rollback changes in codetable",
+				"success" : "Rollback was successful."
+			},
+			"create" : {
+				"title" : "New codetable",
+				"success" : "Codetable was created successful. You can commit changes in codetable list."
+			},
+			"edit" : {
+				"title" : "Edit codetable",
+				"success" : "Codetable was edited successful. You can commit changes in codetable list."
+			},
+			"delete" : {
+				"title" : "Delete codetable",
+				"success" : "Codetable was deleted. You can commit changes in codetable list."
+			}
+		},
+		"validation": {
+		  "title" : "Attention",
+		  "text" : "Oh something is awry :-)"
+		},
+		"changeAfterRefresh": {
+		  "title" : "Attention",
+		  "text" : "Changes will take effect with delay."
+		}
+	},
+	"modal" : {
+		"inbox" : {
+			"title" : {
+				"acquire" : "Acquire document",
+				"finish" : "Approve document",
+				"finish_back" : "Back to redaction",
+				"reject" : "Reject document",
+				"addNote" : "Add note",
+				"delegate" : "Delegate document",
+				"back" : "Delegate back document",
+				"reset" : "Reset workflow",
+				"abort" : "Abort workflow"
+			},
+			"message" : {
+				"acquire" : "Are you sure to acquire workflow",
+				"finish" : "Are you sure to approve workflow",
+				"finish_back" : "Are you sure to back to redaction workflow",
+				"reject" : "Are you sure to reject workflow",
+				"addNote" : "",
+				"delegate" : "Are you sure to delegate back to redaction workflow ",
+				"back" : "",
+				"reset" : "Are you sure to reset workflow",
+				"abort" : "Are you sure to abort workflow"
+			}
+		},
+		"codetables" : {
+			"commit" : {
+				"title" : "Commit changes",
+				"message" : "Are you sure to commit changes in codetable"
+			},
+			"rollback" : {
+				"title" : "Rollback changes",
+				"message" : "Are you sure to rollback changes in codetable"
+			},
+			"delete" : {
+				"title" : "Delete codetable item",
+				"message" : "Are you sure to delete codetable item"
+			},
+			"unyellow" : {
+			  "title" : "Unyellow codetable",
+			  "message" : "Are you sure to unyellow codetable"
+			}
+		},
+		"loc" : {
+			"commit" : {
+				"title" : "Commit changes",
+				"message" : "Are you sure to commit changes in tarif"
+			},
+			"rollback" : {
+				"title" : "Rollback changes",
+				"message" : "Are you sure to rollback changes in tarif"
+			},
+			"delete" : {
+				"title" : "Delete tarif item",
+				"message" : "Are you sure to delete tarif item"
+			},
+			"unyellow" : {
+			  "title" : "Unyellow tarif",
+			  "message" : "Are you sure to unyellow tarif"
+			}
+		},
+		"document" : {
+			"title" : {
+				"delete" : {
+					"single" : "Delete document",
+					"group" : "Delete documents"
+				},
+				"addlang" : {
+					"single" : "Add language version",
+					"group" : "Add language version"
+				},
+				"workflow" : {
+					"single" : "Start workflow",
+					"group" : "Start workflow"
+				},
+				"remove_from_workflow" : {
+				  "single" : "Remove document from workflow",
+				  "group" : "Remove documents from workflow"
+				},
+				"add_to_workflow" : {
+				  "single" : "Add document to workflow",
+				  "group" : "Add documents to workflow"
+				},
+				"new_version" : {
+					"single" : "Upload new version",
+					"group" : "Upload new version"
+				},
+				"powerpromote" : {
+					"single" : "Power promote document",
+					"group" : "Power promote documents"
+				},
+				"expire" : {
+					"single" : "Expire document",
+					"group" : "Expire documents"
+				},
+				"export" : {
+					"single" : "Export document",
+					"group" : "Export documents"
+				},
+				"rtf" : {
+					"single" : "RTF Export document",
+					"group" : "RTF Export documents"
+				},
+				"duplicate" : {
+					"single" : "Duplicate document"
+				},
+				"rtf" : {
+					"single" : "Unlock document",
+					"group" : "Unlock documents"
+				},
+				"unlock" : {
+					"single" : "Unlock document",
+					"group" : "Unlock documents"
+				},
+				"rule" : {
+					"attachment" : "Upload bound attachment",
+					"majorversion" : "New major version",
+					"cancelversion" : "Cancel rule"
+				},
+				"nofiles" : {
+				  "single" : "Attention",
+				  "group" : "Attention"
+				}
+			},
+			"message" : {
+				"delete" : {
+					"single" : "Are you sure to delete document",
+					"protocol" : "Are you sure to delete protocol for rule",
+					"allow" : "Documents to delete",
+					"disallow" : "Unable delete"
+				},
+				"powerpromote" : {
+					"single" : "Are you sure to power promote document",
+					"allow" : "Allows power promote",
+					"disallow" : "Disallows power promote"
+				},
+				"workflow" : {
+					"allow" : "Documents added into workflow",
+					"disallow" : "Unsupported documents",
+					"remove_from_workflow": "Are you sure to remove file"
+				},
+				"expire" : {
+					"single" : "Are you sure to expire document",
+					"allow" : "Allows expiration",
+					"disallow" : "Unsupported documents"
+				},
+				"export" : {
+					"allow" : "Supported documents",
+					"disallow" : "Unsupported documents"
+				},
+				"rtf" : {
+					"single" : "Are you sure to export document",
+					"allow" : "Supported documents",
+					"disallow" : "Unsupported documents"
+				},
+				"new_version" : {
+					"allow" : "Supported documents",
+					"disallow" : "Unsupported documents"
+				},
+				"duplicate" : {
+					"single" : "Are you sure to duplicate document"
+				},
+				"addlang" : {
+					"single" : "Are you sure to add new language version",
+					"allow" : "Supported documents",
+					"disallow" : "Unsupported documents"
+				},
+				"unlock" : {
+					"single" : "Are you sure to unlock document",
+					"allow" : "Supported documents",
+					"disallow" : "Unsupported documents"
+				},
+				"question" : {
+				  "title" : "Attention",
+				  "text" : "Do you want to save changes?"
+				},
+				"diff" : {
+				  "title" : "Document diff",
+				  "text" : ""
+				},
+				"nofiles" : {
+				  "single" : "No supported operation.",
+				  "group" : "No supported operation."
+				}
+			}
+		}
+	},
+	"validation" : {
+	  "notvalid" : " is not valid.",
+	  "required" : " is not valid.",
+	  "uiSelectRequired" : " is not valid.",
+	  "repeaterRequired" : " is not valid.",
+	  "dateBetween" : "Wrong dates combination.",
+	  "dateGreaterThan" : " must be greater.",
+	  "dateLowerThan" : " must be lower.",
+	  "ngMinlength" : "Is too short",
+	  "ngMaxlength" : "Is too lenght",
+	  "uniqueObjectName" : " must be unique.",
+	  "pattern": " does not correspond to the pattern.",
+	  "mustBeMore": " must be select one more item.",
+	  "uiMask" : "",
+	  "uniqueProduct": " is not unique."
+	},
+	"loading" : "Loading data",
+	"loadings" : {
+	  "create_document": "Creating document",
+	  "saving_documents": "Saving document"
+	},
+	"filter" : {
+		"active" : "Filter is active"
+	},
+	"operation" : {
+		"metadata" : "Metadata",
+		"edit" : "Edit",
+		"delete" : "Delete",
+		"powerpromote" : "Power promote",
+		"upload_version" : "New version",
+		"overview" : "Overview",
+		"show" : "Show",
+		"workflow" : "Start workflow",
+		"unlock" : "Unlock",
+		"addlang" : "Add language version",
+		"duplicate" : "Duplicate",
+		"expire" : "Expire",
+		"export" : "Export",
+		"export_rtf" : "Export RTF",
+		"unselect" : "Unselect all",
+		"remove_from_workflow": "Remove from workflow",
+		"attachattachment" : "Add attachment",
+		"majorversion" : "New major version",
+		"cancelversion" : "New cancel version",
+		"createprotocol" : "Create protocol"
+	},
+	"tabs" : {
+	  "metadata" : "Metadata",
+	  "editor": "Editor ",
+	  "view": "View",
+	  "version" : "Version",
+	  "links": "Links",
+	  "history": "History"
+	},
+	"text" : {
+	  "future": "Future",
+	  "actual": "Actual",
+	  "historical": "Historical",
+	  "canceled": "Canceled",
+	  "openinnewwindow": "Open in new window",
+	  "error": "Error"
+	},
+	"advancedSearch": {
+	  "addCondition": "Add Condition",
+	  "addGroup": "Add Group",
+	  "removeGroup": "Remove Group"
+	}
+}

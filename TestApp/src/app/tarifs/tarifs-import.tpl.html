@@ -1,0 +1,139 @@
+<div class="fullpage cs-container ">
+<div class="container-fluid scrollable white">
+
+	<div class="row cs-upload cs-content-box">
+		<fieldset>
+
+		<div class="text-right col-xs-36 col-sm-36 col-md-36">
+			<i class="fa fa-list switch" ng-class="{'selected' : showList == true}" ng-click="showList = true" ></i><i class="fa fa-th-large switch" ng-class="{'selected' : showList == false}" ng-click="showList = false"></i>
+		</div>
+		
+		<div class="col-xs-18 col-sm-18 col-md-24 cs-upload-result">
+			<div ng-if="showList == false" ng-repeat="file in $root.$UploadService.uploadedFiles track by $index" 
+			ng-class="{'selected' : $root.$UploadService.selectedFile == file}" 
+			ng-click="selectFile(file)" class="cs-file-thumbnail" ng-show="$root.files.length > 0">
+			
+            	<div class="cs-thumbnail-right" ng-click="$root.$UploadService.removeFile(file)"><i class="fa fa-2x fa-trash"></i></div>
+            	<div class="cs-thumbnail-img">
+            	<img ngf-src="file" ng-show="file.type.indexOf('image') > -1" ngf-accept="'image/*'">
+            	<div class="cs-hide-medium" 
+            	ng-if="file.name.indexOf('.xls') > -1
+            	|| file.name.indexOf('.ppt') > -1
+            	|| file.name.indexOf('.doc') > -1
+            	|| file.name.indexOf('.pdf') > -1
+            	|| file.name.indexOf('zip') > -1
+            	|| file.type.indexOf('video') > -1"
+            	ng-class="{
+				'icon img excel' : file.name.indexOf('.xls') > -1,
+				'icon img powerpoint' : file.name.indexOf('.ppt') > -1,
+				'icon img word' : file.name.indexOf('.doc') > -1,
+				'icon img pdf' : file.name.indexOf('.pdf') > -1,
+				'icon img zip' : file.name.indexOf('zip') > -1,
+				'icon img video' : file.type.indexOf('video') > -1
+				}"></div>
+				<audio controls="" ngf-src="file" ng-show="file.type.indexOf('audio') > -1" ngf-accept="'audio/*'"></audio>
+            	</div>
+            	<div class="cs-thumbnail-filename" ng-if="!file.modifiedName" title="{{file.name}}">{{file.name}}</div>
+            	<div class="cs-thumbnail-filename" ng-if="file.modifiedName" title="{{file.modifiedName}}">{{file.modifiedName}}</div>
+            </div>
+            <table ng-if="showList == true" ng-if="$root.$UploadService.uploadedFiles.length > 0" class="cs-file-table">
+				<tbody ng-repeat="file in $root.$UploadService.uploadedFiles track by $index">
+					<tr class="cs-file-row" ng-class="{'selected' : $root.$UploadService.selectedFile == file}">
+						<td class="cs-thumbnail-img" ng-click="selectFile(file)">
+			            	<img ngf-src="file" ng-show="file.type.indexOf('image') > -1" ngf-accept="'image/*'">
+			            	<div class="cs-hide-medium" 
+			            	ng-if="file.name.indexOf('.xls') > -1
+			            	|| file.name.indexOf('.ppt') > -1
+			            	|| file.name.indexOf('.doc') > -1
+			            	|| file.name.indexOf('.pdf') > -1
+			            	|| file.name.indexOf('zip') > -1"
+			            	ng-class="{
+							'icon img excel' : file.name.indexOf('.xls') > -1,
+							'icon img powerpoint' : file.name.indexOf('.ppt') > -1,
+							'icon img word' : file.name.indexOf('.doc') > -1,
+							'icon img pdf' : file.name.indexOf('.pdf') > -1,
+							'icon img zip' : file.name.indexOf('zip') > -1
+							}"></div>
+			            	<video controls="" ngf-src="file" ng-show="file.type.indexOf('video') > -1" ngf-accept="'video/*'"></video>
+			            	<audio controls="" ngf-src="file" ng-show="file.type.indexOf('audio') > -1" ngf-accept="'audio/*'"></audio>
+						</td>
+						<td ng-click="selectFile(file)" class="cs-thumbnail-filename col-xs-22 col-sm-22 col-md-22" ng-if="!file.modifiedName">{{file.name}}</td>
+						<td ng-click="selectFile(file)" class="cs-thumbnail-filename col-xs-22 col-sm-22 col-md-22" ng-if="file.modifiedName">{{file.modifiedName}}</td>
+						<td class="col-xs-6 col-sm-6 col-md-6 text-right">
+							<i class="fa fa-trash-o" ng-click="$root.$UploadService.removeFile(file)"></i>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<table ng-if="$root.$UploadService.rejectedFiles.length > 0" class="cs-file-table rejected-files">
+				<tbody ng-repeat="file in $root.$UploadService.rejectedFiles track by $index">
+					<tr class="cs-file-row">
+						<td class="cs-thumbnail-img ">
+			            	<img ngf-src="file" ng-show="file.type.indexOf('image') > -1" ngf-accept="'image/*'">
+			            	<div class="cs-hide-medium" 
+            				ng-if="file.name.indexOf('.xls') > -1
+			            	|| file.name.indexOf('.ppt') > -1
+			            	|| file.name.indexOf('.doc') > -1
+			            	|| file.name.indexOf('.pdf') > -1
+			            	|| file.name.indexOf('zip') > -1"
+			            	ng-class="{
+							'icon img excel' : file.name.indexOf('.xls') > -1,
+							'icon img powerpoint' : file.name.indexOf('.ppt') > -1,
+							'icon img word' : file.name.indexOf('.doc') > -1,
+							'icon img pdf' : file.name.indexOf('.pdf') > -1,
+							'icon img zip' : file.name.indexOf('zip') > -1
+							}"></div>
+			            	<video controls="" ngf-src="file" ng-show="file.type.indexOf('video') > -1" ngf-accept="'video/*'"></video>
+			            	<audio controls="" ngf-src="file" ng-show="file.type.indexOf('audio') > -1" ngf-accept="'audio/*'"></audio>
+						</td>
+						<td class="cs-thumbnail-filename col-xs-22 col-sm-22 col-md-22">
+							<input type="text" ng-model="$root.$UploadService.rejectedFiles[$index].modifiedName"/>
+						</td>
+						<td class="col-xs-6 col-sm-6 col-md-6 text-right">
+							<i class="fa fa-refresh" title="{{'message.codetables.tooltip.reupload'| translate}}" ng-click="$root.$UploadService.reupload(file)"></i>
+							<i class="fa fa-trash-o" title="{{'message.codetables.tooltip.remove'| translate}}" ng-click="$root.$UploadService.removeRejected(file)"></i>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="col-xs-18 col-sm-18 col-md-12">
+			<progressbar animate="false" value="$root.$UploadService.progress"><b ng-if="$root.$UploadService.progress > 0">{{$root.$UploadService.progress}}%</b></progressbar>
+			<div class="cs-upload-area" ngf-drop="true" ngf-select="true" 
+          	ng-model="$root.files" ngf-keep="false" ng-accept="'.pdf'"
+          	ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" 
+          	class="drop-box" ngf-multiple="true" ngf-keep="false"
+          	ngf-drop-available="true" ngf-allow-dir="false" ngf-keep-distinct="true">
+          		<div class="cs-upload-area-text">
+					{{'message.document.import.area-drop' | translate}}<a>{{'message.document.import.area-select' | translate}}</a>
+				</div>
+          	</div>
+		</div>
+		</fieldset>
+	</div>
+	
+	<div class="row mtd-form-box" ng-show="selected">
+		<dynamic-form id="dynamicFormAttachement" template="selected.template" name="template"
+        	ng-model="formData['selected']" model-name="selected" ng-init="loadData('Metadata');">
+        </dynamic-form>
+	</div>
+
+	<!-- 
+	<div class="form-group col-sm-36" style="padding-top: 15px; padding-bottom: 15px;">
+		<input type="button" class="btn pull-right" ng-click="cancel()" value="{{'button.close'| translate}}">
+		<input type="button" class="btn" ng-click="save()" value="{{'button.submit'| translate}}">
+	</div>
+	 -->
+
+<div class="flowbuttons cs-slide">
+<a ng-click="save()" title="{{'button.submit'| translate}}">
+<div class="icon text nopadding">{{'button.submit'| translate}}</div>
+</a>
+<a ng-click="cancel()" title="{{'button.close'| translate}}" class="light">
+<div class="icon text nopadding">{{'button.close'| translate}}</div>
+</a>
+	<input id="btnValid" type="button" class="btn pull-right" ng-click="valid()" ng-show="false" >
+</div>
+</div>
+
+</div>

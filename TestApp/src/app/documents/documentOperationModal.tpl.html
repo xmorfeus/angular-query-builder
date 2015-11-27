@@ -1,0 +1,184 @@
+<form name="form" novalidate>
+    <div class="modal-header">
+    	<div class="icon img decline" style="right: 10px; top: 10px; cursor: pointer;" ng-click="cancel()"></div>
+        <h3 class="modal-title" ng-if="operation == 'unlock'">{{'modal.document.title.unlock.single' | translate}}</h3>
+        <h3 class="modal-title" ng-if="operation == 'powerpromote'">{{'modal.document.title.powerpromote.single' | translate}}</h3>
+        <h3 class="modal-title" ng-if="operation == 'delete' || operation == 'deleteprotocol'">{{'modal.document.title.delete.single' | translate}}</h3>
+        <h3 class="modal-title" ng-if="operation == 'addlang'">{{'modal.document.title.addlang.single' | translate}}</h3>
+        <h3 class="modal-title" ng-if="operation == 'new_version'">{{'modal.document.title.new_version.single' | translate}}</h3>
+        <h3 class="modal-title" ng-if="operation == 'rtf'">{{'modal.document.title.rtf.single' | translate}}</h3>
+        <h3 class="modal-title" ng-if="operation == 'duplicate'">{{'modal.document.title.duplicate.single' | translate}}</h3>
+        <h3 class="modal-title" ng-if="operation == 'expire'">{{'modal.document.title.expire.single' | translate}}</h3>
+        <h3 class="modal-title" ng-if="operation == 'workflow'">{{'modal.document.title.workflow.single' | translate}}</h3>
+        <h3 class="modal-title" ng-if="operation == 'remove_from_workflow'">{{'modal.document.title.remove_from_workflow.single' | translate}}</h3>
+
+    </div>
+    <div class="modal-body">
+    		<!-- WORKFLOW -->
+    		<div class="row" ng-if="operation == 'workflow'">
+                <div class="col-md-36 workflow-modal">
+                    <label class="col-sm-6" for="name">{{'table.name' | translate}}:</label>
+                    <input id="name" class="form-control input-sm" type="search" ng-model="workflow.name" required="">
+
+                    <label class="col-sm-2" for="note">{{'table.note' | translate}}:</label>
+                    <input id="note" class="form-control input-sm" type="search" ng-model="workflow.note">
+
+                    <label class="col-sm-2" for="documents">Obsažené dokumenty:</label>
+                    <div class="padding-20">
+                    <ul id="documents">
+                        <li ng-repeat="item in workflow.documentObjects track by $index">{{item.name}}</li>
+                    </ul>                    
+                    </div>
+
+
+                    <a ng-click="baseModal(workflow.documentObjects, 'addDocument');">
+                        <div class="icon img import blue"></div>
+                        <div class="icon text">{{'table.add_document'| translate}}</div>
+                    </a>
+                </div>
+            </div>
+    		<!-- UNLOCK -->
+            <div class="row" ng-if="operation == 'unlock'">
+                <div class="col-xs-36">
+                    {{'modal.document.message.unlock.single' | translate}} <strong>{{doc.name}}</strong>?                  
+                </div>
+            </div>
+            
+            <!-- UNLOCK -->
+            <div class="row" ng-if="operation == 'remove_from_workflow'">
+                <div class="col-xs-36">
+                    {{'modal.document.message.workflow.remove_from_workflow' | translate}} <strong>{{doc.name}}</strong>?                  
+                </div>
+            </div>
+            <!-- LANG -->
+            <div class="row" ng-if="operation == 'addlang'">
+                <div class="col-xs-36">
+                    {{'modal.document.message.addlang.single' | translate}} <strong>{{doc.name}}</strong>?                  
+                </div>
+                <div class="col-xs-36 workflow-modal" ng-if="doc.langs_available.length" >
+                    <label>{{'table.language_version' | translate}}:</label>
+					<ui-select ng-model="doc.new_lang_version"
+							 ng-init="doc.new_lang_version = doc.langs_available[0]"
+				             theme="bootstrap" >
+				    <ui-select-match placeholder="{{'table.state' | translate}}">{{$select.selected.title}}</ui-select-match>
+				    <ui-select-choices repeat="item in doc.langs_available | filter: $select.search">
+				      <span ng-bind-html="item.title | highlight: $select.search"></span>
+				    </ui-select-choices>
+				  	</ui-select>
+                </div>
+            </div>
+            
+            <!-- DUPLICATE -->
+            <div class="row" ng-if="operation == 'duplicate'">
+                <div class="col-xs-36">
+                    {{'modal.document.message.duplicate.single' | translate}} <strong>{{doc.name}}</strong>?                  
+                </div>
+            </div>
+            
+            <!-- EXPITE -->
+            <div class="row" ng-if="operation == 'expire'">
+                <div class="col-xs-36">
+                    {{'modal.document.message.expire.single' | translate}} <strong>{{doc.name}}</strong>?                  
+                </div>
+            </div>
+            
+            <!-- RTF EXPORT -->
+            <div class="row" ng-if="operation == 'rtf'">
+                <div class="col-xs-36">
+                    {{'modal.document.message.rtf.single' | translate}} <strong>{{doc.name}}</strong>?                  
+                </div>
+            </div>
+            
+            <!-- DELETE -->
+            <div class="row" ng-if="operation == 'delete'">
+                <div class="col-xs-36">
+					{{'modal.document.message.delete.single' | translate}} <strong>{{doc.name}}</strong>?     
+                </div>
+            </div>
+            
+            <!-- DELETE PROTOCOL -->
+            <div class="row" ng-if="operation == 'deleteprotocol'">
+                <div class="col-xs-36">
+					{{'modal.document.message.delete.protocol' | translate}} <strong>{{doc.name}}</strong>?     
+                </div>
+            </div>
+            
+            <!-- POWER PROMOTE -->
+            <div class="row" ng-if="operation == 'powerpromote'">
+                <div class="col-xs-36">
+					{{'modal.document.message.powerpromote.single' | translate}} <strong>{{doc.name}}</strong>?     
+                </div>
+            </div>
+	
+            <!-- NEW VERSION -->
+            <div class="row" ng-if="operation == 'new_version'">
+            	<div class="col-md-36">
+            		<div class="row cs-upload cs-content-box" ng-if="operation == 'new_version'" style="margin: 10px !important;">
+						<fieldset> 
+						<div class="col-xs-18 col-sm-18 col-md-18 cs-upload-result">
+							<div ng-repeat="file in $root.$UploadService.uploadedFiles track by $index" ng-class="{'selected' : selectedFile == file}" class="cs-file-thumbnail" ng-show="$root.files.length > 0">
+								<div class="cs-thumbnail-right" ng-click="$root.$UploadService.removeFile(file)"><i class="fa fa-2x fa-trash"></i></div>
+				            	<div class="cs-thumbnail-img">
+				            	<img ngf-src="file" ng-show="file.type.indexOf('image') > -1" ngf-accept="'image/*'">
+				            	<div class="cs-hide-medium" 
+				            	ng-if="file.name.indexOf('.xls') > -1
+				            	|| file.name.indexOf('.ppt') > -1
+				            	|| file.name.indexOf('.doc') > -1
+				            	|| file.name.indexOf('.pdf') > -1
+				            	|| file.name.indexOf('zip') > -1
+				            	|| file.type.indexOf('video') > -1"
+				            	ng-class="{
+								'icon img excel' : file.name.indexOf('.xls') > -1,
+								'icon img powerpoint' : file.name.indexOf('.ppt') > -1,
+								'icon img word' : file.name.indexOf('.doc') > -1,
+								'icon img pdf' : file.name.indexOf('.pdf') > -1,
+								'icon img zip' : file.name.indexOf('zip') > -1,
+								'icon img video' : file.type.indexOf('video') > -1
+								}"></div>
+				            	<audio controls="" ngf-src="file" ng-show="file.type.indexOf('audio') > -1" ngf-accept="'audio/*'"></audio>
+				            	</div>
+				            	<div class="cs-thumbnail-filename" title="{{file.name}}">{{file.name}}</div>
+				            </div>
+						</div>
+						<div class="col-xs-18 col-sm-18 col-md-18">
+							<progressbar animate="false" value="$root.$UploadService.progress"><b ng-if="$root.$UploadService.progress > 0">{{$root.$UploadService.progress}}%</b></progressbar>
+							<div class="cs-upload-area" ngf-drop="true" ngf-select="true"
+				          	ng-model="$root.files" ngf-keep="false" ng-model-rejected="$root.$UploadService.rejectedFiles" 
+				          	ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" 
+				          	class="drop-box" ngf-multiple="false" ngf-keep="false"
+				          	ngf-drop-available="true" ngf-allow-dir="false" ngf-keep-distinct="true">
+					            <div class="cs-upload-area-text">
+								{{'message.document.import.area-drop' | translate}}<a>{{'message.document.import.area-select' | translate}}</a>
+								</div>
+				          	</div>
+						</div>
+						</fieldset>
+					</div>
+            	</div>
+            </div>
+
+        <!-- DYNAMIC FORM (for all operations) -->
+        <div class="row mtd-form-box" ng-show="selected">
+            <dynamic-form id="dynamicFormAttachment" template="selected.template" name="template"
+                          ng-model="formData['selected']" model-name="selected" ng-init="loadData('Metadata');">
+            </dynamic-form>
+        </div>
+
+    <div class="modal-footer">
+    	<input ng-if="operation == 'unlock' && doc.operationEnabled" type="button" class="btn" ng-click="unlockOK()" value="{{'button.submit_default' | translate}}">
+        <input ng-if="operation == 'delete' && doc.operationEnabled" type="button" class="btn" ng-click="deleteOK()" value="{{'button.delete' | translate}}">
+        <input ng-if="operation == 'powerpromote' && doc.operationEnabled" type="button" class="btn" ng-click="powerpromoteOK()" value="{{'button.submit_default' | translate}}">
+        <input ng-if="operation == 'addlang' && doc.operationEnabled" type="button" class="btn" ng-click="addlangOK()" value="{{'button.submit_default' | translate}}">
+        <input ng-if="operation == 'new_version' && doc.operationEnabled" type="button" class="btn" ng-click="new_versionOK()" value="{{'button.submit_default' | translate}}">
+        <input ng-if="operation == 'rtf' && doc.operationEnabled" type="button" class="btn" ng-click="rtfOK()" value="{{'button.submit_default' | translate}}">
+        <input ng-if="operation == 'duplicate' && doc.operationEnabled" type="button" class="btn" ng-click="duplicateOK()" value="{{'button.submit_default' | translate}}">
+        <input ng-if="operation == 'expire' && doc.operationEnabled" type="button" class="btn" ng-click="expireOK()" value="{{'button.submit_default' | translate}}">
+        <input ng-if="operation == 'workflow' && doc.operationEnabled" type="button" class="btn" ng-click="workflowOK()" value="{{'button.submit_default' | translate}}">
+        <input ng-if="operation == 'deleteprotocol' && doc.operationEnabled" type="button" class="btn" ng-click="deleteprotocolOK()" value="{{'button.submit_default' | translate}}">
+
+        <input ng-if="operation == 'remove_from_workflow' && doc.operationEnabled" type="button" class="btn" ng-click="remove_from_workflowOK()" value="{{'button.submit_default' | translate}}">
+        <input type="button" class="btn" ng-click="cancel()" value="{{'button.back' | translate}}">
+    </div>
+    </div>
+
+</form>

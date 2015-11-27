@@ -1,0 +1,38 @@
+
+<div>
+    <h3>{{'template.title'| translate}}</h3>
+</div>
+<div class="col-md-36 col-sm-36 content row-eq-height">
+
+    <div class="col-md-18 col-sm-18 template" ng-show="portals.length > 1">
+        <p class="bg-primary header">{{'template.areas'| translate}}</p>
+        <ul class="nav nav-pills nav-stacked">
+            <li ng-repeat="portal in portals" ng-class="getTabClass(portal.r_object_id)" ng-click="setActiveTab(portal.r_object_id, portal.object_name)">
+            <div class="item" data-toggle="tab">
+            	<div class="left">{{portal.object_name}}</div>
+            	<div class="right">{{portal.title}}</div>
+            </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="template text"
+    	ng-class="{
+		'col-md-18 col-sm-18' : portals.length > 1,
+		'col-md-36 col-sm-36' : portals.length == 1,
+		}">
+        <p class="bg-primary header">{{'template.templates'| translate}}</p>
+        <div class="tab-content">
+            <div>
+                <ul class="nav nav-pills nav-stacked">
+                    <li ng-repeat="template in templates">
+                    <div class="item" ng-click="selectTemplate(template);">
+						<div class="left">{{template.object_name}}</div>
+            			<div class="right">{{template.title}}</div>
+					</div>
+					</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

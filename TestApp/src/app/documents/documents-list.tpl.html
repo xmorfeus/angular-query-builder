@@ -1,0 +1,140 @@
+<h3 ng-if="$root.$ListService.listType != 'advancedsearch'">{{pageTitle | translate}}</h3>
+<div class="info-banner" ng-if="$root.$ListService.filter.active == true && $root.$ListService.hideFilter != true">
+	<div class="icon img blue decline" style="right: 10px; top: 10px; cursor: pointer;" ng-click="$root.$ListService.clearFilter();"></div>
+	<i class="fa fa-filter"></i>{{'filter.active' | translate}}<br/>{{$root.$ListService.filter.filterString}}
+</div>
+<ol class="breadcrumb" ng-if="!$root.$ListService.is_modal && $root.$ListService.parents.length && $root.$ListService.webcabinets[$root.$ListService.getType()] == true">
+  <li ng-repeat="item in $root.$ListService.parents track by $index">
+  	<a ng-click="$root.$ListService.goTo(item)">{{item.title}}</a>
+  	<a>
+  	<span ng-show="$index == $root.$ListService.parent.index && $index > 1">
+  		<i ng-if="$root.$ListService.parent.can_subscribe == true" ng-click="$root.$FolderOperationService.subscribe(item);" title="{{'table.fav.add'| translate}}" class="subscribe fa fa-star-o clickable" style="font-size: 100%;"></i>
+  		<i ng-if="$root.$ListService.parent.can_subscribe == false" ng-click="$root.$FolderOperationService.unsubscribe(item);" title="{{'table.fav.remove'| translate}}" class="unsubscribe fa fa-star clickable" style="font-size: 100%;"></i>
+  	</span>
+  	</a>
+  </li>
+</ol>
+
+<div class="col-sm-36 cs-quick-search" ng-if="quickSearch">
+	<input id="quick-search" ng-keyup="filterItems()" class="form-control input-sm" type="search" placeholder="{{'menu.header.search' | translate}}">
+</div>
+<table class="table cs-table" ng-class="{'noselect' : $root.shifted}" infinite-scroll='$root.$ListService.loadItems()' infinite-scroll-disabled='$root.$ListService[$root.$ListService.getType()].busy' infinite-scroll-distance='1'>
+	<thead>
+	<tr>
+		<th class="col-xs-2 col-sm-2 col-md-3"><!-- <i class="fa fa-lock padding-left-5"></i><i class="fa fa-file padding-right-5 float-right"></i>  --></th>
+		<th class="col-xs-17 col-sm-18 col-md-23"><a ng-click='$root.$ListService.sort("title")'>{{'table.title' | translate}}</a><i ng-show="$root.$ListService.property == 'title'" class="fa fa-sort-{{$root.$ListService.direction}}"></i>&nbsp;/&nbsp;<a ng-click='$root.$ListService.sort("object_name")'>{{'table.name' | translate}}</a><i ng-show="$root.$ListService.property == 'object_name'" class="fa fa-sort-{{$root.$ListService.direction}}"></i></th>
+		<th class="col-xs-7 col-sm-7 col-md-5"><a ng-click='$root.$ListService.sort("r_modify_date")'>{{'table.modified'| translate}}</a><i ng-show="$root.$ListService.property == 'r_modify_date'" class="fa fa-sort-{{$root.$ListService.direction}}"></i></th>
+
+		<th class="col-xs-5 col-sm-5 col-md-5 center">{{'table.state' | translate}}</th>
+	</tr>
+	</thead>
+	<tbody ng-if="!$root.$ListService.is_modal && $root.$ListService.folders && $root.$ListService.parents.length > 1 && $root.$ListService.webcabinets[$root.$ListService.getType()] == true">
+		<tr class="clickable">
+			<td ng-click="$root.$ListService.goUp()"><i class="fa fa-level-up float-right padding-right-5"></i></td>
+			<td ng-click="$root.$ListService.goUp()" colspan="2">...</td>
+		</tr>
+	</tbody>
+	<tbody class="searchable" ng-repeat="folder in $root.$ListService.folders[$root.$ListService.getType()]" ng-if="!$root.$ListService.is_modal && $root.$ListService.folders[$root.$ListService.getType()]">
+		<!-- WEB CABINETS FOLDERS -->
+		<tr ng-if="$root.$ListService.parents.length == 1 && $root.$ListService.webcabinets[$root.$ListService.getType()] == true" class="clickable">
+			<td ng-click="$root.$ListService.openFolder(folder)"><div class="icon img folder blue float-right padding-right-5 initial"></div></td>
+			<td class="searchable" ng-click="$root.$ListService.openFolder(folder)">{{folder.object_name}}</td>
+			<td ng-click="$root.$ListService.openFolder(folder)"></td>
+		</tr>
+		<tr ng-if="$root.$ListService.folders[$root.$ListService.getType()].length && folder.isfolder == '1' && $root.$ListService.webcabinets[$root.$ListService.getType()] == true" class="clickable">
+			<td ng-click="$root.$ListService.openFolder(folder)">
+				<div class="icon img folder blue float-right padding-right-5 initial"></div>
+			</td>
+			<td class="searchable" ng-click="$root.$ListService.openFolder(folder)">{{folder.name}}</td>
+			<td ng-click="$root.$ListService.openFolder(folder)">{{folder.modify_date | date: wcmConfig.dateformat}}</td>
+			<!-- 
+			<td ng-click="$root.$ListService.openFolder(folder)"></td>
+			 -->
+		</tr>
+		<!-- FAV FOLDERS -->
+		<tr ng-if="$root.$ListService.folders[$root.$ListService.getType()].length && $root.$ListService.webcabinets[$root.$ListService.getType()] == false" class="clickable" ui-sref="dashboard.webcabinets({path: folder.folder_path[0], id: folder.id})">
+			<td>
+				<div class="icon img folder blue float-right padding-right-5 initial"></div>
+			</td>
+			<td>{{folder.folder_path[0]}}</td>
+			<td>{{folder.modify_date | date: wcmConfig.dateformat}}</td>
+			<!-- 
+			<td></td>
+			 -->
+		</tr>
+	</tbody>
+	
+	<!-- FILES -->
+	<tbody ng-if="!$root.$ListService.is_modal" documentitem data-ng-repeat="item in $root.$ListService.items[$root.$ListService.getType()]"></tbody>
+	
+	<!-- LOADER -->
+	<tbody>
+		<tr>
+			<td colspan="3" id="loading" class="loading"></td>
+		</tr>
+	</tbody>
+	<!-- 
+	<tbody ng-if="$root.$ListService.items.length == 0 && $root.$ListService.busy == true">
+        <tr>
+            <td colspan="3" class="center"><h3>{{'table.no_result' | translate}}</h3></td>
+        </tr>
+    </tbody>
+	 -->
+</table>
+
+<!-- MILTISELECT TOOLBAR -->
+<div class="multimenu cs-slide" ng-show="$root.$ListService.multiselect.length > 0">
+<a ng-if="isAllowOperation($root.$ListService.multiselect, 'can_unlock')" ng-click="openGroupOperationModal($root.$ListService.multiselect, 'unlock')" title="{{'operation.unlock'| translate}}">
+<div class="icon img key initial"></div>
+</a>
+<a ng-if="isAllowOperation($root.$ListService.multiselect, 'can_delete')" ng-click="openGroupOperationModal($root.$ListService.multiselect, 'delete')" title="{{'operation.delete'| translate}}">
+<div class="icon img remove initial"></div>
+</a>
+<a ng-if="isAllowOperation($root.$ListService.multiselect, 'can_expire')" ng-click="openGroupOperationModal($root.$ListService.multiselect, 'expire')" title="{{'operation.expire'| translate}}">
+<div class="icon img expire initial"></div>
+</a>
+<a ng-if="isAllowOperation($root.$ListService.multiselect, 'can_export')" ng-click="openGroupOperationModal($root.$ListService.multiselect, 'export')" title="{{'operation.export'| translate}}">
+<div class="icon img export initial"></div>
+</a>
+<a ng-if="isAllowOperation($root.$ListService.multiselect, 'can_workflow')" ng-click="openGroupOperationModal($root.$ListService.multiselect, 'workflow')" title="{{'operation.workflow'| translate}}">
+<div class="icon img workflow initial"></div>
+</a>
+<a ng-if="isAllowOperation($root.$ListService.multiselect, 'can_powerpromote')" ng-click="openGroupOperationModal($root.$ListService.multiselect, 'powerpromote')" title="{{'operation.powerpromote'| translate}}">
+<div class="icon img power initial"></div>
+</a>
+<a ng-if="isAllowOperation($root.$ListService.multiselect, 'can_addlang')" ng-click="openGroupOperationModal($root.$ListService.multiselect, 'addlang')" title="{{'operation.addlang'| translate}}">
+<div class="icon img addlang initial"></div>
+</a>
+<a ng-if="isAllowOperation($root.$ListService.multiselect, 'can_upload')" ng-click="openGroupOperationModal($root.$ListService.multiselect, 'new_version')" title="{{'operation.upload_version'| translate}}">
+<div class="icon img import-version initial"></div>
+</a>
+<a ng-click="$root.$ListService.clearMultiselect()">{{'operation.unselect'| translate}}</a>
+<div>Vybráno {{$root.$ListService.multiselect.length}} souborů.</div>
+</div>
+
+<!-- RIGHT PANEL TOOLBAR -->
+<div id="cs-toolbar" ng-class="{'webcabinets' : $root.$ListService.webcabinets[$root.$ListService.getType()] == true}">
+	<div class="item" >
+		<div class="icon" title="{{'message.codetables.tooltip.reload'| translate}}" ng-click="refreshState()"><i class="fa fa-refresh"></i></div>
+	</div>
+	<div class="item" title="{{'message.codetables.tooltip.filter'| translate}}" ng-if="$root.$ListService.hideFilter != true" ng-class="{'active' : $root.$ListService.filter.active == true}" >
+		<div class="icon" ng-click="$root.$ListService.filter.opened = !$root.$ListService.filter.opened"><i class="fa fa-filter"></i></div>
+		<div class="content" ng-show="$root.$ListService.filter.opened">
+			<div ng-repeat="filteritem in $root.$ListService.filter.filters">
+				<label>{{filteritem.text}}</label>
+				<ui-select ng-model="$root.$ListService.filter.selected[filteritem.name]"
+		             theme="bootstrap"
+		             ng-disabled="disabled">
+			    <ui-select-match allow-clear="true" placeholder="{{filteritem.text}}">{{$select.selected.title}}</ui-select-match>
+			    <ui-select-choices repeat="item in filteritem.items | filter: $select.search">
+			      <span ng-bind-html="item.title | highlight: $select.search"></span>
+			    </ui-select-choices>
+			  	</ui-select>
+			</div>
+		  	<input type="button" ng-click="$root.$ListService.filter.opened = false;$root.$ListService.applyFilter();" value="{{'button.filter' | translate}}">
+			<input type="button" ng-click="$root.$ListService.filter.opened = false;$root.$ListService.clearFilter();" value="{{'button.clear' | translate}}">
+		</div>
+	</div>
+</div>
+
+<input id="selectImage" class="form-control input-sm" type="hidden" ng-model="predicate">

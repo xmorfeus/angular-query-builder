@@ -1,0 +1,325 @@
+	<tbody class="searchable">
+		<tr ng-if="!item.disable" class="clickable" ng-class="{'clickable-open' : $root.$DetailService.detail.id == item.id,
+		'clickable-select' : $root.$ListService.isSelectedRow(item)}" context-menu data-target="menu-{{item.id}}">
+			<td>
+				<i class="fa float-left margin-top-2" ng-class="{
+				'fa-check-square-o' : $root.$ListService.isSelectedRow(item),
+				'fa-square-o' : !$root.$ListService.isSelectedRow(item)
+				}" ng-click ="$root.$ListService.selectRow(item)" ng-if="$root.$ListService.isMultiselectEnabled()"></i>
+				
+				<div class="float-right cs-hide-medium" ng-class="{
+				'icon img initial xml' : $root.$DetailService.getContentType(item) == 'xml',
+				'icon img initial image' : $root.$DetailService.getContentType(item) == 'image',
+				'icon img initial excel' : $root.$DetailService.getContentType(item) == 'xls',
+				'icon img initial powerpoint' : $root.$DetailService.getContentType(item) == 'ppt',
+				'icon img initial word' : $root.$DetailService.getContentType(item) == 'doc',
+				'icon img initial pdf' : $root.$DetailService.getContentType(item) == 'pdf',
+				'icon img initial zip' : $root.$DetailService.getContentType(item) == 'zip',
+				'icon img initial video' : $root.$DetailService.getContentType(item) == 'video',
+				'icon img initial unknown' : $root.$DetailService.getContentType(item) == 'unknown'
+				}"></div>
+				
+				<br/>
+				
+				<div class="float-right" ng-if="item.lock_owner != '' && item.operations.can_unlock == true" 
+				ng-click="openDocumentOperationModal(item, 'unlock')" title="{{item.lock_owner}}"
+				ng-class="{
+				'icon img initial blue lock' : $root.user_name != item.lock_owner,
+				'icon img initial blue key' : $root.user_name == item.lock_owner
+				}"></div>
+				<div class="float-right" title="{{item.lock_owner}}"
+				ng-if="item.lock_owner != '' && item.operations.can_unlock == false" 
+				ng-class="{
+				'icon img initial blue lock' : $root.user_name != item.lock_owner,
+				'icon img initial blue key' : $root.user_name == item.lock_owner
+				}"></div>
+			</td>
+			<td class="searchable" ng-click="$root.$DetailService.documentDetail(item)"><strong>{{item.title}}</strong>
+				<span class="badge float-right light-blue">{{item.version}}</span>
+				<br/>{{item.name}}&nbsp;({{item.language}})
+			</td>
+			<td>
+			<div class="operations" ng-hide="$root.shifted">
+				<a ng-if="item.operations.can_edit == true" title="{{'operation.edit'| translate}}" 
+				ui-sref="document({documentId: item.id, tab: 'Editor'})"  data-ui-sref-opts="{reload: true}">
+					<div class="operation"><div class="icon img inline edit blue"></div></div>
+				</a>
+				<a ng-if="item.operations.can_upload == true" title="{{'operation.upload_version'| translate}}" 
+				ng-click="openDocumentOperationModal(item, 'new_version');">
+					<div class="operation"><div class="icon img inline import-version blue"></div></div>
+				</a>
+				<a ui-sref="document({documentId: item.id, tab: 'Metadata'})"  data-ui-sref-opts="{reload: true}"
+				title="{{'operation.metadata'| translate}}">
+					<div class="operation"><div class="icon img inline metadata blue"></div></div>
+				</a>
+				<a ng-if="item.operations.can_powerpromote == true"
+				title="{{'operation.powerpromote'| translate}}" 
+				ng-click="openDocumentOperationModal(item, 'powerpromote');">
+					<div class="operation"><div class="icon img inline power blue"></div></div>
+				</a>
+				<a ng-if="$root.$state.current.name == 'dashboard.inbox' && task.operations.can_removeattachment == true"
+				   title="{{'operation.remove_from_workflow'| translate}}"
+				   ng-click="openDocumentOperationModal(item, 'remove_from_workflow');">
+					<div class="operation"><div class="icon img inline remove blue"></div></div>
+				</a>
+			</div>
+			<div class="dropdown position-fixed" id="menu-{{item.id}}">
+				<ul ng-if="!$root.$ListService.isSelectedRow(item)" class="dropdown-menu" role="menu">
+					<li ng-if="item.operations.can_upload == true"><a class="pointer" ng-click="openDocumentOperationModal(item, 'new_version');">{{'operation.upload_version'| translate}}</a></li>
+					<li ng-if="item.operations.can_edit == true"><a class="pointer" ui-sref="document({documentId: item.id, tab: 'Editor'})"  data-ui-sref-opts="{reload: true}">{{'operation.edit'| translate}}</a></li>
+					<li><a class="pointer" ui-sref="document({documentId: item.id, tab: 'Metadata'})"  data-ui-sref-opts="{reload: true}">{{'operation.metadata'| translate}}</a></li>
+					<li ng-if="item.operations.can_delete == true"><a class="pointer" ng-click="openDocumentOperationModal(item, 'delete');">{{'operation.delete'| translate}}</a></li>
+					<li ng-if="item.operations.can_workflow == true"><a class="pointer" ng-click="openDocumentOperationModal(item, 'workflow');">{{'operation.workflow'| translate}}</a></li>
+					<li ng-if="item.operations.can_powerpromote == true"><a class="pointer" ng-click="openDocumentOperationModal(item, 'powerpromote');">{{'operation.powerpromote'| translate}}</a></li>
+					<li ng-if="item.operations.can_expire == true"><a class="pointer" ng-click="openDocumentOperationModal(item, 'expire');">{{'operation.expire'| translate}}</a></li>
+					<li ng-if="item.operations.can_addlang == true"><a class="pointer" ng-click="openDocumentOperationModal(item, 'addlang');">{{'operation.addlang'| translate}}</a></li>
+					<li ng-if="item.operations.can_duplicate == true"><a class="pointer" ng-click="openDocumentOperationModal(item, 'duplicate');">{{'operation.duplicate'| translate}}</a></li>
+					<li ng-if="item.operations.can_export == true"><a class="pointer" ng-href="{{$root.$DetailService.getResourceSrc(item)}}" download="{{item.name}}">{{'operation.export'| translate}}</a></li>
+					<li ng-if="item.operations.can_rtf == true"><a class="pointer" ng-click="openDocumentOperationModal(item, 'rtf');">{{'operation.export_rtf'| translate}}</a></li>
+					<li ng-if="$root.$DetailService.getContentType(item) != 'xml'"><a class="pointer" ng-href="{{$root.$DetailService.getResourceSrc(item)}}" target="_blank">{{'operation.show'| translate}}</a></li>
+					<li ng-if="item.operations.can_unlock == true"><a class="pointer" ng-click="openDocumentOperationModal(item, 'unlock');">{{'operation.unlock'| translate}}</a></li>
+				</ul>
+				<ul ng-if="$root.$ListService.multiselect.length > 0 && $root.$ListService.isSelectedRow(item)" class="dropdown-menu" role="menu">
+					<li ng-if="isAllowOperation($root.$ListService.multiselect, 'can_delete')"><a ng-click="openGroupOperationModal($root.$ListService.multiselect, 'delete')" class="pointer">{{'operation.delete'| translate}}</a></li>
+					<li ng-if="isAllowOperation($root.$ListService.multiselect, 'can_workflow')"><a ng-click="openGroupOperationModal($root.$ListService.multiselect, 'workflow')" class="pointer">{{'operation.workflow'| translate}}</a></li>
+					<li ng-if="isAllowOperation($root.$ListService.multiselect, 'can_powerpromote')"><a ng-click="openGroupOperationModal($root.$ListService.multiselect, 'powerpromote')" class="pointer">{{'operation.powerpromote'| translate}}</a></li>
+					<li ng-if="isAllowOperation($root.$ListService.multiselect, 'can_expire')"><a ng-click="openGroupOperationModal($root.$ListService.multiselect, 'expire')" class="pointer">{{'operation.expire'| translate}}</a></li>
+					<li ng-if="isAllowOperation($root.$ListService.multiselect, 'can_addlang')"><a ng-click="openGroupOperationModal($root.$ListService.multiselect, 'addlang');" class="pointer">{{'operation.addlang'| translate}}</a></li>
+					<li ng-if="isAllowOperation($root.$ListService.multiselect, 'can_upload')"><a ng-click="openGroupOperationModal($root.$ListService.multiselect, 'new_version')" class="pointer">{{'operation.upload_version'| translate}}</a></li>
+					<li ng-if="isAllowOperation($root.$ListService.multiselect, 'can_export')"><a ng-click="openGroupOperationModal($root.$ListService.multiselect, 'export')" class="pointer">{{'operation.export'| translate}}</a></li>
+					<li ng-if="isAllowOperation($root.$ListService.multiselect, 'can_unlock')"><a ng-click="openGroupOperationModal($root.$ListService.multiselect, 'unlock')" class="pointer">{{'operation.unlock'| translate}}</a></li>
+					<li><a ng-click="$root.$ListService.clearMultiselect()" class="pointer">{{'operation.unselect'| translate}}</a></li>
+				</ul>
+			</div>
+			<div class="operationsText" ng-click="$root.$DetailService.documentDetail(item)">{{item.modify_date | date: wcmConfig.dateformat}}</div>
+			</td>
+
+			<td class="searchable" ng-click="$root.$DetailService.documentDetail(item)">
+				<span class="badge float-right {{$root.$ListService.getStateClass(item)}}">{{item.state[0]}}</span>
+			</td>
+			<!-- 
+			<td ng-click="$root.$DetailService.documentDetail(item)" title="{{item.state[0]}} {{item.version}}">{{item.state[0].charAt(0)}}</td>
+			 -->
+		</tr>
+
+		<!-- DISABLED ITEM -->
+		<tr ng-if="item.disable" class="clickable disable">
+			<td>
+				<div class="float-left" ng-show="item.lock_owner != ''" ng-class="{
+				'icon img initial blue lock' : $root.user_name != item.lock_owner,
+				'icon img initial blue key' : $root.user_name == item.lock_owner
+				}"></div>
+				<i class="fa float-right padding-right-5" ng-class="{
+				'icon img initial xml' : $root.$DetailService.getContentType(item) == 'xml',
+				'icon img initial image' : $root.$DetailService.getContentType(item) == 'image',
+				'icon img initial excel' : $root.$DetailService.getContentType(item) == 'xls',
+				'icon img initial powerpoint' : $root.$DetailService.getContentType(item) == 'ppt',
+				'icon img initial word' : $root.$DetailService.getContentType(item) == 'doc',
+				'icon img initial pdf' : $root.$DetailService.getContentType(item) == 'pdf',
+				'icon img initial zip' : $root.$DetailService.getContentType(item) == 'zip',
+				'icon img initial video' : $root.$DetailService.getContentType(item) == 'video',
+				'icon img initial unknown' : $root.$DetailService.getContentType(item) == 'unknown'
+				}"></i>
+			</td>
+			<td class="searchable"><strong>{{item.title}}</strong><br/>{{item.name}}</td>
+			<td>
+				<div class="loading" style="display: block; padding: 10px; height: auto">
+				</div>
+			</td>
+			<td class="searchable">
+				<span class="badge float-right {{$root.$ListService.getStateClass(item)}}">{{item.state[0]}}</span>
+			</td>
+		</tr>
+
+		<tr class="detail" ng-show="$root.$DetailService.detail.id == item.id">
+			<td colspan="4">
+			
+				<!-- DETAIL LOADING -->
+			 	<div class="col-sm-36 col-md-36 loading text-center" id="docDetail{{item.id}}">
+					<div class="cs-hide-small">{{'loading' | translate}}</div>
+				</div>
+				
+				<!-- DETAIL OVERVIEW -->
+				<div class="col-xs-36 col-md-12 text-center cs-preview cs-hide-small" ng-if="$root.$DetailService.detail.id == item.id" ng-show="$root.$DetailService.metadata">
+					<a ng-if="$root.$DetailService.getContentType(item) == 'image'" ng-href="{{$root.$DetailService.src}}" target="_blank">
+					<img alt="{{item.name}}" ng-src="{{$root.$DetailService.src}}" />
+					</a>
+					<!--<div ng-if="$root.$DetailService.getContentType(item) == 'pdf' || $root.$DetailService.getContentType(item) == 'xml'" -->
+						<!--class="cs-thumbnail overlay">-->
+	   					<!--<iframe ng-if="$root.$DetailService.detail.id == item.id && $root.$DetailService.getContentType(item) == 'xml'" ng-src="{{$root.$DetailService.src}}"></iframe>-->
+	   					<!--<iframe ng-if="$root.$DetailService.detail.id == item.id && $root.$DetailService.getContentType(item) == 'pdf'" ng-src="{{$root.$DetailService.src}}"></iframe>-->
+					<!--</div>-->
+
+					<div ng-if="$root.$DetailService.getContentType(item) != 'image'" class="externalLink">
+						<a ng-href="{{$root.$DetailService.src}}" target="_blank">
+						<i class="fa fa-big" ng-class="{
+						'fa-file-pdf-o' : $root.$DetailService.getContentType(item) == 'pdf',
+						'fa-file-code-o' : $root.$DetailService.getContentType(item) == 'xml',
+							'fa-file-excel-o' : $root.$DetailService.getContentType(item) == 'xls',
+							'fa-file-word-o' : $root.$DetailService.getContentType(item) == 'doc',
+							'fa-file-powerpoint-o' : $root.$DetailService.getContentType(item) == 'ppt',
+							'fa-file-zip-o' : $root.$DetailService.getContentType(item) == 'zip',
+							'fa-file-video-o' : $root.$DetailService.getContentType(item) == 'video',
+							'fa-file-audio-o' : $root.$DetailService.getContentType(item) == 'audio',
+							'fa-file-o ' : $root.$DetailService.getContentType(item) == 'unknown'
+							}"></i>
+						</a>
+					</div>
+				</div>
+				
+				<!-- DETAIL METADATA -->
+				<div class="col-xs-36 col-sm-12 col-md-12 mtd-table" ng-show="$root.$DetailService.metadata">
+					<div class="col-xs-36"><span>{{'table.modified'| translate}}:</span><br/>{{item.modify_date | date: wcmConfig.datetimeformat}}</div>
+					<div class="col-xs-36"><span>{{'table.effective_date'| translate}}:</span><br/>{{$root.$DetailService.metadata.effective_date[0] | date: wcmConfig.datetimeformat}}</div>
+					<div class="col-xs-36" ng-if="$root.$DetailService.metadata.actual_issue_date"><span>{{'table.actual_issue_date'| translate}}:</span><br/>{{$root.$DetailService.metadata.actual_issue_date | date: wcmConfig.datetimeformat}}</div>
+					<div class="col-xs-36" ng-if="$root.$DetailService.metadata.alert_flag"><span>{{'table.effective_date_teaser'| translate}}:</span><br/>{{$root.$DetailService.metadata.teaser_publishing_date | date: wcmConfig.datetimeformat}}</div>
+					<div class="col-xs-36" ng-if="item.is_rule == 1"><span>{{'table.effective_rule_date'| translate}}:</span><br/>{{$root.$DetailService.metadata.valid_from_date | date: wcmConfig.datetimeformat}}</div>
+					<div class="col-xs-36"><span>{{'table.author'| translate}}:</span><br/><div ng-repeat="author in $root.$DetailService.metadata.author track by $index">{{author.slice(0,author.indexOf(",")) | strLimit: 30}}<br ng-if="mtd.author.length-1 > $index"></div></div>
+					<div class="col-xs-36" ng-if="item.existing_translations.length > 1"><span>{{'table.languages_versions'| translate}}:</span><br/><div ng-repeat="exist_lang in item.existing_translations track by $index" ng-if="exist_lang.languageCode != item.language_code"><a ui-sref="document({documentId: exist_lang.objectId, tab: 'Metadata'})"  data-ui-sref-opts="{reload: true}">{{exist_lang.languageTitle}}</a><br ng-if="item.exisitng_translations.length-1 > $index"></div></div>
+					<div class="col-xs-36"><span>{{'table.version'| translate}}:</span><br/>{{item.version}} ({{item.state[0]}})</div>
+					<div class="col-xs-36" ng-if="item.content_type !== 'xml'"><span>{{'table.content_size'| translate}}:</span><br/>{{item.content_size / 1024 / 1024 | number:2 }} MB</div>
+					<div class="col-xs-36" ng-if="$root.$DetailService.metadata.rule_version"><span>{{'table.rule_version'| translate}}:</span><br/>{{$root.$DetailService.metadata.rule_version}}</div>
+					<div class="col-xs-36" ng-if="$root.$DetailService.metadata.rr_state"><span>{{'table.state'| translate}}:</span><br/>{{$root.$DetailService.metadata.rr_state}}</div>
+
+					<div class="col-xs-36"><span>{{'table.portal_access'| translate}}:</span><br/><div ng-repeat="prole in $root.$DetailService.metadata.portal_role track by $index" title="{{prole}}" >{{prole | strLimit: 30}}<br ng-if="$root.$DetailService.metadata.portal_role.length-1 > $index"></div></div>
+					<div class="col-xs-36"><span>{{'table.folder_path'| translate}}:</span><br/><div ng-repeat="path in $root.$DetailService.metadata.folder_path track by $index"><a title="{{path}}" ui-sref="dashboard.webcabinets({path: path})">{{path | strLimitMiddle: 25}}</a><br ng-if="$root.$DetailService.metadata.folder_path.length-1 > $index"></div></div>
+				</div>
+				
+				<!-- DETAIL MENU -->
+				<div class="col-xs-36 col-md-12 cs-table-detail detail-actions" ng-show="$root.$DetailService.metadata">
+					<ul>
+						<li ng-if="$root.$DetailService.metadata.operations.can_upload == true"><a ng-click="openDocumentOperationModal($root.$DetailService.metadata, 'new_version');">
+							<div class="icon img import-version blue"></div>
+							<div class="icon text">{{'operation.upload_version'| translate}}</div>
+						</a></li>
+						<li ng-if="$root.$DetailService.metadata.operations.can_edit == true" ><a ui-sref="document({documentId: item.id, tab: 'Editor'})"  data-ui-sref-opts="{reload: true}">
+							<div class="icon img edit blue"></div>
+							<div class="icon text">{{'operation.edit'| translate}}</div>
+						</a></li>
+						<li><a ui-sref="document({documentId: item.id, tab: 'Metadata'})" data-ui-sref-opts="{reload: true}">
+							<div class="icon img metadata blue"></div>
+							<div class="icon text">{{'operation.metadata'| translate}}</div>
+						</a></li>
+						<li ng-if="$root.$DetailService.metadata.operations.can_delete == true"><a ng-click="openDocumentOperationModal($root.$DetailService.metadata, 'delete');">
+							<div class="icon img remove blue"></div>
+							<div class="icon text">{{'operation.delete'| translate}}</div>
+						</a></li>
+						<li ng-if="$root.$DetailService.metadata.operations.can_workflow == true"><a class="icon" ng-click="openDocumentOperationModal($root.$DetailService.metadata, 'workflow');">
+							<div class="icon img workflow blue"></div>
+							<div class="icon text">{{'operation.workflow'| translate}}</div>
+						</a></li>
+						<li ng-if="$root.$DetailService.metadata.operations.can_powerpromote == true"><a ng-click="openDocumentOperationModal($root.$DetailService.metadata, 'powerpromote');">
+							<div class="icon img power blue"></div>
+							<div class="icon text">{{'operation.powerpromote'| translate}}</div>
+						</a></li>
+						<li ng-if="$root.$DetailService.metadata.operations.can_expire == true"><a ng-click="openDocumentOperationModal($root.$DetailService.metadata, 'expire');">
+							<div class="icon img expire blue"></div>
+							<div class="icon text">{{'operation.expire'| translate}}</div>
+						</a></li>
+						<li ng-if="$root.$DetailService.metadata.operations.can_addlang == true"><a ng-click="openDocumentOperationModal($root.$DetailService.metadata, 'addlang');">
+							<div class="icon img addlang blue"></div>
+							<div class="icon text">{{'operation.addlang'| translate}}</div>
+						</a></li>
+						<li ng-if="$root.$DetailService.metadata.operations.can_duplicate == true"><a ng-click="openDocumentOperationModal($root.$DetailService.metadata, 'duplicate');">
+							<div class="icon img duplicate blue"></div>
+							<div class="icon text">{{'operation.duplicate'| translate}}</div>
+						</a></li>
+						<li ng-if="$root.$DetailService.metadata.operations.can_export == true"><a ng-href="{{$root.$DetailService.getResourceSrc($root.$DetailService.metadata)}}" download="{{item.name}}">
+							<div class="icon img export blue"></div>
+							<div class="icon text">{{'operation.export'| translate}}</div>
+						</a></li>
+						<li ng-if="$root.$DetailService.metadata.operations.can_rtf == true"><a ng-click="openDocumentOperationModal($root.$DetailService.metadata, 'rtf');">
+							<div class="icon img export blue"></div>
+							<div class="icon text">{{'operation.export_rtf'| translate}}</div>
+						</a></li>
+						<li ng-if="$root.$DetailService.metadata.operations.can_unlock == true"><a ng-click="openDocumentOperationModal($root.$DetailService.metadata, 'unlock');">
+							<div class="icon img lock blue"></div>
+							<div class="icon text">{{'operation.unlock'| translate}}</div>
+						</a></li>
+						<li ng-if="$root.$DetailService.getContentType(item) == 'xml'" ng-repeat="portal in $root.$DetailService.metadata.portal_code"><a ng-href="{{wcmConfig.backend}}documents/{{$root.$DetailService.metadata.id}}/preview/{{portal}}" target="_blank">
+							<div class="icon img overview blue"></div>
+							<div class="icon text">{{'operation.overview'| translate}} {{portal}}</div>
+						</a></li>
+						
+						
+						<li ng-if="item.is_rule == 1 && $root.$DetailService.metadata.operations.can_attachattachments == true"><a ng-click="openDocumentOperationModal(item, 'addattachment');">
+							<div class="icon img addlang blue"></div>
+							<div class="icon text">{{'operation.attachattachment'| translate}}</div>
+						</a></li>
+						<li ng-if="item.is_rule == 1 && $root.$DetailService.metadata.operations.can_cancelversion == true"><a ng-click="openDocumentOperationModal(item, 'cancelversion');">
+							<div class="icon img import-version blue"></div>
+							<div class="icon text">{{'operation.cancelversion'| translate}}</div>
+						</a></li>
+						<li ng-if="item.is_rule == 1 && $root.$DetailService.metadata.operations.can_newmajorversion == true"><a ng-click="openDocumentOperationModal(item, 'majorversion');">
+							<div class="icon img import-version blue"></div>
+							<div class="icon text">{{'operation.majorversion'| translate}}</div>
+						</a></li>
+						<li ng-if="item.is_rule == 1 && !$root.$DetailService.ruleProtocol"><a ng-click="openDocumentOperationModal(item, 'createprotocol');">
+							<div class="icon img addlang blue"></div>
+							<div class="icon text">{{'operation.createprotocol'| translate}}</div>
+						</a></li>
+					</ul>
+				</div>
+				<table class="table inbox-subtable" ng-if="$root.$DetailService.ruleProtocol && item.is_rule == 1">
+					<thead>
+						<tr>
+							<th class="col-xs-2 col-sm-2 col-md-3"><!-- <i class="fa fa-lock padding-left-5"></i><i class="fa fa-file padding-right-5 float-right"></i>  --></th>
+							<th class="col-xs-23 col-sm-24 col-md-25">{{'table.title' | translate}}&nbsp;/&nbsp;{{'table.name' | translate}}</th>
+							<th class="col-xs-7 col-sm-7 col-md-5">{{'table.modified'| translate}}</th>
+							<th class="col-xs-4 col-sm-4 col-md-3">{{'table.state' | translate}}</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="clickable" ng-init="protocol = $root.$DetailService.ruleProtocol">
+							<td>
+								<div class="float-right cs-hide-medium icon img initial xml"></div>
+								<br/>
+								<div class="float-right" ng-if="protocol.lock_owner != '' && protocol.operations.can_unlock == true" 
+								ng-click="openDocumentOperationModal(protocol, 'unlock')" title="{{protocol.lock_owner}}"
+								ng-class="{
+								'icon img initial blue lock' : $root.user_name != protocol.lock_owner,
+								'icon img initial blue key' : $root.user_name == protocol.lock_owner
+								}"></div>
+								<div class="float-right" title="{{protocol.lock_owner}}"
+								ng-if="protocol.lock_owner != '' && protocol.operations.can_unlock == false" 
+								ng-class="{
+								'icon img initial blue lock' : $root.user_name != protocol.lock_owner,
+								'icon img initial blue key' : $root.user_name == protocol.lock_owner
+								}"></div>
+							</td>
+							<td><strong>{{protocol.title}}</strong><br/>{{protocol.name}}&nbsp;({{protocol.language}})</td>
+							<td>{{protocol.modify_date | date: wcmConfig.dateformat}}</td>
+							<td>
+								<div class="operations alwaysshow">
+								<!--<a ui-sref="document({documentId: protocol.id, tab: 'Metadata'})"  data-ui-sref-opts="{reload: true}"-->
+								<!--title="{{'operation.metadata'| translate}}">-->
+									<!--<div class="operation"><div class="icon img inline metadata blue"></div></div>-->
+								<!--</a>-->
+								<a ng-if="protocol.operations.can_edit === true" ui-sref="document({documentId: protocol.id, tab: 'Editor'})"  data-ui-sref-opts="{reload: true}"
+								   title="{{'operation.edit'| translate}}">
+									<div class="operation"><div class="icon img inline edit blue"></div></div>
+								</a>
+
+								<a ng-if="protocol.operations.can_delete === true" title="{{'operation.delete'| translate}}"
+								ng-click="openDocumentOperationModal(item, 'deleteprotocol');">
+									<div class="operation"><div class="icon img inline remove blue"></div></div>
+								</a>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</td>
+		</tr>
+		<tr class="detail footer" ng-show="$root.$DetailService.detail.id == item.id && $root.$DetailService.metadata">
+			<td colspan="4" class="text-right">
+				<a class="icon" ng-click="$root.$DocumentOperationService.subscribe(item)" ng-if="$root.$DetailService.metadata.operations.can_subscribe">
+					<i title="{{'table.fav.add'| translate}}" class="subscribe fa fa-star-o"></i>
+				</a>
+				
+				<a class="icon" ng-click="$root.$DocumentOperationService.unsubscribe(item)" ng-if="!$root.$DetailService.metadata.operations.can_subscribe">
+					<i title="{{'table.fav.remove'| translate}}" class="unsubscribe fa fa-star"></i>
+				</a>
+			</td>
+		</tr>
+	</tbody>

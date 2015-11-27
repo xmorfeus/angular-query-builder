@@ -1,0 +1,24 @@
+<form name="form" novalidate>
+    <div class="modal-header">
+    	<div class="icon img decline" style="right: 10px; top: 10px; cursor: pointer;" ng-click="cancel()"></div>
+        <h3 class="modal-title">{{title}}</h3>
+	</div>
+    <div class="modal-body">
+            <div class="row">
+                <div class="col-xs-36">
+                    {{message}} <strong>{{item.name}}</strong>?                  
+                </div>
+            </div>
+    <div class="modal-footer">
+    	<input ng-if="operation == 'rollback'" type="button" class="btn" ng-click="rollbackOK()" value="{{'button.submit_default' | translate}}">
+        <input ng-if="operation == 'commit' && showOkMajor === false" type="button" class="btn" ng-click="commitOK()" value="{{'button.submit_default' | translate}}">
+        <input ng-if="operation == 'commit' && showOkMajor === true" type="button" class="btn" ng-click="commitOK()" value="{{'button.submit_minor' | translate}}">
+        <input ng-if="operation == 'commit' && showOkMajor === true" type="button" class="btn" ng-click="commitOKmajor()" value="{{'button.submit_major' | translate}}">
+
+        <input ng-if="operation == 'unyellow'" type="button" class="btn" ng-click="unyellow()" value="{{'button.unyellow' | translate}}">
+
+        <input ng-if="operation == 'delete'" type="button" class="btn" ng-click="deleteOK()" value="{{'button.delete' | translate}}">
+        <input type="button" class="btn" ng-click="cancel()" value="{{'button.cancel' | translate}}">
+    </div>
+	</div>
+</form>

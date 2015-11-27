@@ -1,0 +1,202 @@
+<div class="fullpage cs-container">
+<div class="container-fluid scrollable white">
+    <tabset>
+        <tab heading="{{'tabs.metadata'| translate}}" disabled="disableTab.Metadata" active="active.metadata" ng-click="setTab('Metadata')">
+            <div class="form-container">
+                <div class="form-group col-sm-36" style="padding-top: 15px">
+                    <label class="control-label col-sm-6">Název:</label>
+                    <div class="col-sm-30 control-content" style="line-height: 34px;">
+                        <!--<td colspan="8" class="loading text-center" id="docDetail{{item.id}}">-->
+
+                        <div id="loading" class="loading">
+                            <div>{{'loadings.create_document'| translate}}</div>
+                        </div>{{formData['formData']['name']}}
+                    </div>
+                </div>
+
+
+                <dynamic-form id="dynamicForm" template="formTemplate" name="form"
+                              ng-model="formData['formData']" model-name="formData"
+                              ng-submit="processForm()"
+                              ng-init="loadData('Metadata');"> 
+                </dynamic-form>
+            </div>
+        </tab>
+        <tab heading="{{'tabs.editor'| translate}}" disabled="disableTab.Editor" active="active.editor" ng-click="setTab('Editor')" ng-if="showEditor">
+
+            <!--<textarea name="editor1" data-ng-model="content" data-ck-editor  ckeditor="options"></textarea>-->
+            <dynamic-form id="dynamicEditorForm" template="editorTemplate" name="editor"
+                          ng-model="formData['editorData']" model-name="editorData"
+                          ng-init="loadData('Editor')">
+            </dynamic-form>
+        </tab>
+        <tab heading="{{'tabs.view'| translate}}" disabled="disableTab.Overview" ng-click="setTab('Overview')" active="active.overview" ng-if="showView">
+            <!--<textarea name="editor2" data-ng-model="content" data-ck-editor  ckeditor="optionsPreview"></textarea>-->
+			<ui-select ng-model="selectedPortal"
+			             theme="wcm2"
+			             on-select="reloadPreview($item)"
+			             ng-disabled="disabled" class="selectBox">
+			  <ui-select-match>{{$select.selected.text}}</ui-select-match>
+			  <ui-select-choices repeat="item in formData['formData'].portal_code | filter: $select.search">
+			    <span ng-bind-html="item.text | highlight: $select.search"></span>
+			  </ui-select-choices>
+			</ui-select>
+
+			<a class="openInNewWindow" ng-href="{{documentOverview}}" target="_blank">{{'text.openinnewwindow' | translate}}</a>
+			<iframe id="overviewIframe" ng-src="{{documentOverview}}" style="height: 1000px; width:100%;margin-top:10px;"></iframe>
+        
+        </tab>
+        
+        <tab heading="{{'tabs.version'| translate}}" disabled="disableTab.Versions" active="active.versions" ng-click="setTab('Versions')">
+         <h3>{{'title.versions' | translate}}</h3>
+
+
+		<table class="table cs-table" style="margin:20px 0px;">
+			<thead>
+			<tr>
+				<th class="col-xs-5 col-sm-5 col-md-4">{{'table.version' | translate}}</th>
+				<th class="col-xs-9 col-sm-9 col-md-10">{{'table.state' | translate}}</th>
+				<th class="col-xs-9 col-sm-9 col-md-10">{{'table.modified'| translate}}</th>
+				<th class="col-xs-9 col-sm-9 col-md-8">{{'table.author'| translate}}</th>
+				<th class="col-xs-4 col-sm-4 col-md-4"></th>
+			</tr>
+			</thead>
+			<tbody ng-repeat="version in versions">
+				<tr class="clickable" ng-class="{'clickable-open' : versionId == version.id}">
+					<td ng-click="loadVersion(version.id)"><strong>{{version.version_label[0]}}</strong></td>
+					<td ng-click="loadVersion(version.id)">{{version.state[0]}}</td>
+					<td ng-click="loadVersion(version.id)">{{version.modify_date | date: wcmConfig.datetimeformat}}</td>
+					<td ng-click="loadVersion(version.id)">{{version.modifier}}</td>
+					<td ng-click="showDiff(version)" ng-if="actualDocument.content_type === 'xml'">{{'table.diff'| translate}}</td>
+					<td ng-if="actualDocument.content_type !== 'xml'"></td>
+				</tr>
+				<tr ng-if="versionId == version.id">
+					<td colspan="5">
+						<div class="col-sm-36 loading text-center cs-content-box-sm">
+						</div>
+						<div class="row col-sm-36 text-center cs-content-box-sm">
+							<iframe id="versionIframe" ng-if="showEditor" ng-src="{{versionOverview}}" style="height: 1000px; background: white; width:100%;margin-top:10px;"></iframe>
+							<img style="max-width:100%;" ng-if="$root.$DetailService.getContentType(version) == 'image'" alt="{{version.name}}" ng-src="{{$root.$DetailService.getResourceSrc(version)}}">
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+        </tab>
+        
+        <tab heading="{{'tabs.links'| translate}}" disabled="disableTab.Relations" active="active.relations" ng-click="setTab('Relations')">
+        
+        <h3 ng-if="attachments.length">{{'title.ruleattachments' | translate}}</h3>
+		<table ng-if="attachments.length" class="table cs-table" style="margin:20px 0px;">
+			<thead>
+			<tr>
+				<th class="col-xs-2 col-sm-2 col-md-3"><!-- <i class="fa fa-lock padding-left-5"></i><i class="fa fa-file padding-right-5 float-right"></i>  --></th>
+				<th class="col-xs-17 col-sm-18 col-md-23">{{'table.title' | translate}}&nbsp;/&nbsp;{{'table.name' | translate}}</th>
+				<th class="col-xs-7 col-sm-7 col-md-5">{{'table.modified'| translate}}</th>
+				<th class="col-xs-5 col-sm-5 col-md-5 center">{{'table.state' | translate}}</th>
+			</tr>
+			</thead>
+			<tbody documentitem data-ng-repeat="item in attachments"></tbody>	
+		</table>
+        
+        <h3 ng-if="contains.length">{{'title.contains' | translate}}</h3>
+		<table ng-if="contains.length" class="table cs-table" style="margin:20px 0px;">
+			<thead>
+			<tr>
+				<th class="col-xs-2 col-sm-2 col-md-3"><!-- <i class="fa fa-lock padding-left-5"></i><i class="fa fa-file padding-right-5 float-right"></i>  --></th>
+				<th class="col-xs-17 col-sm-18 col-md-23">{{'table.title' | translate}}&nbsp;/&nbsp;{{'table.name' | translate}}</th>
+				<th class="col-xs-7 col-sm-7 col-md-5">{{'table.modified'| translate}}</th>
+				<th class="col-xs-5 col-sm-5 col-md-5 center">
+			</tr>
+			</thead>
+			<tbody documentitem data-ng-repeat="item in contains"></tbody>	
+		</table>
+		
+		 <h3 ng-if="contained.length">{{'title.contained' | translate}}</h3>
+		<table ng-if="contained.length" class="table cs-table" style="margin:20px 0px;">
+			<thead>
+			<tr>
+				<th class="col-xs-2 col-sm-2 col-md-3"><!-- <i class="fa fa-lock padding-left-5"></i><i class="fa fa-file padding-right-5 float-right"></i>  --></th>
+				<th class="col-xs-17 col-sm-18 col-md-23">{{'table.title' | translate}}&nbsp;/&nbsp;{{'table.name' | translate}}</th>
+				<th class="col-xs-7 col-sm-7 col-md-5">{{'table.modified'| translate}}</th>
+				<th class="col-xs-5 col-sm-5 col-md-5 center">
+			</tr>
+			</thead>
+			<tbody documentitem data-ng-repeat="item in contained"></tbody>	
+		</table>
+        </tab>
+                
+        <tab heading="{{'tabs.history'| translate}}" disabled="disableTab.History" active="active.history" ng-click="setTab('History')" ng-if="isEditor">
+        <h3>{{'title.history' | translate}}</h3>
+		<table class="table cs-table" style="margin:20px 0px;">
+			<thead>
+			<tr>
+				<th class="col-xs-8 col-sm-8 col-md-8">{{'table.name' | translate}}</th>
+				<th class="col-xs-8 col-sm-8 col-md-8">{{'table.source' | translate}}</th>
+				<th class="col-xs-8 col-sm-8 col-md-8">{{'table.modified'| translate}}</th>
+				<th class="col-xs-8 col-sm-8 col-md-8">{{'table.author' | translate}}</th>
+			</tr>
+			</thead>
+			<tbody ng-repeat="item in docHistory">
+				<tr class="clickable">
+					<td>{{item.event_name}}</td>
+					<td>{{item.event_source}}</td>
+					<td>{{item.time_stamp | date: wcmConfig.datetimeformat}}</td>
+					<td>{{item.user_name}}</td>
+				</tr>
+			</tbody>
+		</table>
+        </tab>
+
+		<!-- 
+        <tab heading="Vlastnosti" active="isActiveTab('Properties')" ng-click="setTab('Properties')">Vlastnosti</tab>
+		 -->
+
+    </tabset>
+
+
+    <!--<div class="form-group col-sm-36 col-xs-36" style="padding:0; padding-top: 15px; padding-bottom:15px;">-->
+		<!--<div class="col-sm-36 col-xs-36" style="padding-bottom:15px;">-->
+			<!--<div id="saving" class="loading">-->
+				<!--<div>{{'loadings.saving_documents'| translate}}</div>-->
+			<!--</div>-->
+		<!--</div>-->
+    <!--</div>-->
+    
+<!-- BUTTONS -->
+
+
+
+
+<div class="flowbuttons cs-slide">
+	<div class="loadingLink">
+		<div id="saving" class="loading flow">
+			<div>{{'loadings.saving_documents'| translate}}</div>
+		</div>
+	</div>
+<a ng-click="save()" title="{{'button.submit'| translate}}" ng-if="!(actualDocument.operations.can_save === false)" ng-disabled="(!(formData['formData']['buttonIsEnable']))">
+<div class="icon text nopadding">{{'button.submit'| translate}}</div>
+</a>
+<a ng-click="save_powerPromote()" title="{{'button.power_promote'| translate}}" ng-if="isEditor && ((actualDocument.current_state !== 5) || hasCreateNewVersion) && (!(actualDocument.operations.can_powerpromote === false))" ng-disabled="(!(formData['formData']['buttonIsEnable']))">
+<div class="icon img power absolute"></div>
+<div class="icon text">{{'button.power_promote'| translate}}</div>
+</a>
+<a ng-click="createNewVersion()" title="{{'button.new_version'| translate}}" ng-if="isEditor && (actualDocument.current_state === 5) && !hasCreateNewVersion && (!(actualDocument.operations.can_newversion === false))" ng-disabled="(!formData['formData']['buttonIsEnable'])">
+<div class="icon img add absolute"></div>
+<div class="icon text">{{'button.new_version'| translate}}</div>
+</a>
+<a ng-click="showDiff()" title="{{'button.showdiff'| translate}}" ng-if="active.editor && (actualDocument.type !== 'cms_publication_log')">
+<div class="icon text nopadding">{{'button.showdiff'| translate}}</div>
+</a>
+<a ng-click="checkLinks()" title="{{'button.linkcheck'| translate}}" ng-if="active.editor && (actualDocument.type !== 'cms_publication_log')">
+<div class="icon text nopadding">{{'button.linkcheck'| translate}}</div>
+</a>
+<a ng-click="cancel()" title="{{'button.close'| translate}}" class="light" ng-if="(actualDocument.type !== 'cms_publication_log' || (actualDocument.type === 'cms_publication_log' && isDocumentSave))">
+<div class="icon text nopadding">{{'button.close'| translate}}</div>
+</a>
+
+	<input id="btnValid" type="button" class="btn pull-right" ng-click="valid()" ng-show="false" >
+
+</div>
+</div>
+</div>

@@ -1,0 +1,125 @@
+<h3>{{'menu.dashboard.inbox' | translate}}</h3>
+<table class="table cs-table">
+	<thead>
+	<tr>
+		<th class="col-xs-3 col-sm-3 col-md-2"><!-- <i class="fa fa-exclamation-triangle"></i> --></th>
+		<th class="col-xs-25 col-sm-24 col-md-28"><a ng-click='$root.$InboxService.sort("task_name")'>{{'table.subject' | translate}}</a><i ng-show="$root.$InboxService.property == 'task_name'" class="fa fa-sort-{{$root.$InboxService.direction}}"></i>&nbsp;/&nbsp;<a ng-click='$root.$InboxService.sort("supervisor_name")'>{{'table.from' | translate}}</a><i ng-show="$root.$InboxService.property == 'supervisor_name'" class="fa fa-sort-{{$root.$InboxService.direction}}"></i></th>
+		<th class="col-xs-8 col-sm-9 col-md-6"><a ng-click='$root.$InboxService.sort("date_sent")'>{{'table.received'| translate}}</a><i ng-show="$root.$InboxService.property == 'date_sent'" class="fa fa-sort-{{$root.$InboxService.direction}}"></i></th>
+	</tr>
+	</thead>
+	<tbody ng-repeat="task in $root.$InboxService.items" id="task{{task.item_id}}">
+		<tr class="clickable" ng-class="{'clickable-open' : $root.$InboxDetailService.detail.item_id == task.item_id}" ng-click="$root.$InboxDetailService.taskDetail(task)">
+			<td><span ng-show="task.priority > 0" class="priority">!!</span></td>
+			<td><strong>{{task.wfname}}</strong>
+			<br/>{{task.supervisor_name}}
+			&nbsp;
+			<span class="badge red" ng-if="task.is_alert == 1">{{'table.news' | translate}}</span>
+			<span class="badge green" ng-if="task.is_loc == 1">{{'table.tariff' | translate}}</span>
+			</td>
+			<td class="cs-hide-small">{{task.date_sent | date: wcmConfig.datetimeformat}}</td>
+			<td class="cs-show-small">{{task.date_sent | date: wcmConfig.dateformat}}</td>
+		</tr>
+		<tr ng-if="$root.$InboxDetailService.detail.item_id == task.item_id">
+			<td colspan="3">
+				<div ng-if="!$root.$InboxDetailService.metadata" class="loading cs-content-box-sm text-center" id="task_{{task.item_id}}" style="display:block;"></div>
+				<div ng-if="$root.$InboxDetailService.metadata" class="row cs-content-box-sm">
+					<div class="col-sm-2 cs-hide-small" >
+					</div>
+					<div class="col-xs-36 col-sm-20 cs-content-box-sm col-sm-36" >
+						<table class="mtd-table">
+							<tr ng-if="$root.$InboxDetailService.metadata.actState[0] == 4">
+								<td colspan="2" style="padding-bottom: 20px;"><span>!!!&nbsp;{{'message.workflow.reset.failed' | translate}}</span></td>
+							</tr>
+							<tr>
+								<td class="col-xs-10"><span>{{'table.subject' | translate}}:</span></td>
+								<td class="col-xs-26">{{$root.$InboxDetailService.metadata.name}}</td>
+							</tr>
+							<tr>
+								<td class="col-xs-10"><span>{{'table.created_by' | translate}}:</span></td>
+								<td class="col-xs-26">{{$root.$InboxDetailService.metadata.creatorName}}</td>
+							</tr>
+							<tr>
+								<td class="col-xs-10"><span>{{'table.created_date' | translate}}:</span></td>
+								<td class="col-xs-26">{{$root.$InboxDetailService.metadata.startDate | date: wcmConfig.datetimeformat}}</td>
+							</tr>
+							<tr>
+								<td class="col-xs-10"><span>{{'table.notes' | translate}}:</span></td>
+								<td class="col-xs-26">
+									<div ng-repeat="note in $root.$InboxDetailService.metadata.workflow_notes track by $index">[{{note.ownerName}} : {{note.creationDate | date: wcmConfig.datetimeformat}}]<br/><strong style="word-break:break-word;">{{note.text}}</strong>
+									<br ng-if="$root.$InboxDetailService.metadata.workflow_notes.length-1 > $index">
+									<br ng-if="$root.$InboxDetailService.metadata.workflow_notes.length-1 > $index">
+									</div>
+								</td>
+							</tr>
+						</table>
+
+					</div>
+					<div class="col-xs-36 col-sm-12 cs-table-detail detail-actions" >
+						<ul style="padding-left:0px;">
+						<li ng-if="task.operations.can_acquire == true"><a ng-click="taskOperationModal(task, 'acquire');">
+							<div class="icon img accept blue"></div>
+							<div class="icon text">{{'table.workflow_accept'| translate}}</div>
+						</a></li>
+						<li ng-if="task.operations.can_finish == true && task.task_name !== 'U_autora'"><a ng-click="taskOperationModal(task, 'finish');">
+							<div class="icon img approve blue"></div>
+							<div class="icon text">{{'table.approve'| translate}}</div>
+						</a></li>
+						<li ng-if="task.operations.can_finish == true && task.task_name === 'U_autora'"><a ng-click="taskOperationModal(task, 'finish_back');">
+							<div class="icon img approve blue"></div>
+							<div class="icon text">{{'table.sendToRedaction'| translate}}</div>
+						</a></li>
+						<li ng-if="task.operations.can_addnote == true"><a ng-click="taskOperationModal(task, 'addNote');">
+							<div class="icon img note blue"></div>
+							<div class="icon text">{{'table.add_note'| translate}}</div>
+						</a></li>
+						<li ng-if="task.operations.can_addattachment == true"><a ng-click="baseModal(task, 'addDocument');">
+							<div class="icon img import blue"></div>
+							<div class="icon text">{{'table.add_document'| translate}}</div>
+						</a></li>
+						<li ng-if="task.operations.can_delegate == true"><a ng-click="taskOperationModal(task, 'delegate');">
+							<div class="icon img back blue"></div>
+							<div class="icon text">{{'table.workflow_delegate'| translate}}</div>
+						</a></li>
+						<li ng-if="task.operations.can_resume == true"><a ng-click="taskOperationModal(task, 'reset');">
+							<div class="icon img back blue"></div>
+							<div class="icon text">{{'table.workflow_reset'| translate}}</div>
+						</a></li>
+						<li ng-if="task.operations.can_reject == true"><a ng-click="taskOperationModal(task, 'reject');">
+							<div class="icon img decline blue"></div>
+							<div class="icon text">{{'table.decline'| translate}}</div>
+						</a></li>
+						<li ng-if="task.operations.can_abort == true"><a ng-click="taskOperationModal(task, 'abort');">
+							<div class="icon img back blue"></div>
+							<div class="icon text">{{'table.workflow_abort'| translate}}</div>
+						</a></li>
+						</ul>
+					</div>
+					<table class="table inbox-subtable" ng-show="$root.$InboxDetailService.metadata.workflow_documents && $root.$InboxDetailService.metadata.workflow_documents.length">
+						<thead>
+						<tr>
+							<th class="col-xs-2 col-sm-2 col-md-3"><!-- <i class="fa fa-lock padding-left-5"></i><i class="fa fa-file padding-right-5 float-right"></i>  --></th>
+							<th class="col-xs-17 col-sm-18 col-md-23">{{'table.title' | translate}}&nbsp;/&nbsp;{{'table.name' | translate}}</th>
+							<th class="col-xs-7 col-sm-7 col-md-5">{{'table.modified'| translate}}</th>
+							<th class="col-xs-5 col-sm-5 col-md-5 center">
+						</tr>
+						</thead>
+						<!-- FILES -->
+						<tbody documentitem data-ng-repeat="item in $root.$InboxDetailService.metadata.workflow_documents"></tbody>
+						<tbody>
+							<tr>
+								<td colspan="8" id="loading" class="loading"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<!-- RIGHT PANEL TOOLBAR -->
+<div id="cs-toolbar">
+	<div class="item" >
+		<div class="icon" title="{{'message.codetables.tooltip.reload'| translate}}" ng-click="refreshState()"><i class="fa fa-refresh"></i></div>
+	</div>
+</div>

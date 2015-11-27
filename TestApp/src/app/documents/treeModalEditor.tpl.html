@@ -1,0 +1,38 @@
+<div ng-if="isModal" class="modal-header">
+    <h3 class="modal-title">{{label}}</h3>
+</div>
+<div class="modal-body tree">
+    <div class="row">
+        <div class="col-md-24">
+            <input class="form-control input-sm" type="search" ng-model="$ModalService.predicate" placeholder="{{'placeholder.search' | translate}}">
+        </div>
+        <div class="col-md-24 tree-list">
+
+            <treecontrol class="tree-classic cs-tree" tree-model="$ModalService.treedata" selected-node="$ModalService.origSelectedNode" selected-nodes="$ModalService.origSelectedNodes"
+
+                         on-node-toggle="$ModalService.showToggle(node, expanded, $parentNode, $index, $first, $middle, $last, $odd, $even)"
+                         on-selection="$ModalService.onSelected(node, selected, $parentNode)"
+                         options="$ModalService.treeOptions"
+                         filter-expression="$ModalService.predicate" filter-comparator="$ModalService.comparator" expanded-nodes="$ModalService.expandedNodes">
+                {{node.text}}
+            </treecontrol>
+
+        </div>
+
+        <div class="col-md-12 tree-selected">
+            <div class="select-box" title="{{selectNode.path}}" ng-repeat="selectNode in $ModalService.origSelectedNodes" ng-if="$ModalService.origSelectedNodes.length > 0">
+                {{selectNode.path | strLimitReverse: 28}} <span class="close ui-select-match-close" ng-click="$ModalService.remove(selectNode)"></span>
+            </div>
+            <div class="select-box" title="{{$ModalService.origSelectedNode.path}}" ng-if="! $ModalService.isEmpty($ModalService.origSelectedNode)">
+                {{$ModalService.origSelectedNode.path | strLimitReverse: 28}} <span class="close ui-select-match-close" ng-click="$ModalService.remove($ModalService.origSelectedNode)"></span>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-if="isModal" class="modal-footer padding">
+    <input type="button" class="btn" ng-click="ok()" value="{{'button.submit_default' | translate}}">
+    <input type="button" class="btn" ng-click="cancel()" value="{{'button.back' | translate}}">
+</div>
+
+<input id="selectItem" class="form-control input-sm" type="hidden">
+<input id="selectItemText" class="form-control input-sm" type="hidden">

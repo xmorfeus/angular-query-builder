@@ -1,0 +1,35 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{label}}</h3>
+</div>
+<div class="modal-body tree">
+    <div class="row">
+        <div class="col-md-24">
+            <input class="form-control input-sm" type="search" ng-model="predicate" placeholder="{{'placeholder.search' | translate}}">
+        </div>
+        <div class="col-md-24 tree-list">
+
+            <treecontrol class="tree-classic cs-tree" tree-model="treedata" selected-node="origSelectedNode" selected-nodes="origSelectedNodes"
+
+                         on-node-toggle="showToggle(node, expanded, $parentNode, $index, $first, $middle, $last, $odd, $even)"
+                         on-selection="onSelected(node, selected, $parentNode)"
+                         options="treeOptions"
+                         filter-expression="predicate" filter-comparator="comparator" expanded-nodes="expandedNodes">
+                {{node.text}}
+            </treecontrol>
+
+        </div>
+
+        <div class="col-md-12 tree-selected">
+            <div class="select-box" title="{{selectNode.path}}" ng-repeat="selectNode in origSelectedNodes" ng-if="origSelectedNodes.length > 0">
+                {{selectNode.path | strLimitReverse: 28}} <span class="close ui-select-match-close" ng-click="remove(selectNode)"></span>
+            </div>
+            <div class="select-box" title="{{origSelectedNode.path}}" ng-if="! isEmpty(origSelectedNode)">
+                {{origSelectedNode.path | strLimitReverse: 28}} <span class="close ui-select-match-close" ng-click="remove(origSelectedNode)"></span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer padding">
+    <input type="button" class="btn" ng-click="ok()" value="{{'button.submit_default' | translate}}">
+    <input type="button" class="btn" ng-click="cancel()" value="{{'button.back' | translate}}">
+</div>

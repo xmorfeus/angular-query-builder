@@ -1,0 +1,214 @@
+<h3>{{'menu.dashboard.advancedsearch' | translate}}</h3>
+
+<div class="row">
+    <div class="col-md-24">
+        <ui-select ng-model="selectedConf"
+                   theme="wcm2"
+                   ng-disabled="disabled"
+                   on-select="loadForm($item, $model)">
+            <ui-select-match>{{$select.selected.text}}</ui-select-match>
+            <ui-select-choices repeat="item in configurations | filter: $select.search">
+                <span ng-bind-html="item.text | highlight: $select.search"></span>
+            </ui-select-choices>
+        </ui-select>
+    </div>
+</div>
+
+        <br />
+
+<query-builder group=filter.group fields=fields></query-builder>
+
+<div>
+    {{output}}
+</div>
+
+<script type="text/ng-template" id="/queryBuilderDirective.html">
+    <!--<div class="alert alert-warning alert-group">-->
+        <div class="row">
+
+            <div class="col-md-12">
+                <ui-select theme="wcm2" ng-model="group.operator">
+                    <ui-select-match>
+                        {{$select.selected.name}}
+                    </ui-select-match>
+                    <ui-select-choices repeat="option.name as option in operators | filter:$select.search | limitTo: 50">
+                                        <span ng-bind-html="option.name | highlight: $select.search">
+                                        </span>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+            <div class="col-md-24">
+                <button ng-click="addCondition()" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-plus-sign"></span>{{'advancedSearch.addCondition'| translate}}</button>
+                <button ng-click="addGroup()" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-plus-sign"></span>{{'advancedSearch.addGroup'| translate}}</button>
+                <button ng-click="removeGroup()" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-minus-sign"></span>{{'advancedSearch.removeGroup'| translate}}</button>
+            </div>
+        </div>
+        <div class="group-conditions">
+            <div ng-repeat="rule in group.rules | orderBy:'index'" class="condition">
+                <div ng-switch="rule.hasOwnProperty('group')">
+                    <div ng-switch-when="true">
+                        <query-builder group="rule.group" fields="fields"></query-builder>
+                    </div>
+
+                    <div ng-switch-default="ng-switch-default">
+                        <div class="row">
+                            <div class="col-md-9 condition-input-name">
+                                <ui-select theme="wcm2" ng-model="rule.field" on-select="loadData(rule.field); rule.condition = rule.field.options[0]; rule.data = undefined">
+                                    <ui-select-match>
+                                    {{$select.selected.text}}
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="option in fields | filter:$select.search | limitTo: 50">
+                                        <span ng-bind-html="option.text | highlight: $select.search">
+                                        </span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                            <div class="col-md-9 condition-input-operator">
+                                <ui-select theme="wcm2" ng-model="rule.condition">
+                                    <ui-select-match>
+                                        {{$select.selected.name}}
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="option in rule.field.options | filter:$select.search | limitTo: 50">
+                                        <span ng-bind-html="option.name | highlight: $select.search">
+                                        </span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                            <div class="col-md-15 condition-input-value">
+
+                                <div ng-switch="rule.field.control_type">
+                                    <div ng-switch-when="textinput">
+                                        <input type="text" ng-model="rule.data" class="form-control input-sm"/>
+                                    </div>
+                                    <div ng-switch-when="datetimepickup" class="input-group calendar">
+                                        <input type="text" class="form-control" ng-model="rule.data" datepicker-popup="{{format}}" datepicker-options="dateOptions" is-open="opened[rule.field.name]" show-button-bar="false"/>
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="openDate($event, rule.field.name)">
+
+                                            </button>
+                                        </span>
+                                    </div>
+                                    <div ng-switch-when="singleselect">
+                                        <ui-select theme="wcm2" ng-model="rule.data">
+                                            <ui-select-match>
+                                                {{$select.selected.text}}
+                                            </ui-select-match>
+                                            <ui-select-choices repeat="option in rule.field.values | filter:$select.search | limitTo: 50">
+                                        <span ng-bind-html="option.text | highlight: $select.search">
+                                        </span>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                    </div>
+                                    <div ng-switch-when="multiselect">
+                                        <ui-select multiple theme="wcm2" ng-model="rule.data">
+                                            <ui-select-match>
+                                                <span title="{{$item.text}}">{{$item.text | strLimit: 20}}</span>
+                                            </ui-select-match>
+                                            <ui-select-choices repeat="option in rule.field.values | filter:$select.search | limitTo: 50">
+                                                {{option.text}}'
+                                            </ui-select-choices>
+                                        </ui-select>
+                                    </div>
+                                    <div ng-switch-when="checkbox">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" class="form-control checkbox" ng-model="rule.data" />
+                                                <div class="checkbox_img"></div><span></span>
+                                            </label>
+                                        </div>
+
+                                    </div>
+                                    <div ng-switch-when="singleselecttree">
+                                        <div class="tree-select-complete">
+                                            <div class="tree-select" ng-click="openTreeModal(
+                                            rule,
+                                            undefined,
+                                            '',
+                                            rule.field.name,
+                                            rule.field.codetable,
+                                            rule.field.multi,
+                                            rule.field.folder,
+                                            undefined,
+                                            rule.field.text,
+                                            'nodes')">
+
+                                            <a class="tree-button">
+                                                <div class="icon img16 tree initial"><input ng-show="false"/></div>
+                                               </a>
+
+                                            <div class="clear"></div>
+                                            </div>
+                                            <div class="tree-select-match">
+
+                                                <div class="select-box" ng-repeat="selectNode in rule.data">
+
+                                                    <span ng-click="$event.stopPropagation();" title="{{selectNode.path}}">{{selectNode.path| strLimitReverse: 30}}</span>
+
+                                                    <span class="close ui-select-match-close"
+                                                        ng-click="$event.stopPropagation(); remove(selectNode, rule.field.name, rule.data);"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div ng-switch-when="singleselectbase">
+                                        <div class="tree-select" ng-click="openBaseModal(
+
+                                        rule.field.name,
+                                        rule,
+                                        rule.field.text,
+                                        rule.field.files_api,
+                                        rule.field.search_api,
+                                        rule.field.rootfolder_api,
+                                        rule.field.folder_select,
+                                        rule.field.multi_select)" >
+
+
+                                            <a class="tree-button">
+                                                <div class="icon img16 tree initial"></div>
+                                            </a>
+                                            <div class="clear"></div>
+                                        </div>
+
+                                        <div>
+                                            <div class="select-box" ng-repeat="selectNode in rule.data">
+
+                                                <span ng-click="$event.stopPropagation();" title="{{selectNode.name}}">{{selectNode.name| strLimitReverse: 40}}</span>
+
+                                                <span class="close ui-select-match-close"
+                                                    ng-click="$event.stopPropagation(); remove(selectNode, rule.field.name, rule.data);"></span>
+                                        </div></div>
+                                    </div>
+                                    <div ng-switch-default="ng-switch-default">
+                                        <input style="margin-left: 5px" type="text" ng-model="rule.data" class="form-control input-sm"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 condition-input-button">
+                                <button style="margin-left: 5px" ng-click="removeCondition($index)" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-minus-sign"></span></button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    <!--</div>-->
+</script>
+
+
+<div class="form-container advancedsearch">
+
+    <!--<dynamic-form id="dynamicForm" template="formTemplate" name="form" ng-model="formData['formData']" model-name="formData">-->
+    <!--</dynamic-form>-->
+
+
+
+    <div class="form-group col-sm-36 col-xs-36" style="padding:0; padding-top: 15px; padding-bottom:15px;">
+            <input id="btnSearch" type="button" class="btn pull-right" ng-click="sendForm()" value="{{'button.search' | translate}}">
+    </div>
+</div>
+
+<div ng-include="'documents/documents-list.tpl.html'"></div>

@@ -1,0 +1,172 @@
+<h3>{{'menu.dashboard.tarifs' | translate}}</h3>
+
+<ol class="breadcrumb" >
+	<li ng-repeat="item in $root.$CodetableListService.parents track by $index">
+		<a ng-click="$root.$CodetableListService.goTo(item)">{{item.description}}</a>
+
+	</li>
+</ol>
+
+<div class="col-sm-36 cs-quick-search" >
+	<input id="quick-search" ng-model="searchText" ng-keyup="filterItems()" class="form-control input-sm" type="search" placeholder="{{'menu.header.search' | translate}}">
+</div>
+
+
+<script type="text/ng-template"  id="tree_item.html">
+   <tr class="clickable" ng-class="{'clickable-open' : isSelected($root.$CodetableListService.codetable, data.id) == true}">
+		<td class="col-xs-2 col-sm-2 col-md-3" ng-if="!data.leaf" ng-click="$root.$CodetableListService.openCodetableFolder(data.id)">
+			<div class="icon img folder blue float-right padding-right-5 initial"></div>
+		</td>
+		<td class="col-xs-2 col-sm-2 col-md-3" ng-if="data.leaf" ng-click="select($root.$CodetableListService.codetable, data.id, data)"><div class="icon img file blue float-right padding-right-5 initial"></div></td>
+		<td class="col-xs-27 col-sm-27 col-md-28" ng-if="!data.leaf && data.id != 'root'" ng-click="$root.$CodetableListService.openCodetableFolder(data.id)">{{data.text}}
+			<span class="badge edited" ng-if="data.edited == true">{{'message.codetables.tooltip.edited' | translate}}</span>
+			<span class="badge new" ng-if="data.new == true">{{'message.codetables.tooltip.new' | translate}}</span>
+			<span class="badge deleted" ng-if="data.deleted == true">{{'message.codetables.tooltip.deleted' | translate}}</span>
+		</td>
+		<td class="col-xs-27 col-sm-27 col-md-28" ng-if="data.leaf && data.id != 'root'" ng-click="select($root.$CodetableListService.codetable, data.id, data)">{{data.text}}
+			<span class="badge edited" ng-if="data.edited == true">{{'message.codetables.tooltip.edited' | translate}}</span>
+			<span class="badge new" ng-if="data.new == true">{{'message.codetables.tooltip.new' | translate}}</span>
+			<span class="badge deleted" ng-if="data.deleted == true">{{'message.codetables.tooltip.deleted' | translate}}</span>
+		</td>
+		<td class="col-xs-7 col-sm-7 col-md-5">
+			<div class="operations alwaysshow">
+				<a ng-if="($root.$CodetableListService.parents.length > 1) && data.new == false && data.deleted == false" title="{{'message.codetables.tooltip.edit'| translate}}" ng-click="select($root.$CodetableListService.codetable, data.id, data)">
+					<div class="operation"><div class="icon img inline edit blue"></div></div>
+				</a>
+				<a ng-if="($root.$CodetableListService.parents.length > 1) && data.new == false && data.deleted == false" title="{{'message.codetables.tooltip.delete'| translate}}" ng-click="openCodebookOperationModal(data, 'delete', $root.$CodetableListService.codetable)">
+					<div class="operation"><div class="icon img inline remove blue"></div></div>
+				</a>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="3" class="cs-table-form" ng-if="isSelected($root.$CodetableListService.codetable, data.id)">
+		<div class="form-container">
+            <dynamic-form id="dynamicForm" template="formTemplate" name="formTemplate" 
+                          ng-model="formData['formData']" model-name="formData" ng-init="loadData('Metadata');">
+            </dynamic-form>
+        </div>
+		<div class="form-group col-sm-36 col-xs-36" style="padding:0; padding-top: 15px; padding-bottom:15px;">
+            <div class="col-sm-24 col-xs-36" style="padding-bottom:15px;">
+                <input id="btnSave" type="button" class="btn" ng-click="save()" value="{{'button.submit_default' | translate}}">
+            </div>
+            <div id="saving" class="loading"></div>
+            <div class="col-sm-12 col-xs-36">
+                <input type="button" class="btn pull-right" ng-click="select($root.$CodetableListService.codetable, data.id, data)" value="{{'button.close' | translate}}">
+            </div>
+        </div>
+		</td>
+	</tr>
+	<tr ng-show="$root.$CodetableListService.isOpened(data.id) == true && data.leaf == false"><td colspan="3"><div class="col-xs-36" style="padding-left: 15px;padding-right:0px;">
+		<table class="cs-table" ng-init="level = level + 1">
+			<tbody ng-repeat="data in data.children" ng-include="'tree_item.html'">
+			</tbody>
+		</table></div></td>
+	</tr>
+
+</script>
+
+
+<table class="table cs-table">
+	<thead>
+		<tr>
+			<th class="col-xs-2 col-sm-2 col-md-3"><!-- <i class="fa fa-lock padding-left-5"></i><i class="fa fa-file padding-right-5 float-right"></i>  --></th>
+			<th ng-class="{'col-xs-20 col-sm-20 col-md-23' : $root.$CodetableListService.parents.length == 1,
+			'col-xs-27 col-sm-27 col-md-28' : $root.$CodetableListService.parents.length > 1}">{{'table.title' | translate}}&nbsp;/&nbsp;{{'table.name' | translate}}</th>
+			<th ng-if="$root.$CodetableListService.parents.length == 1" class="col-xs-7 col-sm-7 col-md-5">{{'table.modified'| translate}}</th>
+			<th class="col-xs-7 col-sm-7 col-md-5">{{'table.state' | translate}}</th>
+		</tr>
+	</thead>
+
+
+	<tbody ng-if="$root.$CodetableListService.parents.length > 1">
+	<tr class="clickable">
+		<td ng-click="$root.$CodetableListService.goUp()"><i class="fa fa-level-up float-right padding-right-5"></i></td>
+		<td ng-click="$root.$CodetableListService.goUp()" colspan="3">...</td>
+	</tr>
+	</tbody>
+	
+	<tbody ng-if="$root.$CodetableListService.parents.length > 1" ng-repeat="data in $root.$CodetableListService.treedata" ng-include="'tree_item.html'">
+
+	<!-- FILES -->
+	<tbody class="searchable" ng-if="$root.$CodetableListService.parents.length == 1" ng-repeat="item in $root.$CodetableListService.treedata | filter:{description: searchText}">
+		<tr class="clickable">
+			<td ng-if="(!item.leaf)">
+				<div class="icon img folder blue float-right padding-right-5 initial"></div>
+				<div class="float-left" ng-if="$root.$CodetableListService.parents.length === 1 && item.lock_owner != null"
+					 title="{{item.lock_owner}}" ng-class="{
+						'icon img initial blue lock' : $root.user_name != item.lock_owner,
+						'icon img initial blue key' : $root.user_name == item.lock_owner
+				}"></div>
+			</td>
+
+			<td ng-if="item.leaf"><div class="icon img file blue float-right padding-right-5 initial"></div></td>
+			<td ng-click="$root.$CodetableListService.openFolder(item)">{{item.description}}
+				<span ng-click="$root.$CodetableListService.openModified(item, $event)" class="badge edited" ng-if="item.changes && item.changes.edited > 0">{{'message.codetables.tooltip.edited' | translate}} : {{item.changes.edited}}</span>
+				<span ng-click="$root.$CodetableListService.openModified(item, $event)" class="badge new" ng-if="item.changes && item.changes.created > 0">{{'message.codetables.tooltip.new' | translate}} : {{item.changes.created}}</span>
+				<span ng-click="$root.$CodetableListService.openModified(item, $event)" class="badge deleted" ng-if="item.changes && item.changes.deleted > 0">{{'message.codetables.tooltip.deleted' | translate}} : {{item.changes.deleted}}</span>
+			</td>
+			<td ng-click="$root.$CodetableListService.openFolder(item)">{{item.modify_date | date: wcmConfig.dateformat}}</td>
+			<td>
+				<div class="operations alwaysshow">
+				<a ng-if="($root.$CodetableListService.parents.length === 1) && ($root.user_name == item.lock_owner)" title="{{'message.codetables.tooltip.commit'| translate}}" ng-click="openCodebookOperationModal(item, 'commit', $root.$CodetableListService.codetable)">
+					<div class="operation"><div class="icon img inline approve blue"></div></div>
+				</a>
+				<a ng-if="($root.$CodetableListService.parents.length === 1) && ($root.user_name == item.lock_owner)" title="{{'message.codetables.tooltip.rollback'| translate}}" ng-click="openCodebookOperationModal(item, 'rollback', $root.$CodetableListService.codetable)">
+					<div class="operation"><div class="icon img inline decline blue"></div></div>
+				</a>
+				<!--<a ng-if="($root.$CodetableListService.parents.length === 1)" title="{{'operation.overview'| translate}}" ng-click="openOverview(item.name)">-->
+					<!--<div class="operation"><div class="icon img inline overview blue"></div></div>-->
+				<!--</a>-->
+				</div>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+
+<!-- RIGHT PANEL TOOLBAR -->
+<div id="cs-toolbar" class="webcabinets">
+	<div class="item" >
+		<div class="icon" title="{{'message.codetables.tooltip.reload'| translate}}" ng-click="refreshState()"><i class="fa fa-refresh"></i></div>
+	</div>
+
+	<div class="item" ng-if="$root.$CodetableListService.parents.length > 1">
+		<div class="icon" title="{{'operation.overview'| translate}}" ng-click="openOverview($root.$CodetableListService.codetable)"><div class="initial icon img blue overview" style="margin-left:10px"></div></div>
+	</div>
+	<!-- 
+	<div class="item" ng-if="$root.$CodetableListService.codetable" >
+		<div class="icon" title="{{'message.codetables.tooltip.tree'| translate}}" ng-click="$root.tree.opened = !$root.tree.opened"><div class="initial icon img blue tree" style="margin-left:10px"></div></div>
+		<div class="content tree" ng-show="$root.tree.opened">
+			<input type="button" ng-click="$root.$CodetableListService.findNode(selectedNode)" value="{{'button.filter' | translate}}">
+			<input type="button" ng-click="$root.tree.opened = false;" value="{{'button.clear' | translate}}">
+			<div class="row">
+				<div class="col-md-24">
+					<input class="form-control input-sm" type="search" ng-model="predicate" placeholder="{{'menu.header.search' | translate}}">
+					<treecontrol class="tree-classic cs-tree" tree-model="$root.$CodetableListService.treedataFilter" selected-nodes="selectedNode"
+								 on-selection="$root.$CodetableListService.onSelected(node, selected, $parentNode)"
+								 on-node-toggle="$root.$CodetableListService.showToggle(node, expanded, $parentNode, $index, $first, $middle, $last, $odd, $even)"
+								 options="$root.$CodetableListService.treeOptions"
+								 filter-expression="predicate" filter-comparator="comparator">
+						{{node.text}}
+					</treecontrol>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	 -->
+	
+	<div class="item" ng-if="$root.$CodetableListService.codetable" >
+		<div class="icon" title="{{'message.codetables.tooltip.add'| translate}}" ui-sref="dashboard.tarifDetail({codetable: $root.$CodetableListService.codetable})"><div class="initial icon img blue addlang" style="margin-left:10px"></div></div>
+	</div>
+
+	<div class="item" ng-if="($root.$CodetableListService.codetable) && ($root.$CodetableListService.parents.length > 1) && ($root.user_name === $root.$CodetableListService.parents[1].lock_owner)">
+		<div class="icon" title="{{'message.codetables.tooltip.commit'| translate}}" ng-click="openCodebookOperationModal($root.$CodetableListService.parents[1], 'commit', $root.$CodetableListService.codetable)"><div class="initial icon img blue approve" style="margin-left:10px"></div></div>
+	</div>
+
+	<div class="item" ng-if="($root.$CodetableListService.codetable) && ($root.$CodetableListService.parents.length > 1)&& ($root.user_name === $root.$CodetableListService.parents[1].lock_owner)">
+		<div class="icon" title="{{'message.codetables.tooltip.rollback'| translate}}" ng-click="openCodebookOperationModal($root.$CodetableListService.parents[1], 'rollback', $root.$CodetableListService.codetable)"><div class="initial icon img blue decline" style="margin-left:10px"></div></div>
+	</div>
+
+</div>

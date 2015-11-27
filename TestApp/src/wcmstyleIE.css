@@ -1,0 +1,73 @@
+h1,h2,h3,h4,h5,h6,ul,ol,li,a,p,,form,fieldset,body,html,img,table,tr,th,td,label,button{padding: 0px;margin: 0px; border:0 none;}
+h1 { font-size: 150%; color: #ed1c24; margin-bottom: 8px; }
+h2 { font-size: 133%; color: #005593; margin-bottom: 5px; }
+h3 { font-size: 117%; color: #005593; margin-bottom: 5px; }
+h4 { font-size: 117%; color: #005593; margin-bottom: 20px; padding-left: 16px; }
+h5 { font-size: 117%; color: Black; margin-bottom: 5px;  }
+h6 { font-size: 117%; color: Black; margin-bottom: 20px; padding-left: 16px; }
+
+
+TABLE.redheading {caption: Tabulka Cervene zahlavi; border-spacing: 0px;
+    border-collapse: collapse;
+    border: 1px solid #B0CBDF;
+    width: 99%;
+    margin-bottom: 20px;
+    text-align: left;}
+table.redheading TD {
+    padding-left: 10px;
+    padding-right: 5px;
+    border: 1px solid #B0CBDF;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    vertical-align: top;
+}    
+TABLE.blackheading {caption: Tabulka Cerne zahlavi; border: 1px solid #A394B1; background-color: #E8F0F5;}
+TABLE.noborder {caption: Tabulka bez ramecku; border : none;}
+TD.caption {caption: Bunka svetle pozadi; color: #006699; background-color: #E8F0F5; font-weight: bold;}
+TD.dark {caption: Bunka tmave pozadi; color: #624879; background-color: #BED2DC;}
+TD.captionwhitebg {caption: Bunka bile pozadi; color: #006699; background-color: White; font-weight: bold;}
+TH.caption {caption: Bunka hlavicky svetle pozadi; color: #006699; background-color: #E8F0F5; font-weight: bold;}
+TH.dark {caption: Bunka hlavicky tmave pozadi; color: #624879; background-color: #BED2DC;}
+TH.captionwhitebg {caption: Bunka hlavicky bile pozadi; color: #006699; background-color: White; font-weight: bold;}
+TR.row_author {caption: Zvyrazneny radek; background-color: #f8f8f8;}
+TABLE.redheading TH {color: red;}
+
+
+a:hover{text-decoration: none;}
+/*zakladni stavebni prvky*/
+body{font-family: Arial, Helvetica, sans-serif;font-size: 75%;color: black;padding: 10px 20px 10px 20px;}
+
+/*table {border-collapse: collapse; border-spacing: 0px;}*/
+ul {list-style-type: none}
+th, td {text-align: left; font-weight: normal}
+
+.tc{text-align: center;}
+.fr{ float: right;}
+.fl{ float: left;}
+img.fr{ margin-left: 13px;}
+img.fl{ margin-right: 13px;}
+
+/* telo, obecny obsah */
+ P {margin-bottom: 14px}
+
+ /*UL {margin-bottom: 12px; margin-top: 8px;}*/
+
+/* telo, defaultni container */
+ .default {padding-bottom: 10px}
+
+
+a{color:#2083CC;}
+
+ul li{padding-left: 18px; background: url(assets/img/link_odr.gif) no-repeat left top;font-size: 12px; line-height: 18px;}
+ul li a{ color: #2083cc; }
+
+a.button {color: white; display: block; text-decoration: none; background: #3E648D url(../images/form/inputbutton.png) no-repeat left top; font-weight:bold;
+          margin-right: 8px; height: 24px; line-height: 24px; text-align: left; margin-top: 1px; padding: 0 0 0 33px; width: 163px}
+a.button:hover, html body a.hoverSubmit {background-color: #3E648D; background-position: left -24px}
+a.button:active,html a.activeSubmit {background-color: #3E648D; background-position: left -48px}
+
+a.button-back {color: white; display: block; text-decoration: none; background:#3E648D url(../images/form/inputbuttonBack.png) no-repeat left top; font-weight:bold;
+                              margin-right: 8px; height: 24px; line-height: 24px; text-align: left; margin-top:1px; padding: 0 0 0 33px; width: 163px}
+a.button-back:hover, html body a.hoverSubmit-back {background-color: #3E648D;background-position: left -24px}
+a.button-back:active, html a.activeSubmit-back {background-color: #3E648D;background-position: left -48px}
+

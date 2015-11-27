@@ -1,0 +1,42 @@
+<form name="form" novalidate>
+    <div class="modal-header">
+    	<div class="icon img decline" style="right: 10px; top: 10px; cursor: pointer;" ng-click="cancel()"></div>
+        <h3 class="modal-title">{{modalTitle}}</h3>
+    </div>
+    <div class="modal-body" ng-show="operation != 'addNote'">
+    	{{modalMessage}} <strong>{{activeTask.wfname}}</strong>?
+    </div>
+    <div class="modal-body">
+    	 <div class="row" ng-if="delegateRoles && delegateRoles.length" >
+	    	 <div class="col-xs-36 workflow-modal">
+	                    <label>{{'table.redaction' | translate}}:</label>
+						<ui-select ng-model="redaction"
+								 ng-init="redaction = delegateRoles[0]"
+					             theme="bootstrap" >
+					    <ui-select-match placeholder="{{'table.redaction' | translate}}">{{$select.selected.title}}</ui-select-match>
+					    <ui-select-choices repeat="item in delegateRoles | filter: $select.search">
+					      <span ng-bind-html="item.title | highlight: $select.search"></span>
+					    </ui-select-choices>
+					  	</ui-select>
+	        </div>
+        </div>
+    	<div class="row" ng-show="useNote">
+           	<div class="col-xs-36 workflow-modal">
+           		<label class="col-xs-36" for="note" style="margin-top: 0;">{{'table.note' | translate}}:</label>
+           		<textarea class="form-control input-sm" ng-model="note" rows="4" ></textarea>
+         	</div>
+      	</div>
+    <div class="modal-footer">
+        <input type="button" class="btn" ng-if="operation == 'delegate'" ng-click="delegate();" value="{{'button.yes' | translate}}">
+        <input type="button" class="btn" ng-if="operation == 'addNote'" ng-click="addNote()" value="{{'button.add' | translate}}">
+        <input type="button" class="btn" ng-if="operation == 'reject'" ng-click="decline();" value="{{'button.yes' | translate}}">
+        <input type="button" class="btn" ng-if="operation == 'acquire'" ng-click="acquire()" value="{{'button.yes' | translate}}">
+        <input type="button" class="btn" ng-if="operation == 'resume'" ng-click="resume()" value="{{'button.yes' | translate}}">
+        <input type="button" class="btn" ng-if="operation == 'finish'" ng-click="finish()" value="{{'button.yes' | translate}}">
+		<input type="button" class="btn" ng-if="operation == 'finish_back'" ng-click="finish_back()" value="{{'button.yes' | translate}}">
+        <input type="button" class="btn" ng-if="operation == 'reset'" ng-click="reset()" value="{{'button.yes' | translate}}">
+        <input type="button" class="btn" ng-if="operation == 'abort'" ng-click="abort()" value="{{'button.yes' | translate}}">
+        <input type="button" class="btn" ng-click="cancel()" value="{{'button.back' | translate}}">
+    </div>
+    </div>
+</form>

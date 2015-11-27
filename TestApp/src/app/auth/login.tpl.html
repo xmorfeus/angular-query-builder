@@ -1,0 +1,24 @@
+<form name="loginForm" ng-submit="login()" novalidate>
+<div class="login-form col-xs-26 col-md-12">
+  <label for="username">{{'login.username' | translate}}:</label>
+  <input type="text" id="username"
+         ng-model="username" />
+  <!-- 
+  <label for="password">{{'login.password' | translate}}:</label>
+  <input type="password" id="password"
+         ng-model="password">
+   -->
+  <label for="lang">{{'login.lang' | translate}}:</label>
+  <ui-select ng-model="lang.selected"
+             theme="bootstrap"
+             ng-disabled="disabled">
+    <ui-select-match placeholder="{{'login.lang' | translate}}">{{$select.selected.title}}</ui-select-match>
+    <ui-select-choices repeat="item in langs | filter: $select.search">
+      <span ng-bind-html="item.title | highlight: $select.search"></span>
+    </ui-select-choices>
+  </ui-select>
+  
+  <button type="submit">{{'login.button' | translate}}</button>  
+</div>
+</form>
+

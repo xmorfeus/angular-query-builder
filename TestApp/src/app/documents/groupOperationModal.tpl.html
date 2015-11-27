@@ -1,0 +1,338 @@
+<form name="form" novalidate>
+    <div class="modal-header">
+    	<div class="icon img decline" style="right: 10px; top: 10px; cursor: pointer;" ng-click="cancel()"></div>
+        <h3 class="modal-title" ng-if="operation == 'workflow'">{{'modal.document.title.workflow.group' | translate}}</h3>
+        <h3 class="modal-title" ng-if="operation == 'delete'">{{'modal.document.title.delete.group' | translate}}</h3>
+        <h3 class="modal-title" ng-if="operation == 'new_version'">{{'modal.document.title.new_version.group' | translate}}</h3>
+    	<h3 class="modal-title" ng-if="operation == 'powerpromote'">{{'modal.document.title.powerpromote.group' | translate}}</h3>
+    	<h3 class="modal-title" ng-if="operation == 'expire'">{{'modal.document.title.expire.group' | translate}}</h3>
+    	<h3 class="modal-title" ng-if="operation == 'addlang'">{{'modal.document.title.addlang.group' | translate}}</h3>
+    	<h3 class="modal-title" ng-if="operation == 'export'">{{'modal.document.title.export.group' | translate}}</h3>
+    	<h3 class="modal-title" ng-if="operation == 'unlock'">{{'modal.document.title.unlock.group' | translate}}</h3>
+    	<h3 class="modal-title" ng-if="operation == 'nofiles'">{{'modal.document.title.nofiles.group' | translate}}</h3>
+	</div>
+    <div class="modal-body">
+    		<!-- WORKFLOW -->
+            <div class="row" ng-if="operation == 'workflow'">
+                <div class="col-xs-36 workflow-modal">
+                    <label class="col-xs-36" for="name">{{'table.name' | translate}}:</label>
+                    <input id="name" class="form-control input-sm" type="search" ng-model="workflow.name" required="">
+                    
+                    <label class="col-xs-36" for="note">{{'table.note' | translate}}:</label>
+                    <input id="note" class="form-control input-sm" type="search" ng-model="workflow.note">
+                    
+                    <div class="col-xs-18">
+                    <label class="col-xs-36" for="documents">{{'modal.document.message.workflow.allow' | translate}}:</label>
+                    <div class="padding-20">
+                    <ul id="documents">
+                        <li ng-repeat="item in allows track by $index">{{item.name}}</li>
+                    </ul>            
+                    </div>
+                    </div>
+                    <div class="col-xs-18">
+                    <label class="col-xs-36" for="documents">{{'modal.document.message.workflow.disallow' | translate}}:</label>
+                    <div class="padding-20">
+                    <ul id="documents">
+                        <li ng-repeat="item in disallows track by $index">{{item.name}}</li>
+                    </ul>               
+                    </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- DELETE -->
+            <div class="row" ng-if="operation == 'delete'">
+                <div class="col-xs-36 workflow-modal">
+					<div class="col-xs-18">
+                    <label class="col-xs-36" for="documents">{{'modal.document.message.delete.allow' | translate}}:</label>
+                    <div class="padding-20">
+                    <ul id="documents">
+                        <li ng-repeat="item in allows track by $index">{{item.name}}</li>
+                    </ul>            
+                    </div>
+                    </div>
+                    <div class="col-xs-18">
+                    <label class="col-xs-36" for="documents">{{'modal.document.message.delete.disallow' | translate}}:</label>
+                    <div class="padding-20">
+                    <ul id="documents">
+                        <li ng-repeat="item in disallows track by $index">{{item.name}}</li>
+                    </ul>               
+                    </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- POWER PROMOTE -->
+            <div class="row" ng-if="operation == 'powerpromote'">
+                <div class="col-xs-36 workflow-modal">
+					<div class="col-xs-18">
+                    <label class="col-xs-36" for="documents">{{'modal.document.message.powerpromote.allow' | translate}}:</label>
+                    <div class="padding-20">
+                    <ul id="documents">
+                        <li ng-repeat="item in allows track by $index">{{item.name}}</li>
+                    </ul>            
+                    </div>
+                    </div>
+                    <div class="col-xs-18">
+                    <label class="col-xs-36" for="documents">{{'modal.document.message.powerpromote.disallow' | translate}}:</label>
+                    <div class="padding-20">
+                    <ul id="documents">
+                        <li ng-repeat="item in disallows track by $index">{{item.name}}</li>
+                    </ul>               
+                    </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- UNLOCK -->
+            <div class="row" ng-if="operation == 'unlock'">
+                <div class="col-xs-36 workflow-modal">
+					<div class="col-xs-18">
+                    <label class="col-xs-36" for="documents">{{'modal.document.message.unlock.allow' | translate}}:</label>
+                    <div class="padding-20">
+                    <ul id="documents">
+                        <li ng-repeat="item in allows track by $index">{{item.name}}</li>
+                    </ul>            
+                    </div>
+                    </div>
+                    <div class="col-xs-18">
+                    <label class="col-xs-36" for="documents">{{'modal.document.message.unlock.disallow' | translate}}:</label>
+                    <div class="padding-20">
+                    <ul id="documents">
+                        <li ng-repeat="item in disallows track by $index">{{item.name}}</li>
+                    </ul>               
+                    </div>
+                    </div>
+                </div>
+            </div>
+            
+             <!-- ADD LANG -->
+            <div class="row" ng-if="operation == 'addlang'">
+            	<div class="col-xs-36" ng-if="langs.length" >
+                    <label>{{'table.language_version' | translate}}:</label>
+					<ui-select ng-model="lang_version"
+				             theme="bootstrap" 
+				             on-select="updateAvailableLangs($item)">
+				    <ui-select-match placeholder="{{'table.language_version' | translate}}">{{$select.selected.title}}</ui-select-match>
+				    <ui-select-choices repeat="item in langs | filter: $select.search">
+				      <span ng-bind-html="item.title | highlight: $select.search"></span>
+				    </ui-select-choices>
+				  	</ui-select>
+                </div>
+                <div class="col-xs-36 workflow-modal">
+					<div class="col-xs-18">
+                    <label class="col-xs-36" for="documents">{{'modal.document.message.addlang.allow' | translate}}:</label>
+                    <div class="padding-20">
+                    <ul id="documents">
+                        <li ng-repeat="item in allows track by $index">{{item.name}}</li>
+                    </ul>            
+                    </div>
+                    </div>
+                    <div class="col-xs-18">
+                    <label class="col-xs-36" for="documents">{{'modal.document.message.addlang.disallow' | translate}}:</label>
+                    <div class="padding-20">
+                    <ul id="documents">
+                        <li ng-repeat="item in disallows track by $index">{{item.name}}</li>
+                    </ul>               
+                    </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- EXPIRE -->
+            <div class="row" ng-if="operation == 'expire'">
+                <div class="col-xs-36 workflow-modal">
+					<div class="col-xs-18">
+                    <label class="col-xs-36" for="documents">{{'modal.document.message.expire.allow' | translate}}:</label>
+                    <div class="padding-20">
+                    <ul id="documents">
+                        <li ng-repeat="item in allows track by $index">{{item.name}}</li>
+                    </ul>            
+                    </div>
+                    </div>
+                    <div class="col-xs-18">
+                    <label class="col-xs-36" for="documents">{{'modal.document.message.expire.disallow' | translate}}:</label>
+                    <div class="padding-20">
+                    <ul id="documents">
+                        <li ng-repeat="item in disallows track by $index">{{item.name}}</li>
+                    </ul>               
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NOFILES -->
+            <div class="row" ng-if="operation == 'nofiles'">
+                <div class="col-xs-36 workflow-modal">
+                    <h2 class="modal-title">{{'modal.document.message.nofiles.group' | translate}}</h3>
+                </div>
+            </div>
+            
+            <!-- EXPORT -->
+            <div class="row" ng-if="operation == 'export'">
+                <div class="col-xs-36 workflow-modal">
+					<div class="col-xs-18">
+                    <label class="col-xs-36" for="documents">{{'modal.document.message.export.allow' | translate}}:</label>
+                    <div class="padding-20">
+                    <ul id="documents">
+                        <li ng-repeat="item in allows track by $index">{{item.name}}</li>
+                    </ul>            
+                    </div>
+                    </div>
+                    <div class="col-xs-18">
+                    <label class="col-xs-36" for="documents">{{'modal.document.message.export.disallow' | translate}}:</label>
+                    <div class="padding-20">
+                    <ul id="documents">
+                        <li ng-repeat="item in disallows track by $index">{{item.name}}</li>
+                    </ul>               
+                    </div>
+                    </div>
+                    <a id="exportTag" ng-show="false" target="_self" href="" download=""></a>
+                </div>
+            </div>
+            
+            <!-- NEW VERSION -->
+            <div class="row" ng-if="operation == 'new_version'">
+            	<div class="col-md-36 workflow-modal">
+            		<div class="row cs-upload cs-content-box" ng-if="operation == 'new_version' && allows.length > 0">
+						<fieldset>
+						<div class="text-right col-xs-36 col-sm-36 col-md-36">
+							<i class="fa fa-list switch" ng-class="{'selected' : showList == true}" ng-click="showList = true" ></i><i class="fa fa-th-large switch" ng-class="{'selected' : showList == false}" ng-click="showList = false"></i>
+						</div>
+						
+						<div class="col-xs-18 col-sm-18 col-md-24 cs-upload-result">
+							<div ng-if="showList == false" ng-repeat="file in $root.$UploadService.uploadedFiles track by $index" 
+							ng-class="{'selected' : $root.$UploadService.selectedFile == file}" 
+							ng-click="selectFile(file)" class="cs-file-thumbnail" ng-show="$root.files.length > 0">
+							
+				            	<div class="cs-thumbnail-right" ng-click="$root.$UploadService.removeFile(file)"><i class="fa fa-2x fa-trash"></i></div>
+				            	<div class="cs-thumbnail-img">
+				            	<img ngf-src="file" ng-show="file.type.indexOf('image') > -1" ngf-accept="'image/*'">
+				            	<div class="cs-hide-medium" 
+				            	ng-if="file.name.indexOf('.xls') > -1
+				            	|| file.name.indexOf('.ppt') > -1
+				            	|| file.name.indexOf('.doc') > -1
+				            	|| file.name.indexOf('.pdf') > -1
+				            	|| file.name.indexOf('zip') > -1
+				            	|| file.type.indexOf('video') > -1"
+				            	ng-class="{
+								'icon img excel' : file.name.indexOf('.xls') > -1,
+								'icon img powerpoint' : file.name.indexOf('.ppt') > -1,
+								'icon img word' : file.name.indexOf('.doc') > -1,
+								'icon img pdf' : file.name.indexOf('.pdf') > -1,
+								'icon img zip' : file.name.indexOf('zip') > -1,
+								'icon img video' : file.type.indexOf('video') > -1
+								}"></div>
+								<audio controls="" ngf-src="file" ng-show="file.type.indexOf('audio') > -1" ngf-accept="'audio/*'"></audio>
+				            	</div>
+				            	<div class="cs-thumbnail-filename" ng-if="!file.modifiedName" title="{{file.name}}">{{file.name}}</div>
+				            	<div class="cs-thumbnail-filename" ng-if="file.modifiedName" title="{{file.modifiedName}}">{{file.modifiedName}}</div>
+				            </div>
+				            <table ng-if="showList == true" ng-if="$root.$UploadService.uploadedFiles.length > 0" class="cs-file-table">
+								<tbody ng-repeat="file in $root.$UploadService.uploadedFiles track by $index">
+									<tr class="cs-file-row" ng-class="{'selected' : $root.$UploadService.selectedFile == file}">
+										<td class="cs-thumbnail-img" ng-click="selectFile(file)">
+							            	<img ngf-src="file" ng-show="file.type.indexOf('image') > -1" ngf-accept="'image/*'">
+							            	<div class="cs-hide-medium" 
+							            	ng-if="file.name.indexOf('.xls') > -1
+							            	|| file.name.indexOf('.ppt') > -1
+							            	|| file.name.indexOf('.doc') > -1
+							            	|| file.name.indexOf('.pdf') > -1
+							            	|| file.name.indexOf('zip') > -1"
+							            	ng-class="{
+											'icon img excel' : file.name.indexOf('.xls') > -1,
+											'icon img powerpoint' : file.name.indexOf('.ppt') > -1,
+											'icon img word' : file.name.indexOf('.doc') > -1,
+											'icon img pdf' : file.name.indexOf('.pdf') > -1,
+											'icon img zip' : file.name.indexOf('zip') > -1
+											}"></div>
+							            	<video controls="" ngf-src="file" ng-show="file.type.indexOf('video') > -1" ngf-accept="'video/*'"></video>
+							            	<audio controls="" ngf-src="file" ng-show="file.type.indexOf('audio') > -1" ngf-accept="'audio/*'"></audio>
+										</td>
+										<td ng-click="selectFile(file)" class="cs-thumbnail-filename col-xs-22 col-sm-22 col-md-22" ng-if="!file.modifiedName">{{file.name}}</td>
+										<td ng-click="selectFile(file)" class="cs-thumbnail-filename col-xs-22 col-sm-22 col-md-22" ng-if="file.modifiedName">{{file.modifiedName}}</td>
+										<td class="col-xs-6 col-sm-6 col-md-6 text-right">
+											<i class="fa fa-trash-o" ng-click="$root.$UploadService.removeFile(file)"></i>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<table ng-if="$root.$UploadService.rejectedFiles.length > 0" class="cs-file-table rejected-files">
+								<tbody ng-repeat="file in $root.$UploadService.rejectedFiles track by $index">
+									<tr class="cs-file-row">
+										<td class="cs-thumbnail-img ">
+							            	<img ngf-src="file" ng-show="file.type.indexOf('image') > -1" ngf-accept="'image/*'">
+							            	<div class="cs-hide-medium" 
+				            				ng-if="file.name.indexOf('.xls') > -1
+							            	|| file.name.indexOf('.ppt') > -1
+							            	|| file.name.indexOf('.doc') > -1
+							            	|| file.name.indexOf('.pdf') > -1
+							            	|| file.name.indexOf('zip') > -1"
+							            	ng-class="{
+											'icon img excel' : file.name.indexOf('.xls') > -1,
+											'icon img powerpoint' : file.name.indexOf('.ppt') > -1,
+											'icon img word' : file.name.indexOf('.doc') > -1,
+											'icon img pdf' : file.name.indexOf('.pdf') > -1,
+											'icon img zip' : file.name.indexOf('zip') > -1
+											}"></div>
+							            	<video controls="" ngf-src="file" ng-show="file.type.indexOf('video') > -1" ngf-accept="'video/*'"></video>
+							            	<audio controls="" ngf-src="file" ng-show="file.type.indexOf('audio') > -1" ngf-accept="'audio/*'"></audio>
+										</td>
+										<td class="cs-thumbnail-filename col-xs-22 col-sm-22 col-md-22">
+											<input type="text" ng-model="$root.$UploadService.rejectedFiles[$index].modifiedName"/>
+										</td>
+										<td class="col-xs-6 col-sm-6 col-md-6 text-right">
+											<i class="fa fa-refresh" title="{{'message.codetables.tooltip.reupload'| translate}}" ng-click="$root.$UploadService.repostNewVersion(file)"></i>
+											<i class="fa fa-trash-o" title="{{'message.codetables.tooltip.remove'| translate}}" ng-click="$root.$UploadService.removeRejected(file)"></i>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="col-xs-18 col-sm-18 col-md-12">
+							<progressbar animate="false" value="$root.$UploadService.progress"><b ng-if="$root.$UploadService.progress > 0">{{$root.$UploadService.progress}}%</b></progressbar>
+							<div class="cs-upload-area" ngf-drop="true" ngf-select="true" 
+				          	ng-model="$root.files" ngf-keep="false"
+				          	ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" 
+				          	class="drop-box" ngf-multiple="true" ngf-keep="false"
+				          	ngf-drop-available="true" ngf-allow-dir="false" ngf-keep-distinct="true">
+				         		<div class="cs-upload-area-text">
+								{{'message.document.import.area-drop' | translate}}<a>{{'message.document.import.area-select' | translate}}</a>
+								</div>
+				         	</div>
+						</div>
+						</fieldset>
+					</div>
+                <div class="col-md-36 workflow-modal">
+					<div class="col-xs-18">
+                    <label class="col-xs-36" for="documents">{{'modal.document.message.new_version.allow' | translate}}:</label>
+                    <div class="padding-20">
+                    <ul id="documents">
+                        <li ng-repeat="item in allows track by $index">{{item.name}}&nbsp;<i ng-if="isMatched(item)" class="fa fa-check"></i></li>
+                    </ul>            
+                    </div>
+                    </div>
+                    <div class="col-xs-18">
+                    <label class="col-xs-36" for="documents">{{'modal.document.message.new_version.disallow' | translate}}:</label>
+                    <div class="padding-20">
+                    <ul id="documents">
+                        <li ng-repeat="item in disallows track by $index">{{item.name}}</li>
+                    </ul>               
+                    </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="modal-footer">
+    	<input ng-if="operation == 'new_version' && allows.length > 0" type="button" class="btn" ng-click="new_versionOK()" value="{{'button.submit_default' | translate}}">
+        <input ng-if="operation == 'workflow' && allows.length > 0" type="button" class="btn" ng-click="workflowOK()" value="{{'button.run' | translate}}">
+        <input ng-if="operation == 'delete' && allows.length > 0" type="button" class="btn" ng-click="deleteOK()" value="{{'button.delete' | translate}}">
+        <input ng-if="operation == 'powerpromote' && allows.length > 0" type="button" class="btn" ng-click="powerPromoteOK()" value="{{'button.submit_default' | translate}}">
+        <input ng-if="operation == 'addlang' && allows.length > 0" type="button" class="btn" ng-click="addlangOK()" value="{{'button.submit_default' | translate}}">
+        <input ng-if="operation == 'expire' && allows.length > 0" type="button" class="btn" ng-click="expireOK()" value="{{'button.submit_default' | translate}}">
+        <input ng-if="operation == 'export' && allows.length > 0" type="button" class="btn" ng-click="exportOK()" value="{{'button.submit_default' | translate}}">
+        <input ng-if="operation == 'unlock' && allows.length > 0" type="button" class="btn" ng-click="unlockOK()" value="{{'button.submit_default' | translate}}">
+        <input type="button" class="btn" ng-click="cancel()" value="{{'button.back' | translate}}">
+    </div>
+	</div>
+</form>

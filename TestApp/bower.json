@@ -1,0 +1,43 @@
+{
+  "name": "wcm",
+  "version": "0.0.1",
+  "devDependencies": {
+    "angular": "~1.3.14",
+    "angular-mocks": "~1.3.14",
+    "bootstrap": "~3.3.2",
+    "jquery": "~2.1.3",
+    "angular-bootstrap": "~0.12.1",
+    "angular-ui-router": "~0.2.15",
+    "angular-resource": "~1.3.14",
+    "angular-translate": "~2.6.1",
+    "angular-animate": "~1.3.14",
+    "font-awesome": "~4.3.0",
+    "underscore": "1.8.3",
+    "ng-context-menu": "~1.0.1",
+    "angular-ui-select": "~0.11.2",
+    "angular-sanitize": "~1.3.15",
+    "angular-tree-control": "~0.2.11",
+    "angular-dynforms": "~0.0.4",
+    "ngInfiniteScroll": "1.0.0",
+    "angular-translate-loader-static-files": "~2.7.0",
+    "angular-file-upload": "~1.1.5",
+    "jquery.jscrollpane": "~2.0.14",
+    "ng-file-upload": "~5.0.1",
+    "angular-i18n": "~1.4.1",
+    "angular-dynamic-locale": "~0.1.27",
+    "angular-cookies": "~1.3.14"
+  },
+  "dependencies": {
+    "angular-ui-bootstrap-datetimepicker": "~0.11.2",
+    "ckeditor": "#full/4.4.7",
+    "angular-xml": "~2.1.0",
+    "angular-x2js": "~0.2.0",
+    "x2js": "~1.1.7",
+    "jquery-xpath": "~0.3.1",
+    "ng-csv": "~0.3.3",
+    "moment": "~2.10.6",
+    "angular-diff-match-patch": "~0.1.11",
+    "ngstorage": "~0.3.9",
+    "angular-diff": "~1.0.1"
+  }
+}

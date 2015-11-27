@@ -1,0 +1,35 @@
+{
+  "author": "CSAS",
+  "name": "WCM",
+  "version": "0.0.1",
+  "homepage": "http://csas.cz",
+  "bugs": "",
+  "description": "TODO",
+  "repository": {
+    "type": "svn",
+    "url": "TODO svn repository"
+  },
+  "dependencies": {
+    "grunt-karma": "~0.5.4",
+    "grunt-bump": "0.0.13"
+  },
+  "devDependencies": {
+    "grunt": "*",
+    "grunt-recess": "*",
+    "grunt-contrib-less": "*",
+    "grunt-contrib-clean": "*",
+    "grunt-contrib-copy": "*",
+    "grunt-contrib-jshint": "*",
+    "grunt-contrib-concat": "*",
+    "grunt-contrib-watch": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-karma": "*",
+    "grunt-ngmin": "*",
+    "grunt-html2js": "*",
+    "grunt-contrib-coffee": "*",
+    "grunt-coffeelint": "*",
+    "grunt-conventional-changelog": "*",
+    "grunt-bump": "*",
+    "grunt-contrib-connect": "~0.6.0"
+  }
+}

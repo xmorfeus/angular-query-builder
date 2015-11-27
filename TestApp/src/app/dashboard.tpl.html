@@ -1,0 +1,43 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="sidebar">
+			<ul class="cs-menu">
+				<li ng-if="$root.is_inbox == true"><div ui-sref="dashboard.inbox" ui-sref-active="active"><div class="full"><span class="badge cs-hide-small">{{$root.inbox_count}}</span><div class="icon img inbox"></div><div class="icon text cs-hide-small">{{'menu.dashboard.inbox' | translate}}</div></div></div></li>
+				<li><div ui-sref="dashboard.my" ui-sref-active="active"><div class="icon img my"></div><div class="icon text cs-hide-small">{{'menu.dashboard.documents.my' | translate}}</div></div></li>
+				<li><div ui-sref="dashboard.fav" ui-sref-active="active"><div class="icon img fav"></div><div class="icon text cs-hide-small">{{'menu.dashboard.documents.fav' | translate}}</div></div></li>
+				<li><div ui-sref="dashboard.webcabinets" ui-sref-active="active"><div class="icon img cabinets"></div><div class="icon text cs-hide-small">{{'menu.dashboard.webcabinets' | translate}}</div></div></li>
+				<li ng-if="$root.hasCodetables()"><div ui-sref="dashboard.codebooks({name: undefined, id: undefined})" ng-class="{'active' : $state.current.name.search('codebook') != -1}"><div class="icon img codetables"></div><div class="icon text cs-hide-small">{{'menu.dashboard.codebooks' | translate}}</div></div></li>
+				<li ng-if="$root.hasRole('cms_list_of_charges_manager')"><div ui-sref="dashboard.tarifs" ng-class="{'active' : $state.current.name.search('tarif') != -1}"><div class="icon img tarifs"></div><div class="icon text cs-hide-small">{{'menu.dashboard.tarifs' | translate}}</div></div></li>
+				<!--<li><div ui-sref="dashboard.dictionary" ui-sref-active="active"><div class="icon img dictionary"></div><div class="icon text cs-hide-small">{{'menu.dashboard.dictionary' | translate}}</div></div></li>-->
+				<li ng-if="$root.isEditor == true"><div ui-sref="dashboard.reports" ui-sref-active="active"><div class="icon img reports"></div><div class="icon text cs-hide-small">{{'menu.dashboard.reports' | translate}}</div></div></li>
+				<li ng-if="$root.isEditor == true"><div ui-sref="dashboard.email" ui-sref-active="active"><div class="icon img email"></div><div class="icon text cs-hide-small">{{'menu.dashboard.email' | translate}}</div></div></li>
+			
+				<li class="cs-show-small"><div style="background: #cce6f7; color:#005593;" ng-class="{'active' : getFilterString() != '[]'}"><div class="full"><span class="badge cs-hide-small">active</span><i class="fa fa-filter"></i><div class="icon text cs-hide-small">Filter</div></div></div></li>
+			</ul>
+		</div>
+		<div class="dashboard">
+			<div class="scrollable" id="scrollContent">
+				<div class="cs-dashboard" ui-view="dashboardContent" autoscroll="false" ></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="dropdown position-fixed" id="menu-inbox">
+	<ul class="dropdown-menu" role="menu">
+		<li>
+			<a class="pointer" role="menuitem" tabindex="1"
+			   ng-click="panel.highlight = true">
+				Select Panel {{ $index + 1 }}
+			</a>
+		</li>
+		<li>
+			<a class="pointer" role="menuitem" tabindex="2"
+			   ng-click="panel.highlight = false">
+				Deselect Panel  {{ $index + 1 }}
+			</a>
+		</li>
+
+	</ul>
+</div>

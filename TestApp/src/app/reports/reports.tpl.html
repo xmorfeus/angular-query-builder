@@ -1,0 +1,85 @@
+<h3>{{'menu.dashboard.reports' | translate}}</h3>
+
+<ui-select ng-model="reports.selected"
+           theme="wcm2"
+           ng-disabled="disabled"
+           on-select="loadForm($item, $model)">
+    <ui-select-match placeholder="{{'title.reports' | translate}}">{{$select.selected.text}}</ui-select-match>
+    <ui-select-choices repeat="item in reports | filter: $select.search">
+        <span ng-bind-html="item.text | highlight: $select.search"></span>
+    </ui-select-choices>
+</ui-select>
+
+
+<div class="form-container">
+
+    <dynamic-form id="dynamicForm" template="formTemplate" name="form"
+                  ng-model="formData['formData']" model-name="formData"
+                  ng-submit="processForm()"
+                  ng-init="loadData('Metadata')">
+    </dynamic-form>
+
+    <div class="form-group col-sm-36 col-xs-36" style="padding:0; padding-top: 15px; padding-bottom:15px;">
+            <input id="btnSearch" type="button" class="btn pull-right" ng-click="sendForm()" value="{{'button.search' | translate}}" ng-if="(reports.selected)">
+
+    </div>
+
+    <table class="table cs-table" ng-if="documents.length>0">
+        <thead>
+            <tr>
+                <th class="col-xs-2 col-sm-2 col-md-8">{{'csv.name' | translate}}</th>
+                <th class="col-xs-2 col-sm-2 col-md-8">{{'csv.title' | translate}}</th>
+                <th class="col-xs-2 col-sm-2 col-md-5">{{'csv.modify_date' | translate}}</th>
+                <th class="col-xs-2 col-sm-2 col-md-4">{{'csv.language' | translate}}</th>
+                <th class="col-xs-2 col-sm-2 col-md-4">{{'csv.owner_name' | translate}}</th>
+                <th class="col-xs-2 col-sm-2 col-md-4">{{'csv.state' | translate}}</th>
+                <th class="col-xs-2 col-sm-2 col-md-3">{{'csv.version' | translate}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="clickable" ng-repeat="item in documents">
+                <td>{{item.name}}</td>
+                <td>{{item.title}}</td>
+                <td>{{item.modify_date | date: wcmConfig.dateformat}}</td>
+                <td>{{item.language}}</td>
+                <td>{{item.owner_name}}</td>
+                <td>{{item.state[0]}}</td>
+                <td>{{item.version}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="table cs-table" ng-if="documents.length === 0">
+        <!-- 
+        <thead>
+        <tr>
+            <th class="col-xs-2 col-sm-2 col-md-8">{{'csv.name' | translate}}</th>
+            <th class="col-xs-2 col-sm-2 col-md-8">{{'csv.title' | translate}}</th>
+            <th class="col-xs-2 col-sm-2 col-md-5">{{'csv.modify_date' | translate}}</th>
+            <th class="col-xs-2 col-sm-2 col-md-4">{{'csv.language' | translate}}</th>
+            <th class="col-xs-2 col-sm-2 col-md-4">{{'csv.owner_name' | translate}}</th>
+            <th class="col-xs-2 col-sm-2 col-md-4">{{'csv.state' | translate}}</th>
+            <th class="col-xs-2 col-sm-2 col-md-3">{{'csv.version' | translate}}</th>
+        </tr>
+        </thead>
+         -->
+        <tbody>
+        <tr>
+            <td colspan="7" class="center"><h3>{{'table.no_result' | translate}}</h3></td>
+        </tr>
+        </tbody>
+    </table>
+
+
+
+
+    <!-- MILTISELECT TOOLBAR -->
+    <div class="multimenu cs-slide" ng-show="documents.length>0">
+
+        <a csv-header="export_header" ng-csv="documents"  field-separator="," filename="{{reports.selected.id}}.csv" title="{{'button.export'| translate}}">
+            {{'button.export'| translate}}
+            <!--<div class="icon img key initial"></div>-->
+        </a>
+
+    </div>
+</div>

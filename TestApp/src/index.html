@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html ng-app="wcm" ng-controller="AppCtrl">
+<head>
+    <title>WCM | {{pageTitle | translate}}</title>
+    
+    <script type="text/javascript" src="./assets/config.js"></script>
+
+    <!-- compiled CSS -->
+    <% styles.forEach( function ( file ) { %>
+    <link rel="stylesheet" type="text/css" href="<%= file %>"/>
+    <% }); %>
+
+    <style type="text/css">
+        [ng-cloak] {
+            display: none;
+        }
+    </style>
+    <meta charset="utf-8">
+
+</head>
+<body ng-keydown="$root.checkShift($event);" ng-keyup="$root.checkUnshift($event);" ng-class="{'busy' : $root.busy}">
+
+<div ui-view="menu"></div>
+
+<div class="container">
+    <div ui-view="content" id="wrapper">
+    </div>
+</div>
+
+<div id="loader" class="ng-cloak">
+	<div class="text"><span>{{$root.getLoaderMessage()}}</span></div>
+</div>
+
+
+
+<div class="alert-container ng-cloak">
+<div ng-repeat="msg in $root.$MessageService.messages" class="alert" ng-class="msg.clazz" role="alert" >
+  <button type="button" class="close" ng-click="$root.$MessageService.close(msg)"><span aria-hidden="true">&times;</span></button>
+  <button type="button" class="close" ng-if="msg.exception" ng-click="$root.$MessageService.toggleDetail(msg)"><span aria-hidden="true">...</span></button>
+  <strong ng-show="msg.title">{{msg.title}}</strong><br/>
+  <p ng-show="msg.message">{{msg.message}}</p>
+  <p class="exception cs-slide" ng-show="msg.showDetail">{{msg.exception}}</p>
+</div>
+</div>
+
+<!-- compiled JavaScript -->
+<% scripts.forEach( function ( file ) { %>
+<script type="text/javascript" src="<%= file %>"></script>
+<% }); %>
+
+  <!-- TOOLTIPS -->
+  <script type="text/javascript" src="./assets/jquery-ui.min.js"></script>
+  <script>
+  $(function() {
+    $( document ).tooltip({
+    	hide: { effect: "fade", duration: 0 },
+    	show: {effect: "fade", delay: 800, duration: 100 },
+        position: {
+            my: "center bottom-10",
+            at: "center top",
+            using: function( position, feedback ) {
+              $( this ).css( position );
+              $( "<div>" )
+                .addClass( "arrow" )
+                .addClass( feedback.vertical )
+                .addClass( feedback.horizontal )
+                .appendTo( this );
+            }
+          }
+        });
+    
+    $(document).on('dragover', function(e) {
+        var dt = e.originalEvent.dataTransfer;
+        if(dt.types != null && (dt.types.indexOf ? dt.types.indexOf('Files') != -1 : dt.types.contains('application/x-moz-file'))) {
+            $(".cs-upload-area").addClass('dropfiles');
+        }
+    });
+    $(document).on('drop', function(e) {
+        $(".cs-upload-area").removeClass('dropfiles');
+    });
+  });
+  </script>
+</body>
+</html>
+

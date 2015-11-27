@@ -1,0 +1,39 @@
+<div class="fullpage cs-container ">
+<div class="container-fluid scrollable white">
+<div class="col-md-36">
+	<h3>{{'title.audit' | translate}}</h3>
+	<table class="table cs-table cs-audit">
+	<thead>
+	<tr>
+		<th class="col-xs-3">{{'table.type' | translate}}</th>
+		<th class="col-xs-9">{{'table.title' | translate}}</th>
+		<th class="col-xs-15">{{'table.message' | translate}}</th>
+		<th class="col-xs-6">{{'table.timestamp' | translate}}</th>
+		<th class="col-xs-3">...</th>
+	</tr>
+	</thead>
+	<tbody ng-repeat="item in $root.$AuditService.audit">
+		<tr class="clickable">
+			<td><i class="fa fa-2x {{item.clazz}}" ng-class="{
+				'fa-info-circle' : item.clazz == 'info',
+				'fa-check-circle' : item.clazz == 'success',
+				'fa-exclamation-triangle' : item.clazz == 'warning',
+				'fa-times-circle' : item.clazz == 'error'
+			}"></i></td>
+			<td>{{item.title}}</td>
+			<td>{{item.message}}</td>
+			<td>{{item.timestamp | date: wcmConfig.datetimesecformat}}</td>
+			<td></td>
+		</tr>
+	</tbody>
+</table>
+
+<!-- RIGHT PANEL TOOLBAR -->
+<div id="cs-toolbar">
+	<div class="item" >
+		<div class="icon" title="{{'message.codetables.tooltip.reload'| translate}}" ng-click="refreshState()"><i class="fa fa-refresh"></i></div>
+	</div>
+</div>
+</div>
+</div>
+</div>

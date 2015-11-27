@@ -1,0 +1,147 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{label}}</h3>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-xs-36">
+
+            <div class="row" style="padding:15px;">
+				<div style="margin-bottom: 5px; cursor: pointer;" ng-click="toggleFavs();"><i class="fa fa-star"></i>
+					&nbsp;<span ng-show="!showFavs">Zobrazit oblíbené</span><span ng-show="showFavs">Skrýt oblíbené</span>
+					</div>
+				<div class="row" ng-show="showFavs" style="margin-left: 20px;" >
+					<a ng-repeat="ff in favFolders track by $index" ng-click="$root.$ListService.openPath(ff.folder_path[0]);toggleFavs();"><div class="icon img folder blue"></div><div class="icon text" >{{ff.folder_path[0]}}</div></a>
+				</div>
+				</div>
+				
+				<ol class="breadcrumb" ng-if="$root.$ListService.parents.length && $root.$ListService.webcabinets[$root.$ListService.getType()] == true">
+				  <li ng-repeat="item in $root.$ListService.parents track by $index">
+				  	<a ng-click="$root.$ListService.goTo(item)">{{item.title}}</a>
+				  	<a>
+				  	<span ng-show="$index == $root.$ListService.parent.index && $index > 1">
+				  		<i ng-if="$root.$ListService.parent.can_subscribe == true" ng-click="$root.$FolderOperationService.subscribe(item);" title="{{'table.fav.add'| translate}}" class="subscribe fa fa-star-o clickable" style="font-size: 100%;"></i>
+				  		<i ng-if="$root.$ListService.parent.can_subscribe == false" ng-click="$root.$FolderOperationService.unsubscribe(item);" title="{{'table.fav.remove'| translate}}" class="unsubscribe fa fa-star clickable" style="font-size: 100%;"></i>
+				  	</span>
+				  	</a>
+				  </li>
+				</ol>
+			
+				<form ng-submit="$root.$ListService.webcabinetsSearch($root.$ListService.predicate, 1)">
+				<div class="col-xs-36 cs-quick-search">
+					<input id="quick-search" ng-if="quickSearch" ng-model="predicate" class="form-control input-sm" type="search" placeholder="{{'menu.header.search' | translate}}">
+					<div ng-if="!quickSearch" class="input-group">
+						<input id="search" type="text" class="form-control" ng-model="$root.$ListService.predicate" placeholder="{{'menu.header.search' | translate}}">
+						  <span class="input-group-btn">
+							<input class="btn btn-default" type="button" ng-click="$root.$ListService.webcabinetsSearch($root.$ListService.predicate, 1)" value="{{'placeholder.search' | translate}}"></button>
+						  </span>
+					</div>
+
+				</div>
+				</form>
+				
+				<!-- 
+				<a class="pull-right" ng-click="refreshState()">
+					<i class="fa fa-refresh" ></i>
+				</a>
+				 -->
+				<div class="row" scroll-element-id="scrollContent" infinite-scroll='$root.$ListService.loadItems()' infinite-scroll-disabled='$root.$ListService.busy[$root.$ListService.getType()]' infinite-scroll-distance='1'>
+					<div class="cs-file-thumbnail light" ng-click="$root.$ListService.goUp()" ng-if="$root.$ListService.folders[$root.$ListService.getType()] && $root.$ListService.parents.length > 1">
+						<div class="cs-thumbnail-img"><i class="fa fa-level-up"></i></div>
+						<div class="cs-thumbnail-filename">...</div>
+					</div>
+					<!-- FOLDERS -->
+					<div title="{{folder.object_name}}" class="cs-file-thumbnail light"  ng-class="{'selected' : folder.isSelect}" ng-if="$root.$ListService.parents.length == 1 && $root.$ListService.webcabinets[$root.$ListService.getType()] == true" ng-repeat="folder in $root.$ListService.folders[$root.$ListService.getType()] | filter:predicate">
+						<div class="thumb-check" ng-if="folder_select">
+							<label>
+								<input type="checkbox" class="form-control checkbox" ng-model="folder.isSelect" value="check" name="searchable_flag">
+								<div class="checkbox_img">
+
+								</div>
+								<span></span>
+							</label>
+						</div>
+						<div class="cs-thumbnail-img" ng-click="$root.$ListService.openFolder(folder)"><div class="icon img folder blue"></div></div>
+						<div class="cs-thumbnail-filename" ng-click="$root.$ListService.openFolder(folder)">{{folder.object_name}}</div>
+					</div>
+					<div title="{{folder.name}}" class="cs-file-thumbnail light"  ng-class="{'selected' : folder.isSelect}" ng-if="$root.$ListService.folders[$root.$ListService.getType()].length && folder.isfolder == '1' && $root.$ListService.webcabinets[$root.$ListService.getType()] == true" ng-repeat="folder in $root.$ListService.folders[$root.$ListService.getType()] | filter:predicate">
+						<div class="thumb-check" ng-if="folder_select">
+							<label>
+								<input type="checkbox" class="form-control checkbox" ng-model="folder.isSelect" value="check" name="searchable_flag">
+								<div class="checkbox_img">
+
+								</div>
+								<span></span>
+							</label>
+						</div>
+						<div class="cs-thumbnail-img" ng-click="$root.$ListService.openFolder(folder)"><div class="icon img folder blue"></div></div>
+						<div class="cs-thumbnail-filename" ng-click="$root.$ListService.openFolder(folder)">{{folder.name}}</div>
+					</div>
+					<!-- FILES -->
+					<div title="{{item.title}}" class="cs-file-thumbnail light" ng-class="{'selected' : item.isSelect}" ng-repeat="item in $root.$ListService.items[$root.$ListService.getType()] | filter:predicate" ng-if="isInListType($root.$DetailService.getContentType(item)) && (only_can_workflow == false || item.operations.can_workflow == true || item.is_rule == 1)" >
+						<div class="thumb-check" ng-if="multi_select">
+							<label>
+								<input type="checkbox" class="form-control checkbox" ng-model="item.isSelect" value="check">
+								<div class="checkbox_img">
+
+								</div>
+								<span></span>
+							</label>
+						</div>
+						<div class="cs-thumbnail-img" ng-click="selectFile(item)">
+							<img ng-if="$root.$DetailService.getContentType(item) === 'image'" alt="{{item.name}}" ng-src="{{$root.$DetailService.getResourceSrc(item)}}"  />
+							<div ng-if="$root.$DetailService.getContentType(item) !== 'image'" ng-class="{
+								'icon img xml' : $root.$DetailService.getContentType(item) == 'xml',
+								'icon img image' : $root.$DetailService.getContentType(item) == 'image',
+								'icon img excel' : $root.$DetailService.getContentType(item) == 'xls',
+								'icon img powerpoint' : $root.$DetailService.getContentType(item) == 'ppt',
+								'icon img word' : $root.$DetailService.getContentType(item) == 'doc',
+								'icon img pdf' : $root.$DetailService.getContentType(item) == 'pdf',
+								'icon img zip' : $root.$DetailService.getContentType(item) == 'zip'
+								}"></div>
+						</div>
+						<div class="cs-thumbnail-filename" ng-click="selectFile(item)">{{item.name}}</div>
+
+                    </div>
+
+					<div id="loadingBase" class="loading"></div>
+
+
+				</div>
+			</div>
+        </div>
+
+
+
+    </div>
+
+
+
+<div class="modal-footer padding">
+    <input type="button" class="btn" ng-click="ok()" value="Vybrat">
+    <input type="button" class="btn" ng-click="cancel()" value="Zavřít">
+</div>
+
+<div id="cs-toolbar" class="webcabinets">
+	<div class="item" title="{{'message.codetables.tooltip.filter'| translate}}" ng-if="hideFilter != true" ng-class="{'active' : active == true}">
+		<!--ng-if="$root.$ListService.hideFilter != true" ng-class="{'active' : $root.$ListService.filter.active == true}"-->
+		<div class="icon" ng-click="$root.$ListService.filter.opened = !$root.$ListService.filter.opened"><i class="fa fa-filter"></i></div>
+		<div class="content" ng-show="$root.$ListService.filter.opened">
+			<!--<div ng-repeat="filteritem in $root.$ListService.filter.filters">-->
+				<label>Typ souboru</label>
+				<ui-select multiple  ng-model="filteritems.selectedType"
+						   theme="wcm2"
+						   ng-disabled="disabled">
+					<ui-select-match>
+						<span title="{{$item.text}}">{{$item.text | strLimit: 20}}</span>
+					</ui-select-match>
+					<ui-select-choices repeat="item in filteritems | filter: $select.search">
+						{{item.text}}
+					</ui-select-choices>
+				</ui-select>
+			<!--</div>-->
+			<input type="button" ng-click="setType()" value="{{'button.filter' | translate}}">
+			<input type="button" ng-click="clearType()" value="{{'button.clear' | translate}}">
+		</div>
+	</div>
+</div>
+

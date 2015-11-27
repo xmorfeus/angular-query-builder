@@ -1,0 +1,31 @@
+<h3>{{actualDocument.text}}</h3>
+
+<div class="cs-container codetable">
+    <div class="container-fluid scrollable white">
+
+        <div class="form-container">
+
+            <dynamic-form id="dynamicForm" template="formTemplate" name="form"
+                          ng-model="formData['formData']" model-name="formData"
+                          ng-submit="processForm()"
+                          ng-init="loadData('Metadata')">
+            </dynamic-form>
+        </div>
+
+
+        <div class="form-group col-sm-36 col-xs-36" style="padding:0; padding-top: 15px; padding-bottom:15px;">
+            <div class="col-sm-24 col-xs-36" style="padding-bottom:15px;">
+                <input id="btnSave" type="button" class="btn" ng-click="save()" value="{{'button.submit_default' | translate}}">
+            </div>
+
+            <div id="saving" class="loading">
+                <!--<div>Ukládám dokument</div>-->
+            </div>
+
+            <div class="col-sm-12 col-xs-36">
+                <input type="button" class="btn pull-right" ng-click="goToCodebooks()" value="{{'button.close' | translate}}">
+            </div>
+        </div>
+    </div>
+
+</div>

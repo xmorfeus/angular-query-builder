@@ -1,0 +1,17 @@
+<form name="form" novalidate>
+    <div class="modal-header">
+        <div class="icon img decline" style="right: 10px; top: 10px; cursor: pointer;" ng-click="closeModal()"></div>
+        <h3 class="modal-title">{{title}}</h3>
+    </div>
+    <div class="modal-body">
+
+        {{text}}
+
+
+        <div class="modal-footer">
+            <input type="button" class="btn" ng-click="ok()" value="{{'button.yes' | translate}}">
+            <input type="button" class="btn" ng-click="cancel()" value="{{'button.no' | translate}}">
+        </div>
+    </div>
+
+</form>

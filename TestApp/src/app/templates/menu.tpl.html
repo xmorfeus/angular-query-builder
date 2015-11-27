@@ -1,0 +1,67 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container">
+		<div class="navbar-header">
+			<button ng-show="$root.user != undefined" type="button" class="navbar-toggle collapsed"
+				data-toggle="collapse" data-target="#navbar-collapse">
+				<span class="sr-only">Toggle navigation</span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" ng-click="$root.editorRedirect()">
+				<div>
+				<img alt="CSAS" src="assets/img/cs.png" height="40px">&nbsp;&nbsp;
+				<img alt="|" src="assets/img/separator-vertical.png" height="35px" style="margin-top:-5px;">&nbsp;
+				<span>WCM</span>
+				</div>
+			</a>
+		</div>
+		<div class="collapse navbar-collapse" id="navbar-collapse" >
+			<ul class="nav navbar-nav navbar-btns" ng-show="$root.user != undefined">
+				<li><a ui-sref="dashboard.template-select">{{'menu.header.new.document' | translate}}</a></li>
+				<li><a ui-sref="import">{{'menu.header.import' | translate}}</a></li>
+				<li ng-if="$root.hasRole('cms_list_of_charges_manager')"><a ui-sref="tarifimport">{{'menu.header.tarifimport' | translate}}</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right" ng-show="$root.user != undefined">
+				<li>
+				<form ng-submit="search()" novalidate>
+					<input type="text" class="search-input" placeholder="{{'menu.header.search' | translate}}" id="searchString" ng-model="$root.searchString"/>
+					<button class="submit-search search" type="submit"><div class="icon img16 initial search-icon"></div></button>
+					<button class="search" type="button" ui-sref="dashboard.advancedsearch"><div class="icon img16 initial addlang"></div></button>
+				</form>
+				</li>
+				<li class="dropdown no-collapse"><a href="" class="dropdown-toggle icon"
+					data-toggle="dropdown" role="button" aria-expanded="false">
+					<div class="icon img user blue"></div>
+					<span class="icon text">{{$root.user_name}}</span>
+					<span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu">
+						<li class="dropdown-menu-item"><a>
+							<div class="icon img version blue"></div>
+							<div class="icon text padding-5">{{$root.wcmConfig.version}}</div>
+						</a></li>
+						<li class="dropdown-menu-item"><a ui-sref="audit">
+							<div class="icon img audit blue"></div>
+							<div class="icon text padding-5">{{'menu.header.audit' | translate}}</div>
+						</a></li>
+						<!-- 
+						<li class="divider"></li>
+						<li class="dropdown-menu-item"><a>
+							<div class="icon img settings blue"></div>
+							<div class="icon text padding-5">{{'menu.header.settings' | translate}}</div>
+						</a></li>
+						<li class="dropdown-menu-item"><a>
+							<div class="icon img help blue"></div>
+							<div class="icon text padding-5">{{'menu.header.help' | translate}}</div>
+						</a></li>
+						 -->
+						<li class="divider"></li>
+						<li class="dropdown-menu-item"><a ng-click="logout()">
+							<div class="icon img logout blue"></div>
+							<div class="icon text padding-5">{{'menu.header.logout' | translate}}</div>
+						</a></li>
+					</ul></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+

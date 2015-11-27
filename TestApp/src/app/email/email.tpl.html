@@ -1,0 +1,43 @@
+<h3>Skupinový email</h3>
+
+<div>
+	<label>{{'table.group' | translate}}:</label>
+	<ui-select ng-model="group"
+		ng-init="group = groups[0]"
+		theme="bootstrap" ng-disabled="disabled"
+		on-select="selectGroup($item)"> 
+		<ui-select-match placeholder="{{'table.group' | translate}}">{{$select.selected.text}}</ui-select-match>
+	<ui-select-choices repeat="item in groups | filter: $select.search">
+	<span ng-bind-html="item.text | highlight: $select.search"></span> 
+	</ui-select-choices>
+	</ui-select>
+</div>
+
+<div class="panel panel-default" ng-if="emails.length" style="margin-top: 40px;">
+	<div class="panel-body">
+	 <!-- 
+	 <input type="button" class="btn position-absolute" value="Kopírovat" style="right:30px;margin-top:-5px;"></input>
+	  -->
+	  <span ng-repeat="email in emails" title="{{email.user_name}}">{{email.user_address}}; </span>
+	</div>
+</div>
+
+<!-- 
+<div class="panel panel-default">
+	<div class="panel-body">
+	 <textarea ng-class="col-xs-36" rows="3" placeholder="Email to" style="border:none;width:100%;"></textarea>
+	</div>
+</div>
+
+<div class="panel panel-default">
+	<div class="panel-body">
+	 <textarea ng-class="col-xs-36" rows="3" placeholder="Email reply address" style="border:none;width:100%;"></textarea>
+	</div>
+</div>
+
+<div class="panel panel-default">
+	<div class="panel-body">
+	 <textarea ng-class="col-xs-36" rows="10" placeholder="Email text" style="border:none;width:100%;"></textarea>
+	</div>
+</div>
+ -->
